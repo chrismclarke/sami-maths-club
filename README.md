@@ -20,3 +20,7 @@ This application provides access to mathematical problems and puzzles for use in
 VSCode, extensions: Prettier, TSLint
 
 Prettier and Codelyzer are both used to provide opinionated formatting.
+
+### Issues
+
+Github issues can be viewed on waffle: https://waffle.io/chrismclarke/sami-maths-club
