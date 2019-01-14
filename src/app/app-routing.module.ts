@@ -9,13 +9,13 @@ const routes: Routes = [
   },
   {
     path: "home",
-    loadChildren: "pages/home/home.module#HomePageModule"
+    loadChildren: "./pages/home/home.module#HomePageModule"
   },
   {
     path: "list",
-    loadChildren: "pages/list/list.module#ListPageModule"
+    loadChildren: "./pages/list/list.module#ListPageModule"
   },
-  { path: "edit", loadChildren: "pages/edit/edit.module#EditPageModule" }
+  { path: "edit", loadChildren: "./pages/edit/edit.module#EditPageModule" }
 ];
 
 @NgModule({

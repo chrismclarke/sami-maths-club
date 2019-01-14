@@ -7,6 +7,7 @@ Dev config is hardcoded - it is recommended if changing for production to hide t
 details via gitignore. You can find more information about potential security risk here:
 https://javebratt.com/hide-firebase-api/
 *****************************************************************************************/
+declare const process: any;
 let config: any;
 
 const devConfig = {
