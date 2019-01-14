@@ -24,3 +24,13 @@ Prettier and Codelyzer are both used to provide opinionated formatting.
 ### Issues
 
 Github issues can be viewed on waffle: https://waffle.io/chrismclarke/sami-maths-club
+
+### Common tasks
+
+#### Add a page
+
+`ionic g page pages/pageName`
+
+#### Add a service provider
+
+`ionic g service seervices/myService`
