@@ -1,9 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>edit</ion-title>
+    <ion-title *ngIf="isLoading"></ion-title>
+    <ion-title *ngIf="!isLoading"
+      >{{
+        problem
+          ? problem.title
+            ? problem.title
+            : "Add New Problem"
+          : "Not Found"
+      }}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+  <ion-input required type="text" placeholder="Title" class="problem-title">{{
+    problem.title
+  }}</ion-input>
 </ion-content>

@@ -15,7 +15,22 @@ const routes: Routes = [
     path: "list",
     loadChildren: "../pages/list/list.module#ListPageModule"
   },
-  { path: "edit", loadChildren: "../pages/edit/edit.module#EditPageModule" }
+  {
+    path: "p",
+    loadChildren: "../pages/list/list.module#ListPageModule"
+  },
+  {
+    path: "p/:slug",
+    loadChildren: "../pages/list/list.module#ListPageModule"
+  },
+  {
+    path: "p/:slug/edit",
+    loadChildren: "../pages/edit/edit.module#EditPageModule"
+  },
+  {
+    path: "new-problem",
+    loadChildren: "../pages/edit/edit.module#EditPageModule"
+  }
 ];
 
 @NgModule({
