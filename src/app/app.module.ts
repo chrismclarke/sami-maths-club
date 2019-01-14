@@ -8,6 +8,8 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 
 import { AngularFireModule } from "@angular/fire";
 import { FIREBASE_CONFIG } from "../environments/config";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
@@ -19,7 +21,11 @@ import { AppRoutingModule } from "./app-routing.module";
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    AngularFireModule.initializeApp(FIREBASE_CONFIG)
+    AngularFireModule.initializeApp(FIREBASE_CONFIG, "sami-maths-club"),
+    AngularFirestoreModule.enablePersistence({
+      experimentalTabSynchronization: true
+    }),
+    AngularFireAuthModule
   ],
   providers: [
     StatusBar,

@@ -21,6 +21,8 @@ VSCode, extensions: Prettier, TSLint
 
 Prettier and Codelyzer are both used to provide opinionated formatting.
 
+node version 10.x
+
 ### Issues
 
 Github issues can be viewed on waffle: https://waffle.io/chrismclarke/sami-maths-club
