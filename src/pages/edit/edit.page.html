@@ -13,8 +13,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding *ngIf="problem">
   <ion-input required type="text" placeholder="Title" class="problem-title">{{
     problem.title
   }}</ion-input>
+  <quill-editor></quill-editor>
 </ion-content>
