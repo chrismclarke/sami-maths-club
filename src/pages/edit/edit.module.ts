@@ -2,11 +2,10 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { Routes, RouterModule } from "@angular/router";
-import { QuillModule } from "ngx-quill";
-
 import { IonicModule } from "@ionic/angular";
 
 import { EditPage } from "./edit.page";
+import { AdminComponentsModule } from "src/app/components/admin-components/admin.components.module";
 
 const routes: Routes = [
   {
@@ -21,7 +20,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    QuillModule
+    AdminComponentsModule
   ],
   declarations: [EditPage]
 })
