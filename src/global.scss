@@ -8,6 +8,8 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+// custom css
+@import "./theme/typography.scss";
 // quill editor
 @import "../node_modules/quill/dist/quill.core.css";
 @import "../node_modules/quill/dist/quill.bubble.css";
