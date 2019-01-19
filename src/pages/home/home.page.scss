@@ -1,3 +1,4 @@
+/************************************ Problem Card *****************************************/
 ion-card {
   --background: white;
   padding: 5px;
@@ -9,6 +10,7 @@ ion-card {
   flex-direction: column;
   text-align: center;
   justify-content: center;
+  cursor: pointer;
 }
 .problem-image {
   height: 50%;
@@ -44,9 +46,10 @@ ion-card {
 .difficulty.hard {
   background: var(--ion-color-hard);
 }
+/******************************************* Grid ****************************************************/
 // https://medium.com/cloudaper/how-to-create-a-flexible-square-grid-with-css-grid-layout-ea48baf038f3
 .grid {
-  margin: 0 5px;
+  margin: 0 10px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
   grid-auto-rows: 1fr;
@@ -68,4 +71,22 @@ ion-card {
 
 .padder {
   flex: 1;
+}
+/******************************************* Footer ****************************************************/
+.tab-footer {
+  height: 60px;
+  padding: 10px;
+  background: var(--ion-color-primary);
+  display: flex;
+  text-align: center;
+  color: white;
+  align-items: center;
+}
+.tab-footer > div {
+  flex: 1;
+}
+
+/******************************************* Misc ****************************************************/
+.icon--large {
+  font-size: 32px;
 }

@@ -10,6 +10,7 @@ export const MOCK_PROBLEMS = (count: number = 8) => {
     problems.push(
       new Problem(`problem${i + 1}`, {
         title: `Problem ${i + 1}`,
+        slug: `problem-${i + 1}`,
         coverImg: `https://loremflickr.com/${300 + i}/300`,
         studentVersion: {
           content: loremIpsum(),

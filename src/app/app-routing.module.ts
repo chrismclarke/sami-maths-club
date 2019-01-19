@@ -21,7 +21,8 @@ const routes: Routes = [
   },
   {
     path: "p/:slug",
-    loadChildren: "../pages/list/list.module#ListPageModule"
+    loadChildren:
+      "../pages/problem-view/problem-view.module#ProblemViewPageModule"
   },
   {
     path: "p/:slug/edit",

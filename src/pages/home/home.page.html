@@ -12,7 +12,11 @@
 
 <ion-content style="z-index: 11">
   <div class="grid" style="margin-top: -20px">
-    <ion-card class="problem-card" *ngFor="let problem of problems">
+    <ion-card
+      class="problem-card"
+      *ngFor="let problem of problems"
+      [routerLink]="['/p/' + problem.slug]"
+    >
       <div class="problem-difficulty">
         <div [class]="'difficulty ' + problem.difficulty"></div>
       </div>
@@ -20,4 +24,14 @@
       <div class="problem-title">{{ problem.title }}</div>
     </ion-card>
   </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon class="icon--large" name="search"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+
+<footer class="tab-footer">
+  <div>Problems</div>
+  <div>My Club</div>
+</footer>
