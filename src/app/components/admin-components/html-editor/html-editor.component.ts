@@ -1,11 +1,18 @@
-import { OnInit, ViewChild, Component } from "@angular/core";
+import {
+  OnInit,
+  ViewChild,
+  Component,
+  Input,
+  Output,
+  EventEmitter
+} from "@angular/core";
 import { QuillEditorComponent, QuillModules } from "ngx-quill";
 import Quill from "quill";
-// NOTE - most plugins don't have good support for ng so using custom code instead
-import { Test } from "./custom-modules/test";
-import { ImageDropAndPaste } from "./custom-modules/dropAndPaste";
-Quill.register("modules/test", Test);
+// NOTE - most plugins don't have good support for ng so using custom forks
+import { ImageDropAndPaste } from "quill-image-drop-and-paste";
 Quill.register("modules/imageDropAndPaste", ImageDropAndPaste);
+import ImageResize from "quill-image-resize-module-mended";
+Quill.register("modules/imageResize", ImageResize);
 
 /* This component implements ngx-quill with custom modules for image copy/paste and upload
    NOTE - stylesheets for quill are imported globally in global.scss
@@ -20,24 +27,20 @@ interface ICustomQuillModules extends QuillModules {
 
 const quillModules: ICustomQuillModules = {
   toolbar: [
-    ["bold", "italic", "underline", "strike"], // toggled buttons
+    ["bold", "italic", "underline"], // toggled buttons
     [{ list: "ordered" }, { list: "bullet" }],
-    [{ script: "sub" }, { script: "super" }], // superscript/subscript
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-    [{ align: [] }],
-    ["link", "image", "video"] // link and image, video
+    [{ header: [false, 2, 3, 4] }],
+    [{ color: [] }],
+    ["image"]
   ],
   // syntax: false,
   // mention: {},
   // custom modules passes options defined
-  test: {
-    // custom options
-    hello: "world"
-  },
+
   imageDropAndPaste: {
     // add an custom image handler
-  }
+  },
+  imageResize: true
 };
 
 @Component({
@@ -48,8 +51,25 @@ const quillModules: ICustomQuillModules = {
 export class HtmlEditorComponent implements OnInit {
   @ViewChild("editor") editor: QuillEditorComponent;
   modules = quillModules;
-  text: string;
+  quillVal: string;
+  // set/get html to pass quill html value between parent-child
+  // https://blog.angulartraining.com/tutorial-create-your-own-two-way-data-binding-in-angular-46487650ea82
+  @Input()
+  get html() {
+    return this.quillVal;
+  }
+  set html(val: string) {
+    this.quillVal = val;
+    this.htmlChange.emit(this.quillVal);
+  }
+  @Output()
+  htmlChange = new EventEmitter();
   constructor() {}
+
+  // want extra ngmodel emitter when quill value changes to notify parent component
+  onQuillChange(val: string) {
+    this.htmlChange.emit(val);
+  }
 
   ngOnInit() {
     console.log("quill editor loaded", this.editor);

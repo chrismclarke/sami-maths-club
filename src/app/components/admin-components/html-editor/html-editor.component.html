@@ -1,7 +1,10 @@
 <quill-editor
   #editor
   [sanitize]="true"
-  [(ngModel)]="text"
+  [ngModel]="quillVal"
+  (ngModelChange)="onQuillChange($event)"
   [modules]="modules"
-  theme="snow"
+  theme="bubble"
+  [style]="{ 'font-size': '24px' }"
+  placeholder="Content"
 ></quill-editor>

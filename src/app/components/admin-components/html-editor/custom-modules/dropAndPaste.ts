@@ -16,7 +16,6 @@ export class ImageDropAndPaste {
    */
   handleDrop(e) {
     console.log("drop handle");
-    e.preventDefault();
     if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
       if (document.caretRangeFromPoint) {
         const selection = document.getSelection();
@@ -43,17 +42,17 @@ export class ImageDropAndPaste {
   /* handle image paste event
    */
   handlePaste(e: ClipboardEvent) {
-    e.preventDefault();
+    // e.preventDefault();
 
     const types = e.clipboardData.types;
     const items: DataTransferItemList = e.clipboardData.items;
 
     console.log("items", items);
     types.forEach(type => {
-      console.log(type, e.clipboardData.getData(type));
+      // console.log(type, e.clipboardData.getData(type));
     });
     for (let i = 0; i < items.length; i++) {
-      console.log("item", items[i]);
+      // console.log("item", items[i]);
     }
     // if (
     //   e.clipboardData &&

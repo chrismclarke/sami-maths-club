@@ -1,3 +1,5 @@
+import { storage } from "firebase";
+
 export class Problem {
   readonly _key: string;
   readonly _created: Date;
@@ -24,11 +26,22 @@ export class Problem {
   public delete() {
     console.log("deleting problem");
   }
+  public values() {
+    const v: Partial<Problem> = {};
+    Object.getOwnPropertyNames(this).forEach(key => {
+      v[key] = this[key];
+    });
+    console.log("v", v);
+    return v;
+  }
 
   private _setDefaults() {
     this.title = null;
     this.slug = null;
-    this.studentVersion = null;
+    this.studentVersion = {
+      content: null,
+      images: []
+    };
     this.facilitatorVersion = {
       solution: null,
       extension: null,
@@ -57,5 +70,16 @@ interface IFacilitatorVersion {
 
 interface IStudentVersion {
   content: string;
-  images: string[];
+  images: ImageUploadMeta[];
+}
+
+interface ImageUploadMeta extends Partial<storage.FullMetadata> {
+  downloadUrl: string;
+  bucket: string;
+  contentType: string;
+  fullPath: string;
+  name: string;
+  size: number;
+  timeCreated: string;
+  updated: string;
 }

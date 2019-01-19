@@ -10,6 +10,7 @@ import { AngularFireModule } from "@angular/fire";
 import { FIREBASE_CONFIG } from "../environments/config";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireStorageModule } from "@angular/fire/storage";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
@@ -25,7 +26,8 @@ import { AppRoutingModule } from "./app-routing.module";
     AngularFirestoreModule.enablePersistence({
       experimentalTabSynchronization: true
     }),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
   providers: [
     StatusBar,
