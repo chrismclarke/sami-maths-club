@@ -16,14 +16,9 @@ export class AppComponent {
       icon: "home"
     },
     {
-      title: "List",
-      url: "/list",
-      icon: "list"
-    },
-    {
-      title: "Add New Problem",
-      url: "/new-problem",
-      icon: "add"
+      title: "Problems",
+      url: "/problems",
+      customIcon: "/assets/icons/problems.svg"
     }
   ];
 

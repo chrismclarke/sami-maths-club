@@ -1,5 +1,15 @@
-import { storage } from "firebase";
+import { DbService } from "src/services/db.service";
+import { IUploadedFileMeta } from "src/services/storage.service";
+import { Injector } from "@angular/core";
 
+// we want to be able to call a new problem with key/value constructor params but retain the same dbService provider
+// this is achieved through use of injector
+const injector = Injector.create([
+  {
+    provide: DbService,
+    deps: []
+  }
+]);
 export class Problem {
   readonly _key: string;
   readonly _created: Date;
@@ -10,9 +20,10 @@ export class Problem {
   studentVersion: IStudentVersion;
   facilitatorVersion: IFacilitatorVersion;
   difficulty: "easy" | "medium" | "hard";
-
+  db: DbService;
   // call constructor with optional values to populate
   constructor(key: string, values: Partial<Problem> = {}) {
+    this.db = injector.get(DbService);
     this._key = key;
     this._created = new Date();
     this._modified = new Date();
@@ -21,7 +32,7 @@ export class Problem {
   }
 
   public save() {
-    console.log("saving problem");
+    return this.db.afs.doc(`problems/${this._key}`).set(this.values());
   }
   public delete() {
     console.log("deleting problem");
@@ -70,16 +81,5 @@ interface IFacilitatorVersion {
 
 interface IStudentVersion {
   content: string;
-  images: ImageUploadMeta[];
-}
-
-interface ImageUploadMeta extends Partial<storage.FullMetadata> {
-  downloadUrl: string;
-  bucket: string;
-  contentType: string;
-  fullPath: string;
-  name: string;
-  size: number;
-  timeCreated: string;
-  updated: string;
+  images: IUploadedFileMeta[];
 }

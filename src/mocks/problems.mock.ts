@@ -14,7 +14,7 @@ export const MOCK_PROBLEMS = (count: number = 8) => {
         coverImg: `https://loremflickr.com/${300 + i}/300`,
         studentVersion: {
           content: loremIpsum(),
-          images: [`https://loremflickr.com/${500 + i}/500`]
+          images: []
         },
         facilitatorVersion: {
           extension: loremIpsum(),
@@ -25,6 +25,5 @@ export const MOCK_PROBLEMS = (count: number = 8) => {
       })
     );
   }
-  console.log("problems", problems);
   return problems;
 };

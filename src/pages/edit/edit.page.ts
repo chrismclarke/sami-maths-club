@@ -4,7 +4,7 @@ import { ProblemService } from "src/services/problem.service";
 import { IProblem } from "src/models/problems.model";
 import stringReplaceAsync from "string-replace-async";
 import { base64StringToBlob } from "blob-util";
-import { DbService } from "src/services/db.service";
+import { StorageService } from "src/services/storage.service";
 
 @Component({
   selector: "app-edit",
@@ -21,7 +21,7 @@ export class EditPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private problemService: ProblemService,
-    private db: DbService
+    private storage: StorageService
   ) {}
 
   async ngOnInit() {
@@ -39,12 +39,7 @@ export class EditPage implements OnInit {
     this.problem.studentVersion.content = await this.uploadHtmlImages(
       this.problem.studentVersion.content
     );
-    await this.db.afs
-      .doc(`problems/${this.problem._key}`)
-      .set(this.problem.values())
-      .catch(err => {
-        this.saveStatus = "error";
-      });
+    await this.problem.save();
     this.saveStatus = "saved";
     setTimeout(() => {
       this.saveStatus = null;
@@ -81,7 +76,7 @@ export class EditPage implements OnInit {
       const path = `uploads/${this.problem._key}/${
         this.imageIndex
       }.${extension}`;
-      const upload = await this.db.uploadFile(path, blob);
+      const upload = await this.storage.uploadFile(path, blob);
       // populate subset of meta as anything possibly undefined will throw error
       this.problem.studentVersion.images[i] = upload;
       // put download url in img tag instead of data

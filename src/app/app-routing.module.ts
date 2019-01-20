@@ -4,20 +4,20 @@ import { Routes, RouterModule } from "@angular/router";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "home",
+    redirectTo: "problems",
     pathMatch: "full"
+  },
+  {
+    path: "problems",
+    loadChildren: "../pages/problems/problems.module#ProblemsPageModule"
   },
   {
     path: "home",
     loadChildren: "../pages/home/home.module#HomePageModule"
   },
   {
-    path: "list",
-    loadChildren: "../pages/list/list.module#ListPageModule"
-  },
-  {
     path: "p",
-    loadChildren: "../pages/list/list.module#ListPageModule"
+    loadChildren: "../pages/problems/problems.module#ProblemsPageModule"
   },
   {
     path: "p/:slug",

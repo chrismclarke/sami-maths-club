@@ -14,6 +14,7 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { IonicStorageModule } from "@ionic/storage";
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +28,11 @@ import { AppRoutingModule } from "./app-routing.module";
       experimentalTabSynchronization: true
     }),
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    IonicStorageModule.forRoot({
+      name: "__sami-v1",
+      driverOrder: ["indexeddb", "sqlite", "websql"]
+    })
   ],
   providers: [
     StatusBar,

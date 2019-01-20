@@ -1,5 +1,9 @@
 import Quill from "quill";
 
+/**********************************************************************
+ * NOTE - this shows possible implementation of custom/modified module
+ * It is not currently in use (using npm fork instead)
+ *********************************************************************/
 export class ImageDropAndPaste {
   quill: Quill;
   options: any;
