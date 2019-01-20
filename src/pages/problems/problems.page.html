@@ -25,12 +25,13 @@
           <div class="problem-difficulty">
             <div [class]="'difficulty ' + problem.difficulty"></div>
           </div>
-          <div class="problem-image"><img [src]="problem.coverImg" /></div>
+          <div class="problem-image" [innerHtml]="problem.coverImg"></div>
           <div class="problem-title">{{ problem.title }}</div>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div class="cover-img" [innerHtml]="coverImg"></div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon class="icon--large" name="search"></ion-icon>
@@ -44,7 +45,7 @@
       <ion-icon
         class="icon--large white"
         slot="start"
-        src="/assets/icons/problems.svg"
+        src="/assets/svgs/problems.svg"
       ></ion-icon>
       <ion-label> Problems </ion-label>
     </ion-item>
@@ -54,7 +55,7 @@
       <ion-icon
         class="icon--large white"
         slot="start"
-        src="/assets/icons/teamwork.svg"
+        src="/assets/svgs/teamwork.svg"
       ></ion-icon>
       <ion-label> My Club </ion-label>
     </ion-item>
