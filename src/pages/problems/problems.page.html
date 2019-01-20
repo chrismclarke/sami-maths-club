@@ -11,19 +11,26 @@
 </ion-header>
 
 <ion-content class="content--curved">
-  <div class="grid" style="margin-top: -20px">
-    <ion-card
-      class="problem-card"
-      *ngFor="let problem of problems"
-      [routerLink]="['/p/' + problem.slug]"
-    >
-      <div class="problem-difficulty">
-        <div [class]="'difficulty ' + problem.difficulty"></div>
-      </div>
-      <div class="problem-image"><img [src]="problem.coverImg" /></div>
-      <div class="problem-title">{{ problem.title }}</div>
-    </ion-card>
-  </div>
+  <ion-grid fixed style="margin-top: -20px">
+    <ion-row>
+      <!-- take different % of 12 cols on different screensize (see layout.scss for breakpoints) -->
+      <ion-col
+        size-xs="6"
+        size-sm="4"
+        size-md="3"
+        size-xl="2"
+        *ngFor="let problem of problems"
+      >
+        <ion-card class="problem-card" [routerLink]="['/p/' + problem.slug]">
+          <div class="problem-difficulty">
+            <div [class]="'difficulty ' + problem.difficulty"></div>
+          </div>
+          <div class="problem-image"><img [src]="problem.coverImg" /></div>
+          <div class="problem-title">{{ problem.title }}</div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon class="icon--large" name="search"></ion-icon>
@@ -31,7 +38,25 @@
   </ion-fab>
 </ion-content>
 
-<footer class="tab-footer">
-  <div>Problems</div>
-  <div>My Club</div>
-</footer>
+<!-- <footer class="tab-footer">
+  <div>
+    <ion-item routerLink="/problems">
+      <ion-icon
+        class="icon--large white"
+        slot="start"
+        src="/assets/icons/problems.svg"
+      ></ion-icon>
+      <ion-label> Problems </ion-label>
+    </ion-item>
+  </div>
+  <div style="opacity: 0.8">
+    <ion-item routerLink="/my-club">
+      <ion-icon
+        class="icon--large white"
+        slot="start"
+        src="/assets/icons/teamwork.svg"
+      ></ion-icon>
+      <ion-label> My Club </ion-label>
+    </ion-item>
+  </div>
+</footer> -->

@@ -3,7 +3,7 @@ import { MOCK_PROBLEMS } from "src/mocks/problems.mock";
 import { Problem } from "src/models/problems.model";
 
 @Component({
-  selector: "app-problem",
+  selector: "app-problems",
   templateUrl: "problems.page.html",
   styleUrls: ["problems.page.scss"]
 })

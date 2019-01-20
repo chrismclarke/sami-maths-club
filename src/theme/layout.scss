@@ -1,3 +1,11 @@
+/********************** Breakpoints *********************/
+// https://beta.ionicframework.com/docs/layout/grid
+$xs: 100%;
+$sm: 540px; // min-width: 576
+$md: 720px; // min-width: 768
+$lg: 960px; // min-width: 992
+$xl: 1140px; // min-width: 1200
+
 /********************** non-rectangular header *********************/
 // https://css-tricks.com/creating-non-rectangular-headers/
 ion-header.header--curved {
@@ -15,8 +23,12 @@ ion-content {
   --background: none;
 }
 
-app-home {
+// pages with light background (and allow for curved top)
+app-problems {
   background-color: var(--ion-color-light);
+}
+app-problems > ion-content {
+  background-color: none;
 }
 ion-content.content--curved {
   z-index: 11;
