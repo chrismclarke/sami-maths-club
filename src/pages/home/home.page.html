@@ -3,35 +3,11 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Problems</ion-title>
+    <ion-title>Home</ion-title>
     <ion-buttons slot="end">
       <ion-button size="small" style="opacity: 0.8">Login</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content style="z-index: 11">
-  <div class="grid" style="margin-top: -20px">
-    <ion-card
-      class="problem-card"
-      *ngFor="let problem of problems"
-      [routerLink]="['/p/' + problem.slug]"
-    >
-      <div class="problem-difficulty">
-        <div [class]="'difficulty ' + problem.difficulty"></div>
-      </div>
-      <div class="problem-image"><img [src]="problem.coverImg" /></div>
-      <div class="problem-title">{{ problem.title }}</div>
-    </ion-card>
-  </div>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon class="icon--large" name="search"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-</ion-content>
-
-<footer class="tab-footer">
-  <div>Problems</div>
-  <div>My Club</div>
-</footer>
+<ion-content> </ion-content>

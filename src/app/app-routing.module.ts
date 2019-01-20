@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: "new-problem",
     loadChildren: "../pages/edit/edit.module#EditPageModule"
+  },
+  {
+    path: "my-club",
+    loadChildren: "../pages/my-club/my-club.module#MyClubPageModule"
   }
 ];
 

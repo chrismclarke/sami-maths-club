@@ -8,8 +8,14 @@
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon *ngIf="p.icon" slot="start" [name]="p.icon"></ion-icon>
               <ion-icon
+                class="icon--large"
+                *ngIf="p.icon"
+                slot="start"
+                [name]="p.icon"
+              ></ion-icon>
+              <ion-icon
+                class="icon--large"
                 *ngIf="p.customIcon"
                 slot="start"
                 [src]="p.customIcon"

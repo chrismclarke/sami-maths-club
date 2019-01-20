@@ -19,6 +19,11 @@ export class AppComponent {
       title: "Problems",
       url: "/problems",
       customIcon: "/assets/icons/problems.svg"
+    },
+    {
+      title: "My club",
+      url: "/my-club",
+      customIcon: "/assets/icons/team.svg"
     }
   ];
 

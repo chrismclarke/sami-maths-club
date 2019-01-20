@@ -1,0 +1,23 @@
+/********************** non-rectangular header *********************/
+// https://css-tricks.com/creating-non-rectangular-headers/
+ion-header.header--curved {
+  position: relative;
+  height: 80px;
+  background-color: var(--ion-color-primary);
+  // each comma separates x,y coordinate pairs
+  // https://bennettfeely.com/clippy/
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+}
+
+// will have standard background throughout app and not apply to content to allow offset
+ion-content {
+  --offset-top: 16px !important;
+  --background: none;
+}
+
+app-home {
+  background-color: var(--ion-color-light);
+}
+ion-content.content--curved {
+  z-index: 11;
+}
