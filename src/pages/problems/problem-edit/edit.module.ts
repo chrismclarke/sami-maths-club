@@ -5,7 +5,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 
 import { EditPage } from "./edit.page";
-import { AdminComponentsModule } from "src/app/components/admin-components/admin.components.module";
+import { AdminComponentsModule } from "src/components/admin-components/admin.components.module";
 
 const routes: Routes = [
   {

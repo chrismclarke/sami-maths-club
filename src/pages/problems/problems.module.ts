@@ -5,7 +5,7 @@ import { IonicModule } from "@ionic/angular";
 import { RouterModule } from "@angular/router";
 
 import { ProblemsPage } from "./problems.page";
-import { ProblemComponentsModule } from "src/app/components/problem-components/problem.components.module";
+import { ProblemComponentsModule } from "src/components/problem-components/problem.components.module";
 
 @NgModule({
   imports: [
