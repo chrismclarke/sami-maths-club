@@ -1,4 +1,4 @@
-import { Problem, IProblem } from "src/models/problems.model";
+import { Problem, IProblem } from "src/models/problem.model";
 import loremIpsum from "lorem-ipsum";
 import { SVG_IMAGES } from "./images.mock";
 import { DbService } from "src/services/db.service";

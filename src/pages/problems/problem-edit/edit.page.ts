@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ProblemService } from "src/services/problem.service";
-import { IProblem } from "src/models/problems.model";
+import { IProblem } from "src/models/problem.model";
 import stringReplaceAsync from "string-replace-async";
 import { base64StringToBlob } from "blob-util";
 import { StorageService } from "src/services/storage.service";

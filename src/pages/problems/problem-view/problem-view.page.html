@@ -6,7 +6,9 @@
       ></ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button [routerLink]="['/p/' + problem.slug + '/edit']"
+      <ion-button
+        *ngIf="problem"
+        [routerLink]="['/p/' + problem.slug + '/edit']"
         ><ion-icon name="create"></ion-icon>Edit</ion-button
       >
     </ion-buttons>

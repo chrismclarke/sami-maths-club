@@ -10,6 +10,8 @@ export class Problem {
   _modified: Date | Timestamp;
   title: string;
   slug: string;
+  createdBy: string;
+  isApproved: boolean;
   coverSVG: string | SafeHtml;
   studentVersion: IStudentVersion;
   facilitatorVersion: IFacilitatorVersion;
@@ -65,6 +67,8 @@ export class Problem {
       pedagogy: null
     };
     this.difficulty = "easy";
+    this.isApproved = false;
+    this.createdBy = null;
   }
 
   private _setValues(values: Partial<Problem>) {

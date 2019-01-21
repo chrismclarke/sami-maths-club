@@ -8,29 +8,30 @@ const routes: Routes = [
     pathMatch: "full"
   },
   {
-    path: "problems",
-    loadChildren: "../pages/problems/problems.module#ProblemsPageModule"
-  },
-  {
     path: "home",
     loadChildren: "../pages/home/home.module#HomePageModule"
   },
   {
-    path: "p",
+    path: "problems",
     loadChildren: "../pages/problems/problems.module#ProblemsPageModule"
+  },
+  {
+    path: "p",
+    redirectTo: "problems",
+    pathMatch: "full"
   },
   {
     path: "p/:slug",
     loadChildren:
-      "../pages/problem-view/problem-view.module#ProblemViewPageModule"
+      "../pages/problems/problem-view/problem-view.module#ProblemViewPageModule"
   },
   {
     path: "p/:slug/edit",
-    loadChildren: "../pages/edit/edit.module#EditPageModule"
+    loadChildren: "../pages/problems/problem-edit/edit.module#EditPageModule"
   },
   {
     path: "new-problem",
-    loadChildren: "../pages/edit/edit.module#EditPageModule"
+    loadChildren: "../pages/problems/problem-edit/edit.module#EditPageModule"
   },
   {
     path: "my-club",

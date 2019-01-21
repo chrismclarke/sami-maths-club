@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { IProblem } from "src/models/problems.model";
+import { IProblem } from "src/models/problem.model";
 import { ProblemService } from "src/services/problem.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
