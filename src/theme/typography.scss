@@ -1,6 +1,13 @@
 :root {
   --ion-font-family: "Open Sans", sans-serif !important;
 }
+.problem {
+  .title--large {
+    font-size: 32px;
+    text-align: center;
+    color: var(--ion-color-primary);
+  }
+}
 
 ion-title {
   text-align: center;

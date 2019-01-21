@@ -1,0 +1,26 @@
+.problem-content {
+  li {
+    margin-bottom: 1em !important;
+  }
+}
+
+// fit problem onto a4 page for edit mode and view mode
+.problem.edit {
+  width: 21cm;
+  height: 29.7cm;
+  border: 1px solid black;
+}
+
+.problem-content {
+  margin-top: 24px;
+}
+
+.problem {
+  max-width: 21cm;
+  max-height: 29.7cm;
+  margin: auto;
+  background-color: white;
+  padding: 1.27cm;
+  display: flex;
+  flex-direction: column;
+}

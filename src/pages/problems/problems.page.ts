@@ -1,22 +1,33 @@
-import { Component } from "@angular/core";
-import { MOCK_PROBLEMS } from "src/mocks/problems.mock";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Problem } from "src/models/problems.model";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { DomSanitizer } from "@angular/platform-browser";
+import { ProblemService } from "src/services/problem.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-problems",
   templateUrl: "problems.page.html",
   styleUrls: ["problems.page.scss"]
 })
-export class ProblemsPage {
+export class ProblemsPage implements OnInit, OnDestroy {
+  problems$: Subscription;
   problems: Problem[];
-  constructor(private sanitizer: DomSanitizer) {
-    this.problems = MOCK_PROBLEMS(20).map(p => {
-      p.coverImg = this.convertSVGToImageData(p.coverImg) as SafeHtml;
-      return p;
+  constructor(
+    private sanitizer: DomSanitizer,
+    private problemService: ProblemService
+  ) {}
+
+  ngOnInit() {
+    this.problems$ = this.problemService.problems.subscribe(p => {
+      this.problems = p;
     });
-    console.log("problems", this.problems);
   }
+
+  ngOnDestroy() {
+    this.problems$.unsubscribe();
+  }
+
+  updateProblems() {}
 
   // NOTE - this could be moved to separate problem-card component
   private convertSVGToImageData(svgTag: string) {

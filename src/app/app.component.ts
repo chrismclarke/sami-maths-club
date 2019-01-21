@@ -23,7 +23,7 @@ export class AppComponent {
     {
       title: "My club",
       url: "/my-club",
-      customIcon: "/assets/svgs/team.svg"
+      customIcon: "/assets/svgs/club.svg"
     }
   ];
 

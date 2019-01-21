@@ -1,15 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title *ngIf="isLoading"></ion-title>
-    <ion-title *ngIf="!isLoading"
-      >{{
-        problem
-          ? problem.title
-            ? problem.title
-            : "Add New Problem"
-          : "Not Found"
-      }}
-    </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="save()" [disabled]="saveStatus">{{
         saveStatus ? saveStatus : "save"
@@ -19,20 +9,19 @@
 </ion-header>
 
 <ion-content padding *ngIf="problem">
-  <div class="a4-page">
-    <div class="problem-title">
-      <ion-item class="problem-content">
-        <ion-input
-          type="text"
-          placeholder="Title"
-          class="problem-title"
-          color="primary"
-          autofocus
-          [(ngModel)]="problem.title"
-          >{{ problem.title }}</ion-input
-        >
-      </ion-item>
-    </div>
+  <div class="problem edit">
+    <ion-item>
+      <ion-input
+        type="text"
+        placeholder="Title"
+        class="title--large"
+        color="primary"
+        autofocus
+        [(ngModel)]="problem.title"
+        (ngModelChange)="updateSlug($event)"
+        >{{ problem.title }}</ion-input
+      >
+    </ion-item>
     <div class="problem-content">
       <app-html-editor
         class="problem-editor"

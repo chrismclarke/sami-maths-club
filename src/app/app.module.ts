@@ -15,6 +15,7 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { IonicStorageModule } from "@ionic/storage";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { IonicStorageModule } from "@ionic/storage";
     }),
     AngularFireAuthModule,
     AngularFireStorageModule,
+    BrowserAnimationsModule,
     IonicStorageModule.forRoot({
       name: "__sami-v1",
       driverOrder: ["indexeddb", "sqlite", "websql"]

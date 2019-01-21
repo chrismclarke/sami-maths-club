@@ -1,9 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>problem-view</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()"
+        ><ion-icon src="/assets/svgs/back.svg"></ion-icon
+      ></ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/p/' + problem.slug + '/edit']"
+        ><ion-icon name="create"></ion-icon>Edit</ion-button
+      >
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <div *ngIf="problem" class="problem view">
+    <div class="title--large">{{ problem.title }}</div>
+    <div
+      @fadein
+      id="studentVersion"
+      class="problem-content"
+      [innerHtml]="studentVersionContent"
+    ></div>
+  </div>
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ProblemService } from "src/services/problem.service";
 import { IProblem } from "src/models/problems.model";
 import stringReplaceAsync from "string-replace-async";
@@ -12,7 +12,6 @@ import { StorageService } from "src/services/storage.service";
   styleUrls: ["./edit.page.scss"]
 })
 export class EditPage implements OnInit {
-  isLoading = true;
   problem: IProblem;
   slug: string;
   imageIndex: number;
@@ -21,7 +20,8 @@ export class EditPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private problemService: ProblemService,
-    private storage: StorageService
+    private storage: StorageService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -29,21 +29,22 @@ export class EditPage implements OnInit {
     if (this.slug) {
       this.problem = await this.problemService.getProblemBySlug(this.slug);
     } else {
-      this.problem = this.problemService.generateNewProblem();
+      this.problem = this.problemService.generateProblem();
     }
-    this.isLoading = false;
   }
 
   async save() {
+    console.log("saving problem", this.problem);
     this.saveStatus = "uploading images";
     this.problem.studentVersion.content = await this.uploadHtmlImages(
       this.problem.studentVersion.content
     );
     await this.problem.save();
-    this.saveStatus = "saved";
-    setTimeout(() => {
-      this.saveStatus = null;
-    }, 2000);
+    this.router.navigate([`/p/${this.problem.slug}`]);
+  }
+
+  updateSlug(title: string) {
+    this.problem.setSlug(title);
   }
 
   // by default all images are put inline in html as data object

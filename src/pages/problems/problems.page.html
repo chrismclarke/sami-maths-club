@@ -5,6 +5,9 @@
     </ion-buttons>
     <ion-title>Problems</ion-title>
     <ion-buttons slot="end">
+      <ion-button size="small" routerLink="/new-problem"
+        >Add Problem</ion-button
+      >
       <ion-button size="small" style="opacity: 0.8">Login</ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -25,13 +28,12 @@
           <div class="problem-difficulty">
             <div [class]="'difficulty ' + problem.difficulty"></div>
           </div>
-          <div class="problem-image" [innerHtml]="problem.coverImg"></div>
+          <div class="problem-image" [innerHtml]="problem.coverSVG"></div>
           <div class="problem-title">{{ problem.title }}</div>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div class="cover-img" [innerHtml]="coverImg"></div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon class="icon--large" name="search"></ion-icon>

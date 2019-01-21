@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 53 53"
+   x="0px"
+   y="0px"
+   version="1.1"
+   id="svg18"
+   sodipodi:docname="club-2.svg"
+   width="53"
+   height="53"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata24">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>languageManifestoKit</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs22" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview20"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="3.776"
+     inkscape:cx="128.93034"
+     inkscape:cy="7.4610463"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g12" />
+  <title
+     id="title2">languageManifestoKit</title>
+  <g
+     id="g12"
+     transform="translate(-23.5,-13.5)">
+    <g
+       id="g4539">
+      <path
+         inkscape:connector-curvature="0"
+         id="path8"
+         d="m 69.68,46.819915 a 6.5,6.5 0 1 0 -9.35,0 11.51,11.51 0 0 0 -2.82,1.8 11.51,11.51 0 0 0 -2.82,-1.8 6.5,6.5 0 1 0 -9.35,0 11.51,11.51 0 0 0 -2.82,1.8 11.51,11.51 0 0 0 -2.82,-1.8 6.5,6.5 0 1 0 -9.35,0 11.51,11.51 0 0 0 -6.85,10.5 1.5,1.5 0 0 0 1.5,1.5 h 50 a 1.5,1.5 0 0 0 1.5,-1.5 11.51,11.51 0 0 0 -6.82,-10.5 z m -31.07,9 h -12 a 8.49,8.49 0 0 1 13.87,-5 11.43,11.43 0 0 0 -1.87,5 z m 6.27,0 h -3.25 a 8.43,8.43 0 0 1 0.87,-2.5 8.49,8.49 0 0 1 15,0 8.43,8.43 0 0 1 0.87,2.48 H 44.88 Z m 1.62,-13.5 a 3.5,3.5 0 1 1 3.5,3.5 3.5,3.5 0 0 1 -3.5,-3.5 z m 13,8.53 a 8.49,8.49 0 0 1 13.87,5 h -12 a 11.43,11.43 0 0 0 -1.87,-5 z m 2,-8.53 a 3.5,3.5 0 1 1 3.5,3.5 3.5,3.5 0 0 1 -3.5,-3.5 z m -30,0 a 3.5,3.5 0 1 1 3.5,3.5 3.5,3.5 0 0 1 -3.5,-3.5 z" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path10"
+         d="m 50,33.819915 a 6.5,6.5 0 1 0 -6.5,-6.5 6.51,6.51 0 0 0 6.5,6.5 z m 0,-10 a 3.5,3.5 0 1 1 -3.5,3.5 3.5,3.5 0 0 1 3.5,-3.5 z" />
+    </g>
+  </g>
+</svg>
