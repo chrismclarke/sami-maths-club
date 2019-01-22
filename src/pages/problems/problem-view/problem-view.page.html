@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="show-md">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="back()"
@@ -6,14 +6,37 @@
       ></ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button
-        *ngIf="problem"
-        [routerLink]="['/p/' + problem.slug + '/edit']"
-        ><ion-icon name="create"></ion-icon>Edit</ion-button
+      <a
+        *ngIf="problem && problem.facilitatorVersion.downloadUrl"
+        [href]="problem.facilitatorVersion.downloadUrl"
+        download
+        target="_blank"
       >
+        <ion-button fill="clear"
+          ><ion-icon slot="start" src="/assets/svgs/portfolio.svg"></ion-icon
+          >Notes</ion-button
+        >
+      </a>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+<!-- mobile header -->
+<div class="floating-header hide-md">
+  <ion-button (click)="back()" fill="clear"
+    ><ion-icon src="/assets/svgs/back.svg"></ion-icon
+  ></ion-button>
+  <a
+    *ngIf="problem && problem.facilitatorVersion.downloadUrl"
+    [href]="problem.facilitatorVersion.downloadUrl"
+    download
+    target="_blank"
+  >
+    <ion-button fill="clear"
+      ><ion-icon slot="start" src="/assets/svgs/portfolio.svg"></ion-icon
+      >Notes</ion-button
+    >
+  </a>
+</div>
 
 <ion-content>
   <div *ngIf="problem" class="problem view">
@@ -24,5 +47,13 @@
       class="problem-content"
       [innerHtml]="studentVersionContent"
     ></div>
+    <div *ngIf="!problem.locked" style="margin-top: 1em">
+      <ion-button
+        style="float:right"
+        fill="clear"
+        [routerLink]="['/p/' + problem.slug + '/edit']"
+        >Edit</ion-button
+      >
+    </div>
   </div>
 </ion-content>

@@ -1,15 +1,23 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button *ngIf="problem" [routerLink]="['/p/' + problem.slug]"
+        ><ion-icon src="/assets/svgs/back.svg"></ion-icon
+      ></ion-button>
+    </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="save()" [disabled]="saveStatus">{{
-        saveStatus ? saveStatus : "save"
-      }}</ion-button>
+      <ion-button
+        (click)="save()"
+        [disabled]="saveStatus"
+        *ngIf="problem && !problem.locked"
+        >{{ saveStatus ? saveStatus : "save" }}</ion-button
+      >
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding *ngIf="problem" scrollX>
-  <div class="problem edit">
+  <div class="problem edit" *ngIf="!problem.locked">
     <ion-item>
       <ion-input
         type="text"
@@ -29,4 +37,5 @@
       ></app-html-editor>
     </div>
   </div>
+  <div *ngIf="problem.locked">This problem has been locked from editing.</div>
 </ion-content>

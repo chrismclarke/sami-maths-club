@@ -32,6 +32,7 @@ export class ProblemViewPage implements OnInit {
     const slug = this.route.snapshot.paramMap.get("slug");
     this.problem = await this.problemService.getProblemBySlug(slug);
     this.sanitizeProblem(this.problem);
+    console.log("problem", this.problem);
   }
 
   back() {

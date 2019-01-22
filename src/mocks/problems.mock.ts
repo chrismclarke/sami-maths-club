@@ -23,7 +23,8 @@ export const MOCK_PROBLEMS = (count: number = 8, db: DbService) => {
           facilitatorVersion: {
             extension: loremIpsum(),
             pedagogy: loremIpsum(),
-            solution: loremIpsum()
+            solution: loremIpsum(),
+            downloadUrl: null
           },
           difficulty: difficulties[Math.floor(Math.random() * 3)]
         },

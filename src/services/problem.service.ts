@@ -104,7 +104,6 @@ export class ProblemService {
       } else {
         this.initialised.subscribe(status => {
           if (status === true) {
-            console.log("init ready");
             resolve();
           }
         });

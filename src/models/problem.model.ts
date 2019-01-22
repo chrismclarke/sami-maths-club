@@ -15,6 +15,7 @@ export class Problem {
   coverSVG: string | SafeHtml;
   studentVersion: IStudentVersion;
   facilitatorVersion: IFacilitatorVersion;
+  locked: boolean;
   difficulty: "easy" | "medium" | "hard";
   // call constructor with optional values to populate
   // NOTE - we want to instantiate 'new' problems but will still need to pass the shared dbService (save creating a new one)
@@ -64,7 +65,8 @@ export class Problem {
     this.facilitatorVersion = {
       solution: null,
       extension: null,
-      pedagogy: null
+      pedagogy: null,
+      downloadUrl: null
     };
     this.difficulty = "easy";
     this.isApproved = false;
@@ -73,7 +75,6 @@ export class Problem {
 
   private _setValues(values: Partial<Problem>) {
     if (values) {
-      console.log("setting values", values);
       Object.getOwnPropertyNames(values).forEach(k => {
         this[k] = values[k];
       });
@@ -98,6 +99,7 @@ interface IFacilitatorVersion {
   solution: string;
   extension: string;
   pedagogy: string;
+  downloadUrl: string;
 }
 
 interface IStudentVersion {
