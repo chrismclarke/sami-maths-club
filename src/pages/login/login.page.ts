@@ -37,8 +37,13 @@ export class LoginPage {
   }
   pwReset() {
     const { email, password } = this.loginForm.value;
-    this.userService.afAuth.auth.sendPasswordResetEmail(email).catch(err => {
-      this.errorMsg = err.code;
-    });
+    this.userService.afAuth.auth
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        this.errorMsg = "Password reset email sent";
+      })
+      .catch(err => {
+        this.errorMsg = err.code;
+      });
   }
 }

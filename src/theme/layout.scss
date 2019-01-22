@@ -35,7 +35,13 @@ ion-content.content--curved {
 }
 
 /********************** misc *********************/
+ion-menu.side-menu,
 #sideMenu {
+  max-width: 250px;
+  --width: 250px;
+  --width-small: 250px;
+}
+.menu-inner {
   max-width: 250px;
 }
 
