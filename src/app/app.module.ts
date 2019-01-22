@@ -16,8 +16,9 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { IonicStorageModule } from "@ionic/storage";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { ServiceWorkerModule } from "@angular/service-worker";
+import { environment } from "../environments/environment";
+import { LoginPageModule } from "src/pages/login/login.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +38,10 @@ import { environment } from '../environments/environment';
       name: "__sami-v1",
       driverOrder: ["indexeddb", "sqlite", "websql"]
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled: environment.production
+    }),
+    LoginPageModule
   ],
   providers: [
     StatusBar,

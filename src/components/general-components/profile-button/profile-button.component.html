@@ -1,0 +1,11 @@
+<ion-button
+  size="small"
+  style="opacity: 0.8"
+  (click)="showLogin()"
+  *ngIf="!user"
+  >Login</ion-button
+>
+
+<ion-button size="small" style="opacity: 0.8" (click)="logout()" *ngIf="user"
+  >Logout</ion-button
+>

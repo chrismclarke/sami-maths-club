@@ -36,7 +36,8 @@ const routes: Routes = [
   {
     path: "my-club",
     loadChildren: "../pages/my-club/my-club.module#MyClubPageModule"
-  }
+  },
+  { path: "login", loadChildren: "../pages/login/login.module#LoginPageModule" }
 ];
 
 @NgModule({

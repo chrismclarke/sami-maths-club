@@ -6,12 +6,14 @@ import { RouterModule } from "@angular/router";
 
 import { ProblemsPage } from "./problems.page";
 import { ProblemComponentsModule } from "src/components/problem-components/problem.components.module";
+import { GeneralComponentsModule } from "src/components/general-components/general.components.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    GeneralComponentsModule,
     ProblemComponentsModule,
     RouterModule.forChild([
       {

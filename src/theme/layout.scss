@@ -38,3 +38,11 @@ ion-content.content--curved {
 #sideMenu {
   max-width: 250px;
 }
+
+/********************** Modal *********************/
+@media only screen and (min-width: 768px) {
+  ion-modal.login-modal > .modal-wrapper {
+    width: 300px;
+    height: 300px;
+  }
+}
