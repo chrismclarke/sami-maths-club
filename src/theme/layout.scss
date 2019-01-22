@@ -1,10 +1,53 @@
 /********************** Breakpoints *********************/
 // https://beta.ionicframework.com/docs/layout/grid
-$xs: 100%;
-$sm: 540px; // min-width: 576
-$md: 720px; // min-width: 768
-$lg: 960px; // min-width: 992
-$xl: 1140px; // min-width: 1200
+// these are for reference only and aren't used by app
+$grid-xs: 100%;
+$grid-sm: 540px; // min-width: 576
+$grid-md: 720px; // min-width: 768
+$grid-lg: 960px; // min-width: 992
+$grid-xl: 1140px; // min-width: 1200
+
+// used to show/hide at different screen sizes
+$app-xs: 100%;
+$app-sm: 576px;
+$app-md: 768px;
+$app-lg: 992px; //side-menu appears here
+$app-xl: 1200px;
+
+/********************** Screenbreaks *********************/
+.show-sm,
+.show-md,
+.show-lg,
+.show-xl {
+  display: none;
+}
+@media only screen and (min-width: $app-sm) {
+  .show-sm {
+    display: block;
+  }
+}
+@media only screen and (min-width: $app-md) {
+  .show-md {
+    display: block;
+  }
+}
+@media only screen and (min-width: $app-lg) {
+  .show-lg {
+    display: block;
+  }
+}
+@media only screen and (min-width: $app-xl) {
+  .show-xl {
+    display: block;
+  }
+}
+/********************** Modals *********************/
+@media only screen and (min-width: $app-md) {
+  ion-modal.login-modal > .modal-wrapper {
+    width: 300px;
+    height: 300px;
+  }
+}
 
 /********************** non-rectangular header *********************/
 // https://css-tricks.com/creating-non-rectangular-headers/
