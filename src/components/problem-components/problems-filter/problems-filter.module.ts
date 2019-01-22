@@ -4,6 +4,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Routes, RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
+import { ProblemComponentsModule } from "../problem.components.module";
 /*************************************************************************************
  * Instead of a single component we also export a module so that we can display as
  * a page either in a modal or at problems/filter
@@ -11,12 +12,11 @@ import { IonicModule } from "@ionic/angular";
 @Component({
   selector: "app-problems-filter-page",
   template: `
-    <div>Problem filter page</div>
+    <app-problems-filter></app-problems-filter>
   `
 })
-export class ProblemsFilterPage {
-  constructor() {}
-}
+export class ProblemsFilterPage {}
+
 const routes: Routes = [
   {
     path: "filter",
@@ -30,6 +30,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    ProblemComponentsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [ProblemsFilterPage]

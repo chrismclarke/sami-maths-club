@@ -18,7 +18,7 @@ import { IonicStorageModule } from "@ionic/storage";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
-import { ProblemsFilterPageModule } from "src/components/problem-components/problems-filter/problems-filter.module";
+import { LoginPageModule } from "src/pages/login/login.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,7 +41,7 @@ import { ProblemsFilterPageModule } from "src/components/problem-components/prob
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production
     }),
-    ProblemsFilterPageModule
+    LoginPageModule
   ],
   providers: [
     StatusBar,
