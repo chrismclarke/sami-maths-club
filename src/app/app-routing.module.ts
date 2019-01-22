@@ -7,10 +7,10 @@ const routes: Routes = [
     redirectTo: "problems",
     pathMatch: "full"
   },
-  {
-    path: "home",
-    loadChildren: "../pages/home/home.module#HomePageModule"
-  },
+  // {
+  //   path: "home",
+  //   loadChildren: "../pages/home/home.module#HomePageModule"
+  // },
   {
     path: "problems",
     loadChildren: "../pages/problems/problems.module#ProblemsPageModule"
