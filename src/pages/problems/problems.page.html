@@ -5,10 +5,6 @@
     </ion-buttons>
     <ion-title>Problems</ion-title>
     <ion-buttons slot="end">
-      <!-- can only bind to user$.email or similar via https://toddmotto.com/angular-ngif-async-pipe -->
-      <ion-button size="small" routerLink="/new-problem" *ngIf="(user$ | async)"
-        >Add Problem
-      </ion-button>
       <app-profile-button></app-profile-button
     ></ion-buttons>
   </ion-toolbar>
@@ -33,11 +29,30 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <!-- can only bind to user$.email or similar via https://toddmotto.com/angular-ngif-async-pipe -->
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    routerLink="/new-problem"
+    *ngIf="(user$ | async)"
+    class="show-sm"
+  >
     <ion-fab-button>
-      <ion-icon class="icon--large" name="search"></ion-icon>
+      <ion-icon class="icon--large" name="add"></ion-icon>
     </ion-fab-button>
-  </ion-fab> -->
+  </ion-fab>
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    class="hide-sm"
+    (click)="showFilters()"
+  >
+    <ion-fab-button>
+      <ion-icon class="icon--large" src="/assets/svgs/filter.svg"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 
 <!-- <footer class="tab-footer">

@@ -4,6 +4,8 @@ import { ProblemService } from "src/services/problem.service";
 import { Subscription, Observable } from "rxjs";
 import { User } from "src/models/user.model";
 import { UserService } from "src/services/user.service";
+import { ModalController } from "@ionic/angular";
+import { ProblemsFilterPage } from "src/components/problem-components/problems-filter/problems-filter.module";
 
 @Component({
   selector: "app-problems",
@@ -16,7 +18,8 @@ export class ProblemsPage implements OnInit, OnDestroy {
   user$: Observable<User>;
   constructor(
     private problemService: ProblemService,
-    private userService: UserService
+    private userService: UserService,
+    private ModalCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -30,4 +33,15 @@ export class ProblemsPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.problems$.unsubscribe();
   }
+
+  async showFilters() {
+    const modal = await this.ModalCtrl.create({
+      component: ProblemsFilterPage
+    });
+    await modal.present();
+  }
 }
+
+const testComp = Component({
+  selector: "app-test"
+});

@@ -25,20 +25,32 @@ $app-xl: 1200px;
   .show-sm {
     display: block;
   }
+  .hide-sm {
+    display: none;
+  }
 }
 @media only screen and (min-width: $app-md) {
   .show-md {
     display: block;
+  }
+  .hide-md {
+    display: none;
   }
 }
 @media only screen and (min-width: $app-lg) {
   .show-lg {
     display: block;
   }
+  .hide-lg {
+    display: none;
+  }
 }
 @media only screen and (min-width: $app-xl) {
   .show-xl {
     display: block;
+  }
+  .hide-xl {
+    display: none;
   }
 }
 /********************** Modals *********************/

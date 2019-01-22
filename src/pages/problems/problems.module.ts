@@ -7,6 +7,7 @@ import { RouterModule } from "@angular/router";
 import { ProblemsPage } from "./problems.page";
 import { ProblemComponentsModule } from "src/components/problem-components/problem.components.module";
 import { GeneralComponentsModule } from "src/components/general-components/general.components.module";
+import { ProblemsFilterPageModule } from "src/components/problem-components/problems-filter/problems-filter.module";
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { GeneralComponentsModule } from "src/components/general-components/gener
     IonicModule,
     GeneralComponentsModule,
     ProblemComponentsModule,
+    ProblemsFilterPageModule,
     RouterModule.forChild([
       {
         path: "",
@@ -22,6 +24,7 @@ import { GeneralComponentsModule } from "src/components/general-components/gener
       }
     ])
   ],
-  declarations: [ProblemsPage]
+  declarations: [ProblemsPage],
+  entryComponents: []
 })
 export class ProblemsPageModule {}

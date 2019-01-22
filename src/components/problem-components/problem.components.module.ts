@@ -10,6 +10,7 @@ import { ProblemCardComponent } from "./problem-card/problem-card.component";
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule],
   declarations: [ProblemCardComponent],
-  exports: [ProblemCardComponent]
+  exports: [ProblemCardComponent],
+  entryComponents: []
 })
 export class ProblemComponentsModule {}
