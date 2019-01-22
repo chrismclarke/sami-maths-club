@@ -5,9 +5,10 @@
     </ion-buttons>
     <ion-title>Problems</ion-title>
     <ion-buttons slot="end">
-      <ion-button size="small" routerLink="/new-problem"
-        >Add Problem</ion-button
-      >
+      <!-- can only bind to user$.email or similar via https://toddmotto.com/angular-ngif-async-pipe -->
+      <ion-button size="small" routerLink="/new-problem" *ngIf="(user$ | async)"
+        >Add Problem
+      </ion-button>
       <app-profile-button></app-profile-button
     ></ion-buttons>
   </ion-toolbar>

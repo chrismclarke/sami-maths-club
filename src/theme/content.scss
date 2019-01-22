@@ -24,3 +24,13 @@
   display: flex;
   flex-direction: column;
 }
+
+// force images to take up full width on small screens
+// *** (not ideal for inline small but will need better solution later)
+@media only screen and (max-width: 425px) {
+  img {
+    width: 100%;
+    object-fit: contain;
+    max-height: 33vh;
+  }
+}
