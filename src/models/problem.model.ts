@@ -1,13 +1,11 @@
 import { DbService } from "src/services/db.service";
 import { IUploadedFileMeta } from "src/services/storage.service";
 import { SafeHtml } from "@angular/platform-browser";
-import { Timestamp } from "firebase/firestore";
 
 export class Problem {
   readonly _key: string;
-  // storing as date but sometimes firestore sends back own timestamp format
-  readonly _created: Date | Timestamp;
-  _modified: Date | Timestamp;
+  readonly _created: Date;
+  _modified: Date;
   title: string;
   slug: string;
   createdBy: string;

@@ -1,0 +1,14 @@
+# More info at: https://fireship.io/lessons/ci-cd-with-google-cloud-build/
+steps:
+  # Install
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["install"]
+  # Test
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["run", "test:unit"]
+  # Build
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["run", "build"]
+  # Deploy
+  - name: "gcr.io/$PROJECT_ID/firebase"
+    args: ["deploy"]
