@@ -17,7 +17,7 @@ export class ProblemService {
   private activeProblem: IProblem;
   constructor(
     private db: DbService,
-    private storage: StorageService,
+    // private storage: StorageService,
     private router: Router
   ) {
     this.init();
@@ -25,51 +25,57 @@ export class ProblemService {
 
   // load problems from local cache and subscribe to updates from server
   async init() {
-    await this.loadProblemsFromCache();
-    await this.syncUpdates();
-    this.initialised.next(true);
-  }
+    // await this.loadProblemsFromCache();
+    // await this.syncUpdates();
 
-  async syncUpdates() {
-    const latestProblem = this.problems.value[0];
-    const lastUpdate = latestProblem
-      ? new Date(latestProblem._modified.seconds)
-      : new Date(0);
-    // use unwrapped version to provide full access to onSnapshot (valueChanges emits all docs each time, not just changes)
-    this.db.afs.firestore
-      .collection("problems")
-      .where("_modified", ">", lastUpdate)
-      .onSnapshot(async snapshot => {
-        const update = snapshot.docs.map(doc => doc.data() as IProblem);
-        await this.updateCache(update);
-        await this.loadProblemsFromCache();
-      });
-  }
-
-  // cache stores json id:problem format so retrieve and convert to array
-  async loadProblemsFromCache() {
-    const problemsJson = await this.storage.local.get("problems");
-    const problems = problemsJson
-      ? (Object.values(problemsJson) as IProblem[])
-      : [];
-    this.problems.next(this._sortProblems(problems));
-  }
-  _sortProblems(jsonArray: IProblem[]) {
-    const sorted = [...jsonArray].sort((a, b) => {
-      return a._created.seconds > b._created.seconds ? 1 : -1;
+    // console.log("getting collection");
+    this.db.getCollection("problems").subscribe(data => {
+      console.log("data received", data);
+      this.problems.next(data);
+      this.initialised.next(true);
     });
-    return sorted;
   }
 
-  // update cache json to reflect all existing problems and any new ones
-  async updateCache(newProblems: IProblem[] = []) {
-    const problemsJson = {};
-    const allProblems = [...this.problems.value, ...newProblems];
-    allProblems.forEach(p => {
-      problemsJson[p._key] = p;
-    });
-    await this.storage.local.set("problems", problemsJson);
-  }
+  // async syncUpdates() {
+  //   const latestProblem = this.problems.value[0];
+  //   const lastUpdate = latestProblem
+  //     ? new Date(latestProblem._modified.seconds)
+  //     : new Date(0);
+  //   // use unwrapped version to provide full access to onSnapshot (valueChanges emits all docs each time, not just changes)
+  //   this.db.afs.firestore
+  //     .collection("problems")
+  //     .where("_modified", ">", lastUpdate)
+  //     .onSnapshot(async snapshot => {
+  //       const update = snapshot.docs.map(doc => doc.data() as IProblem);
+  //       await this.updateCache(update);
+  //       await this.loadProblemsFromCache();
+  //     });
+  // }
+
+  // // cache stores json id:problem format so retrieve and convert to array
+  // async loadProblemsFromCache() {
+  //   const problemsJson = await this.storage.local.get("problems");
+  //   const problems = problemsJson
+  //     ? (Object.values(problemsJson) as IProblem[])
+  //     : [];
+  //   this.problems.next(this._sortProblems(problems));
+  // }
+  // _sortProblems(jsonArray: IProblem[]) {
+  //   const sorted = [...jsonArray].sort((a, b) => {
+  //     return a._created.seconds > b._created.seconds ? 1 : -1;
+  //   });
+  //   return sorted;
+  // }
+
+  // // update cache json to reflect all existing problems and any new ones
+  // async updateCache(newProblems: IProblem[] = []) {
+  //   const problemsJson = {};
+  //   const allProblems = [...this.problems.value, ...newProblems];
+  //   allProblems.forEach(p => {
+  //     problemsJson[p._key] = p;
+  //   });
+  //   await this.storage.local.set("problems", problemsJson);
+  // }
 
   // query for matching slug, only want to take first result (don't expect db to change)
   // as may be direct navigation first ensure db loaded before querying
