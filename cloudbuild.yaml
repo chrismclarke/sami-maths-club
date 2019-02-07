@@ -1,4 +1,3 @@
-# More info at: https://fireship.io/lessons/ci-cd-with-google-cloud-build/
 steps:
   # Install
   - name: "gcr.io/cloud-builders/npm"
