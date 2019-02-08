@@ -1,5 +1,3 @@
-# this is the default cloudbuild triggered on push to any github branch
-# it simply tests whether the project still builds
 steps:
   # Install
   - name: "gcr.io/cloud-builders/npm"
@@ -9,4 +7,7 @@ steps:
   #  args: ["run", "test"]
   # Build
   - name: "gcr.io/cloud-builders/npm"
-    args: ["run", "build"]
+    args: ["run", "build", "prod"]
+  # Deploy
+  - name: "gcr.io/$PROJECT_ID/firebase"
+    args: ["deploy"]

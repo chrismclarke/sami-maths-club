@@ -20,7 +20,10 @@ const devConfig = {
 };
 
 // different production site config pulled from environment variable
-const productionSites = ["mathsclub.samicharity.co.uk"];
+const productionSites = [
+  "mathsclub.samicharity.co.uk",
+  "mathclub.samicharity.co.uk"
+];
 if (productionSites.indexOf(window.location.host) > -1) {
   const e = process.env;
   config = {

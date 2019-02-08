@@ -66,7 +66,7 @@ export class Problem {
       pedagogy: null,
       downloadUrl: null
     };
-    this.difficulty = "easy";
+    this.difficulty = null;
     this.isApproved = false;
     this.createdBy = null;
   }
