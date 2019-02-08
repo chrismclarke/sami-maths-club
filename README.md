@@ -43,5 +43,7 @@ Production build:
 Angular fire can only target es5
 https://github.com/angular/angularfire2/issues/1987
 
-Angular fire also requires firebase 5.7.0 (update in future)
+Angular fire also requires firebase 5.7.0(?) (update in future)
 https://github.com/angular/angularfire2/issues/1993
+
+Angular fire fails with aot build
