@@ -21,7 +21,7 @@
   "dataGroups": [
     {
       "name": "api-calls",
-      "urls": ["/"],
+      "urls": ["/api"],
       "cacheConfig": {
         "maxSize": 100,
         "maxAge": "30d",
