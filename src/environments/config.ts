@@ -21,10 +21,6 @@ const devConfig = {
   messagingSenderId: "326168056354"
 };
 
-if (location.hostname !== "localhost") {
-  enableProdMode();
-}
-
 // different production site config pulled from environment variable
 // const productionSites = [
 //   "mathsclub.samicharity.co.uk",
