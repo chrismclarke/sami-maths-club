@@ -1,3 +1,5 @@
+# this is the default cloudbuild triggered on push to any github branch
+# it simply tests whether the project still builds
 steps:
   # Install
   - name: "gcr.io/cloud-builders/npm"
