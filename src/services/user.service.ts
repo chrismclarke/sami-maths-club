@@ -2,8 +2,7 @@ import { Injectable } from "@angular/core";
 import { User } from "src/models/user.model";
 import { BehaviorSubject } from "rxjs";
 import { AngularFireAuth } from "@angular/fire/auth";
-import { auth } from "firebase";
-import { User as FirebaseUser } from "firebase/app";
+import { User as FirebaseUser, auth } from "firebase/app";
 import { DbService } from "./db.service";
 
 @Injectable({
