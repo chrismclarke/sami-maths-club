@@ -46,4 +46,13 @@ https://github.com/angular/angularfire2/issues/1987
 Angular fire also requires firebase 5.7.0(?) (update in future)
 https://github.com/angular/angularfire2/issues/1993
 
-Angular fire fails with aot build
+### Service worker config
+
+App aims to cache all local assets and downloaded too
+(note requires cors: https://firebase.google.com/docs/storage/web/download-files#cors_configuration)
+
+https://angular.io/guide/service-worker-config
+https://medium.com/bratislava-angular/service-workers-angular-3c1551f0c203
+
+Could also cache api calls, however not currently required as firestore has own cache
+(would be useful if other external apis)
