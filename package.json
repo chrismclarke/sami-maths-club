@@ -1,13 +1,13 @@
 {
   "name": "sami-maths-club",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "C-Squared Development",
   "homepage": "",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ionic build --aot --minifyjs --minifycss --optimizejs",
+    "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

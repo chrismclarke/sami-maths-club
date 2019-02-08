@@ -6,7 +6,7 @@ import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 
-import { AngularFireModule } from "@angular/fire";
+import { AngularFireModule, FirebaseOptionsToken } from "@angular/fire";
 import FIREBASE_CONFIG from "../environments/config";
 import {
   AngularFirestoreModule,
@@ -49,7 +49,9 @@ import { LoginPageModule } from "src/pages/login/login.module";
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    // fix required to allow aot with firebase
+    { provide: FirebaseOptionsToken, useValue: FIREBASE_CONFIG }
   ],
   bootstrap: [AppComponent]
 })
