@@ -58,3 +58,5 @@ https://firebase.google.com/docs/hosting/full-config#headers
 
 Could also cache api calls, however not currently required as firestore has own cache
 (would be useful if other external apis)
+
+Note, local serve will fail as expecting gzip
