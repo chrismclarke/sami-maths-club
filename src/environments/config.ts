@@ -1,8 +1,10 @@
+import { enableProdMode } from "@angular/core";
+
 /***************************************************************************************
 Switch config dependent on use case
 
-For our use case the production config is stored in environment variables passed from
-Travis-CI.
+For our use case the production config is stored in environment variables passed from CI.
+
 Dev config is hardcoded - it is recommended if changing for production to hide the
 details via gitignore. You can find more information about potential security risk here:
 https://javebratt.com/hide-firebase-api/
@@ -19,22 +21,26 @@ const devConfig = {
   messagingSenderId: "326168056354"
 };
 
-// different production site config pulled from environment variable
-const productionSites = [
-  "mathsclub.samicharity.co.uk",
-  "mathclub.samicharity.co.uk"
-];
-if (productionSites.indexOf(window.location.host) > -1) {
-  const e = process.env;
-  config = {
-    apiKey: e.FIREBASE_API_KEY,
-    authDomain: e.FIREBASE_AUTH_DOMAIN,
-    databaseURL: e.FIREBASE_DATABASE_URL,
-    projectId: e.FIREBASE_PROJECT_ID,
-    storageBucket: e.FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: e.FIREBASE_MESSAGING_SENDER_ID
-  };
-} else {
-  config = devConfig;
+if (location.hostname !== "localhost") {
+  enableProdMode();
 }
-export const FIREBASE_CONFIG = config;
+
+// different production site config pulled from environment variable
+// const productionSites = [
+//   "mathsclub.samicharity.co.uk",
+//   "mathclub.samicharity.co.uk"
+// ];
+// if (productionSites.indexOf(window.location.host) > -1) {
+//   const e = process.env;
+//   config = {
+//     apiKey: e.FIREBASE_API_KEY,
+//     authDomain: e.FIREBASE_AUTH_DOMAIN,
+//     databaseURL: e.FIREBASE_DATABASE_URL,
+//     projectId: e.FIREBASE_PROJECT_ID,
+//     storageBucket: e.FIREBASE_STORAGE_BUCKET,
+//     messagingSenderId: e.FIREBASE_MESSAGING_SENDER_ID
+//   };
+// } else {
+config = devConfig;
+// }
+export default config;

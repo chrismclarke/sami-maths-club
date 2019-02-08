@@ -7,8 +7,11 @@ import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 
 import { AngularFireModule } from "@angular/fire";
-import { FIREBASE_CONFIG } from "../environments/config";
-import { AngularFirestoreModule } from "@angular/fire/firestore";
+import FIREBASE_CONFIG from "../environments/config";
+import {
+  AngularFirestoreModule,
+  AngularFirestore
+} from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 

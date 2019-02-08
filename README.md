@@ -36,3 +36,12 @@ Github issues can be viewed on waffle: https://waffle.io/chrismclarke/sami-maths
 #### Add a service provider
 
 `ionic g service seervices/myService`
+
+### Known issues
+
+Production build:
+Angular fire can only target es5
+https://github.com/angular/angularfire2/issues/1987
+
+Angular fire also requires firebase 5.7.0 (update in future)
+https://github.com/angular/angularfire2/issues/1993

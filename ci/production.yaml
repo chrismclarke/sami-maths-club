@@ -7,7 +7,7 @@ steps:
   #  args: ["run", "test"]
   # Build
   - name: "gcr.io/cloud-builders/npm"
-    args: ["run", "build", "prod"]
+    args: ["run", "build:prod"]
   # Deploy
   - name: "gcr.io/$PROJECT_ID/firebase"
     args: ["deploy"]
