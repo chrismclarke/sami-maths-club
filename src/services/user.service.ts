@@ -1,5 +1,11 @@
 import { Injectable } from "@angular/core";
-import { User } from "src/models/user.model";
+import {
+  User,
+  IUser,
+  IUserBase,
+  IUserMeta,
+  USER_API_VERSION
+} from "src/models/user.model";
 import { BehaviorSubject } from "rxjs";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { User as FirebaseUser, auth } from "firebase/app";
@@ -29,27 +35,35 @@ export class UserService {
     if (u) {
       let userProfile = (await this.db.afs.firestore
         .doc(`users/${u.email}`)
-        .get()).data() as Partial<User>;
+        .get()).data() as IUser;
       if (!userProfile || userProfile === undefined) {
-        userProfile = this.updateUserProfile(u);
+        userProfile = this.createUserProfile(u);
       }
-      this.user.next(new User(u.email, userProfile, this.db));
+      this.user.next(new User(userProfile, this.db));
     } else {
       this.user.next(null);
     }
   }
 
-  updateUserProfile(u: FirebaseUser) {
-    const profile: any = (({
+  createUserProfile(u: FirebaseUser) {
+    // deconstruct statement to assign each firebase user property to user
+    const profile: IUserBase = (({
       email,
       displayName,
       photoURL,
       uid,
       emailVerified
     }) => ({ email, displayName, photoURL, uid, emailVerified }))(u);
-    profile.lastSignInTime = u.metadata.lastSignInTime;
-    // don't need to wait, can just return what it will look like
+    const extended: IUserMeta = {
+      _created: new Date(),
+      _key: u.email,
+      _modified: new Date(),
+      _apiVersion: USER_API_VERSION,
+      permissions: {}
+    };
+    const userProfile: IUser = { ...profile, ...extended };
     this.db.afs.firestore.doc(`users/${u.email}`).set(profile, { merge: true });
-    return profile;
+    // don't need to wait, can just return what it will look like
+    return userProfile;
   }
 }
