@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
+// note, should check if still can build production with this
+import { firestore } from "firebase/firestore";
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +20,7 @@ export class DbService {
   // *** NOTE, REQUIRES _modified FIELD ON ALL DOCS TO FUNCTION PROPERLY
   getCollection(endpoint: string) {
     const results$ = new Observable<any[]>(subscriber => {
-      this.getAfsCached(endpoint).then(records => {
+      this.getAfsCachedCollection(endpoint).then(records => {
         const cached = records.docs.map(d => d.data());
         subscriber.next(cached);
         this.afs.firestore
@@ -43,13 +45,42 @@ export class DbService {
     return results$;
   }
 
-  private async getAfsCached(endpoint: string) {
+  // use firestore querystring to fetch doc. First check cache and return if found, otherwise check live
+  async queryCollection(
+    endpoint: string,
+    field: string,
+    operator: firestore.WhereFilterOp,
+    value: any
+  ) {
+    const ref = this.afs.firestore.collection(endpoint);
+    const query = ref.where(field, operator, value);
+    let res = await query.get({ source: "cache" });
+    console.log("cache queried", res);
+    if (res.empty) {
+      res = await query.get({ source: "server" });
+      console.log("server queried", res);
+    }
+    return res.docs.map(d => d.data());
+  }
+
+  private async getAfsCachedCollection(endpoint: string) {
     const docs = await this.afs.firestore
       .collection(endpoint)
       .orderBy("_modified")
       .get({ source: "cache" });
     return docs;
   }
+
+  private async refreshCache(endpoint: string) {
+    const docs = await this.afs.firestore
+      .collection(endpoint)
+      .orderBy("_modified")
+      .get({ source: "server" });
+    return docs;
+  }
+
+  // currently no easy method to do this with firebase, would have to disable persistance at start
+  private async deleteCache() {}
 
   // merge two object arrays by '_key' field
   private mergeData(oldDocs: any[], newDocs: any[]) {

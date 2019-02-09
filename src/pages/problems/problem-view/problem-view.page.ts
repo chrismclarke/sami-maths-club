@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { IProblem } from "src/models/problem.model";
+import { Problem } from "src/models/problem.model";
 import { ProblemService } from "src/services/problem.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
@@ -12,7 +12,7 @@ import { FadeIn } from "src/animations/animations";
   animations: [FadeIn]
 })
 export class ProblemViewPage implements OnInit {
-  problem: IProblem;
+  problem: Problem;
   studentVersionContent: SafeHtml;
   renderReady: boolean;
 
@@ -30,9 +30,16 @@ export class ProblemViewPage implements OnInit {
   // use route to get problem from slug
   async loadProblem() {
     const slug = this.route.snapshot.paramMap.get("slug");
-    this.problem = await this.problemService.getProblemBySlug(slug);
-    this.sanitizeProblem(this.problem);
-    console.log("problem", this.problem);
+    const problem = await this.problemService.getProblemBySlug(slug);
+    if (problem.values) {
+      this.sanitizeProblem(problem);
+      this.problem = problem;
+      console.log("problem", this.problem.values);
+    } else {
+      // if no problem found navigate to main problems page
+      this.back();
+      throw new Error(`Problem not found: ${slug}`);
+    }
   }
 
   back() {
@@ -40,9 +47,9 @@ export class ProblemViewPage implements OnInit {
   }
 
   // angular sanitizer strips inline style, we want to prevent that
-  sanitizeProblem(problem: IProblem) {
+  sanitizeProblem(problem: Problem) {
     this.studentVersionContent = this.sanitizer.bypassSecurityTrustHtml(
-      problem.studentVersion.content
+      problem.values.studentVersion.content
     );
   }
 }

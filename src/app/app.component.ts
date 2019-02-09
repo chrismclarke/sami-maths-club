@@ -59,7 +59,9 @@ export class AppComponent {
         const toast = await this.toastCtrl.create({
           message: "Update Downloaded",
           closeButtonText: "Reload",
-          duration: 5000,
+          cssClass: "toast--sw-update",
+          position: "bottom",
+          duration: 0,
           showCloseButton: true
         });
         toast.present();
