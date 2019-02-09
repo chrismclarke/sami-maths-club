@@ -5,7 +5,7 @@ import {
   IProblem,
   PROBLEM_API_VERSION
 } from "src/models/problem.model";
-import { MOCK_PROBLEMS } from "src/mocks/problems.mock";
+// import { MOCK_PROBLEMS } from "src/mocks/problems.mock";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable({
@@ -41,9 +41,9 @@ export class ProblemService {
     return new Problem(results[0], this.db);
   }
 
-  private loadMockProblems() {
-    this.problems.next(MOCK_PROBLEMS(20, this.db));
-  }
+  // private loadMockProblems() {
+  //   this.problems.next(MOCK_PROBLEMS(20, this.db));
+  // }
 }
 
 const PROBLEM_DEFAULTS: IProblem = {
