@@ -5,7 +5,6 @@ import {
   IProblem,
   PROBLEM_API_VERSION
 } from "src/models/problem.model";
-// import { MOCK_PROBLEMS } from "src/mocks/problems.mock";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable({
@@ -41,9 +40,11 @@ export class ProblemService {
     return new Problem(results[0], this.db);
   }
 
-  // private loadMockProblems() {
-  //   this.problems.next(MOCK_PROBLEMS(20, this.db));
-  // }
+  generateNewProblem() {
+    // tslint:disable-next-line:no-use-before-declare
+    const values = { ...PROBLEM_DEFAULTS, key: this.db.afs.createId() };
+    return new Problem(values, this.db);
+  }
 }
 
 const PROBLEM_DEFAULTS: IProblem = {
@@ -56,10 +57,15 @@ const PROBLEM_DEFAULTS: IProblem = {
   coverSVG: null,
   createdBy: null,
   difficulty: null,
-  facilitatorVersion: null,
+  facilitatorVersion: {
+    solution: null,
+    extension: null,
+    pedagogy: null,
+    downloadUrl: null
+  },
   isApproved: false,
   locked: false,
   slug: null,
-  studentVersion: null,
+  studentVersion: { content: null, images: [] },
   title: null
 };

@@ -13,10 +13,10 @@ export class DbService {
   constructor(public afs: AngularFirestore) {}
 
   // collection query for AFS - first queries offline cached data, then runs server query to fetch only newer docs
-  // updates pushed to observable
-  // details on approach here:  https://firebase.google.com/docs/firestore/manage-data/enable-offline
-  //                            https://groups.google.com/forum/#!topic/google-cloud-firestore-discuss/A7vMrtmV4U8
-  //
+  // updates pushed to observable. details on approach here:
+  // https://firebase.google.com/docs/firestore/manage-data/enable-offline
+  // https://groups.google.com/forum/#!topic/google-cloud-firestore-discuss/A7vMrtmV4U8
+
   // *** NOTE, REQUIRES _modified FIELD ON ALL DOCS TO FUNCTION PROPERLY
   getCollection(endpoint: string) {
     const results$ = new Observable<any[]>(subscriber => {
@@ -71,6 +71,8 @@ export class DbService {
     return docs;
   }
 
+  // not currently implemented, but may want some method to ensure cached data not stale
+  // e.g. case when problem edited or deleted and _modified field not changed
   private async refreshCache(endpoint: string) {
     const docs = await this.afs.firestore
       .collection(endpoint)
@@ -99,8 +101,7 @@ export class DbService {
 
   // process
   /*
-
-    when snapshot comes in should populate _key field from snapshot
+  *** NOTE - MAY WANT TO ADD FILTERS for deleted etc
 
   */
 }

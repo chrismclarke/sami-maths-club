@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button *ngIf="problem" [routerLink]="['/p/' + problem.slug]"
+      <ion-button *ngIf="problem" [routerLink]="['/p/' + problem.values.slug]"
         ><ion-icon src="/assets/svgs/back.svg"></ion-icon
       ></ion-button>
     </ion-buttons>
@@ -9,7 +9,7 @@
       <ion-button
         (click)="save()"
         [disabled]="saveStatus"
-        *ngIf="problem && !problem.locked"
+        *ngIf="problem && !problem.values.locked"
         >{{ saveStatus ? saveStatus : "save" }}</ion-button
       >
     </ion-buttons>
@@ -17,7 +17,7 @@
 </ion-header>
 
 <ion-content padding *ngIf="problem" scrollX>
-  <div class="problem edit" *ngIf="!problem.locked">
+  <div class="problem edit" *ngIf="!problem.values.locked">
     <ion-item>
       <ion-input
         type="text"
@@ -25,16 +25,18 @@
         class="title--large"
         color="primary"
         autofocus
-        [(ngModel)]="problem.title"
+        [(ngModel)]="problem.values.title"
         (ngModelChange)="updateSlug($event)"
       ></ion-input>
     </ion-item>
     <div class="problem-content">
       <app-html-editor
         class="problem-editor"
-        [(html)]="problem.studentVersion.content"
+        [(html)]="problem.values.studentVersion.content"
       ></app-html-editor>
     </div>
   </div>
-  <div *ngIf="problem.locked">This problem has been locked from editing.</div>
+  <div *ngIf="problem.values.locked">
+    This problem has been locked from editing.
+  </div>
 </ion-content>
