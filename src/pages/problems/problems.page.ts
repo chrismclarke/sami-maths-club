@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Problem } from "src/models/problem.model";
+import { IProblem } from "src/models/problem.model";
 import { ProblemService } from "src/services/problem.service";
 import { Subscription, Observable } from "rxjs";
 import { User } from "src/models/user.model";
@@ -14,7 +14,7 @@ import { ProblemsFilterPage } from "src/components/problem-components/problems-f
 })
 export class ProblemsPage implements OnInit, OnDestroy {
   problems$: Subscription;
-  problems: Problem[];
+  problems: IProblem[];
   user$: Observable<User>;
   constructor(
     private problemService: ProblemService,
