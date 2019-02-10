@@ -1,10 +1,9 @@
 import { Component } from "@angular/core";
 
-import { Platform, ToastController } from "@ionic/angular";
+import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { environment } from "../environments/environment";
-import { SwUpdate } from "@angular/service-worker";
 
 @Component({
   selector: "app-root",
@@ -33,9 +32,7 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    private swUpdate: SwUpdate,
-    private toastCtrl: ToastController
+    private statusBar: StatusBar
   ) {
     this.initializeApp();
   }
@@ -46,34 +43,7 @@ export class AppComponent {
         this.statusBar.styleDefault();
         this.splashScreen.hide();
       } else {
-        this.checkForSWUpdate();
       }
     });
-  }
-
-  // service worker update
-  checkForSWUpdate() {
-    console.log("checking sw update");
-    if (this.swUpdate.isEnabled) {
-      this.swUpdate.available.subscribe(async () => {
-        const toast = await this.toastCtrl.create({
-          message: "Update Downloaded",
-          closeButtonText: "Reload",
-          cssClass: "toast--sw-update",
-          position: "bottom",
-          duration: 0,
-          showCloseButton: true
-        });
-        toast.present();
-        await toast.onWillDismiss;
-        this.activateUpdate();
-      });
-    }
-  }
-  async activateUpdate() {
-    console.log("activating update");
-    await this.swUpdate.activateUpdate();
-    location.reload(true);
-    return;
   }
 }
