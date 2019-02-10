@@ -43,12 +43,16 @@
     <ion-button
       (click)="deleteToggle()"
       *ngIf="problem && !problem.values.locked && !problem.values.deleted"
-      >Delete</ion-button
+      fill="clear"
+      color="danger"
+      ><ion-icon name="trash" slot="start"></ion-icon>Delete</ion-button
     >
     <ion-button
       (click)="deleteToggle()"
       *ngIf="problem && !problem.values.locked && problem.values.deleted"
-      >Restore</ion-button
+      fill="clear"
+      color="success"
+      ><ion-icon name="undo" slot="start"></ion-icon>Restore</ion-button
     >
   </div>
 </ion-content>
