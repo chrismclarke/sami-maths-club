@@ -39,4 +39,16 @@
   <div *ngIf="problem.values.locked">
     This problem has been locked from editing.
   </div>
+  <div>
+    <ion-button
+      (click)="deleteToggle()"
+      *ngIf="problem && !problem.values.locked && !problem.values.deleted"
+      >Delete</ion-button
+    >
+    <ion-button
+      (click)="deleteToggle()"
+      *ngIf="problem && !problem.values.locked && problem.values.deleted"
+      >Restore</ion-button
+    >
+  </div>
 </ion-content>

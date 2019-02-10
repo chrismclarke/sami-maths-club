@@ -24,10 +24,23 @@ export class ProblemsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.problems$ = this.problemService.problems.subscribe(p => {
-      this.problems = p;
+      this.problems = this.filterProblems(p);
     });
     // subject needs to be subscribed to as observable if using with async pipe (handle auto unsubscripbe)
     this.user$ = this.userService.user.asObservable();
+  }
+
+  filterProblems(problems: IProblem[]) {
+    let p = [...problems];
+    // remove deleted
+    p = p.filter(v => !v.deleted);
+    // hide temp from non-admin or non-creator
+
+    // sort by created
+    const sorted = p.sort((a, b) => {
+      return a._created > b._created ? 1 : -1;
+    });
+    return sorted;
   }
 
   ngOnDestroy() {

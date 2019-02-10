@@ -40,9 +40,13 @@ export class ProblemService {
     return new Problem(results[0], this.db);
   }
 
-  generateNewProblem() {
-    // tslint:disable-next-line:no-use-before-declare
-    const values = { ...PROBLEM_DEFAULTS, key: this.db.afs.createId() };
+  generateNewProblem(userID: string) {
+    const values = {
+      // tslint:disable-next-line:no-use-before-declare
+      ...PROBLEM_DEFAULTS,
+      _key: this.db.afs.createId(),
+      createdBy: userID
+    };
     return new Problem(values, this.db);
   }
 }

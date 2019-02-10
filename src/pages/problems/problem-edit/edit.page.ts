@@ -5,6 +5,7 @@ import { Problem } from "src/models/problem.model";
 import stringReplaceAsync from "string-replace-async";
 import { base64StringToBlob } from "blob-util";
 import { StorageService } from "src/services/storage.service";
+import { UserService } from "src/services/user.service";
 
 @Component({
   selector: "app-edit",
@@ -21,7 +22,8 @@ export class EditPage implements OnInit {
     private route: ActivatedRoute,
     private problemService: ProblemService,
     private storage: StorageService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {}
 
   async ngOnInit() {
@@ -29,7 +31,9 @@ export class EditPage implements OnInit {
     if (this.slug) {
       this.problem = await this.problemService.getProblemBySlug(this.slug);
     } else {
-      this.problem = this.problemService.generateNewProblem();
+      this.problem = this.problemService.generateNewProblem(
+        this.userService.user.value.values._key
+      );
     }
   }
 
@@ -41,6 +45,14 @@ export class EditPage implements OnInit {
     );
     await this.problem.save();
     this.router.navigate([`/p/${this.problem.values.slug}`]);
+  }
+
+  async deleteToggle() {
+    this.saveStatus = "saving";
+    this.problem.values.deleted = !this.problem.values.deleted;
+    await this.problem.save();
+    console.log("problem saved", this.problem);
+    this.saveStatus = null;
   }
 
   updateSlug(title: string) {

@@ -13,9 +13,6 @@ export class Problem {
     this.values._modified = new Date();
     return this.db.afs.doc(`problems/${this.values._key}`).set(this.values);
   }
-  public delete() {
-    console.log("deleting problem");
-  }
 
   setSlug(title: string) {
     this.values.slug = this._stripSpecialCharacters(title);

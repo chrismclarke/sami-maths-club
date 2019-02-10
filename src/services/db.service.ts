@@ -55,10 +55,8 @@ export class DbService {
     const ref = this.afs.firestore.collection(endpoint);
     const query = ref.where(field, operator, value);
     let res = await query.get({ source: "cache" });
-    console.log("cache queried", res);
     if (res.empty) {
       res = await query.get({ source: "server" });
-      console.log("server queried", res);
     }
     return res.docs.map(d => d.data());
   }
