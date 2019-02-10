@@ -8,10 +8,7 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 
 import { AngularFireModule, FirebaseOptionsToken } from "@angular/fire";
 import FIREBASE_CONFIG from "../environments/config";
-import {
-  AngularFirestoreModule,
-  AngularFirestore
-} from "@angular/fire/firestore";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 

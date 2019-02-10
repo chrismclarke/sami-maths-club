@@ -37,6 +37,6 @@ export class ProfileButtonComponent implements OnInit {
   }
 
   async logout() {
-    this.userService.afAuth.auth.signOut();
+    this.userService.logout();
   }
 }

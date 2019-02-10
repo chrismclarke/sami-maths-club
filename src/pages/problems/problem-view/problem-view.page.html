@@ -7,8 +7,8 @@
     </ion-buttons>
     <ion-buttons slot="end">
       <a
-        *ngIf="problem && problem.facilitatorVersion.downloadUrl"
-        [href]="problem.facilitatorVersion.downloadUrl"
+        *ngIf="problem && problem.values.facilitatorVersion.downloadUrl"
+        [href]="problem.values.facilitatorVersion.downloadUrl"
         download
         target="_blank"
       >
@@ -26,8 +26,8 @@
     ><ion-icon src="/assets/svgs/back.svg"></ion-icon
   ></ion-button>
   <a
-    *ngIf="problem && problem.facilitatorVersion.downloadUrl"
-    [href]="problem.facilitatorVersion.downloadUrl"
+    *ngIf="problem && problem.values.facilitatorVersion.downloadUrl"
+    [href]="problem.values.facilitatorVersion.downloadUrl"
     download
     target="_blank"
   >
@@ -40,18 +40,18 @@
 
 <ion-content style="background: white">
   <div *ngIf="problem" class="problem view">
-    <div class="title--large">{{ problem.title }}</div>
+    <div class="title--large">{{ problem.values.title }}</div>
     <div
       @fadein
       id="studentVersion"
       class="problem-content"
       [innerHtml]="studentVersionContent"
     ></div>
-    <div *ngIf="!problem.locked" style="margin-top: 1em">
+    <div *ngIf="!problem.values.locked" style="margin-top: 1em">
       <ion-button
         style="float:right"
         fill="clear"
-        [routerLink]="['/p/' + problem.slug + '/edit']"
+        [routerLink]="['/p/' + problem.values.slug + '/edit']"
         >Edit</ion-button
       >
     </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Problem } from "src/models/problem.model";
+import { IProblem } from "src/models/problem.model";
 import { ProblemService } from "src/services/problem.service";
 import { Subscription, Observable } from "rxjs";
 import { User } from "src/models/user.model";
@@ -14,7 +14,7 @@ import { ProblemsFilterPage } from "src/components/problem-components/problems-f
 })
 export class ProblemsPage implements OnInit, OnDestroy {
   problems$: Subscription;
-  problems: Problem[];
+  problems: IProblem[];
   user$: Observable<User>;
   constructor(
     private problemService: ProblemService,
@@ -24,10 +24,23 @@ export class ProblemsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.problems$ = this.problemService.problems.subscribe(p => {
-      this.problems = p;
+      this.problems = this.filterProblems(p);
     });
     // subject needs to be subscribed to as observable if using with async pipe (handle auto unsubscripbe)
     this.user$ = this.userService.user.asObservable();
+  }
+
+  filterProblems(problems: IProblem[]) {
+    let p = [...problems];
+    // remove deleted
+    p = p.filter(v => !v.deleted);
+    // hide temp from non-admin or non-creator
+
+    // sort by created
+    const sorted = p.sort((a, b) => {
+      return a._created > b._created ? 1 : -1;
+    });
+    return sorted;
   }
 
   ngOnDestroy() {

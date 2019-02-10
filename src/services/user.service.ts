@@ -25,6 +25,9 @@ export class UserService {
   login(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
+  logout() {
+    this.afAuth.auth.signOut();
+  }
   googleLogin() {
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }

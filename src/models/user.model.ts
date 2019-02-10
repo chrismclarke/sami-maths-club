@@ -1,6 +1,6 @@
 import { DbService } from "src/services/db.service";
 
-export const USER_API_VERSION = 2;
+export const USER_API_VERSION = 1.1;
 export class User {
   constructor(public values: IUser, private db: DbService) {
     this._checkForUpgrades();
@@ -17,11 +17,7 @@ export class User {
   private _checkForUpgrades() {
     console.log("checking for upgrade", this.values._apiVersion);
     switch (this.values._apiVersion) {
-      case 1:
-        this.values._key = this.values.email;
-        this.values.permissions = {};
-        this.values._created = new Date();
-        this.values._apiVersion++;
+      case 1.0:
         return this._checkForUpgrades();
       default:
         this.save();
@@ -35,10 +31,10 @@ export class User {
  * **************************************/
 // properties assigned during creation
 export interface IUserBase {
-  displayName: string;
+  displayName?: string;
   email: string;
   emailVerified: boolean;
-  photoURL: string;
+  photoURL?: string;
   uid: string;
 }
 export interface IUserMeta {

@@ -30,7 +30,11 @@ export class ProblemCardComponent {
     return sanitizeProblem as IProblemSantized;
   }
 
-  private convertSVGToImageData(svgTag: string = SVG_IMAGES[0]) {
+  private convertSVGToImageData(svgTag?: string) {
+    // set default placeholder if not provided
+    if (!svgTag) {
+      svgTag = SVG_IMAGES[0];
+    }
     return this.sanitizer.bypassSecurityTrustHtml(
       `<img src='data:image/svg+xml;utf8,
       ${svgTag}

@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
+// note, should check if still can build production with this
+import { firestore } from "firebase/firestore";
 
 @Injectable({
   providedIn: "root"
@@ -11,14 +13,14 @@ export class DbService {
   constructor(public afs: AngularFirestore) {}
 
   // collection query for AFS - first queries offline cached data, then runs server query to fetch only newer docs
-  // updates pushed to observable
-  // details on approach here:  https://firebase.google.com/docs/firestore/manage-data/enable-offline
-  //                            https://groups.google.com/forum/#!topic/google-cloud-firestore-discuss/A7vMrtmV4U8
-  //
+  // updates pushed to observable. details on approach here:
+  // https://firebase.google.com/docs/firestore/manage-data/enable-offline
+  // https://groups.google.com/forum/#!topic/google-cloud-firestore-discuss/A7vMrtmV4U8
+
   // *** NOTE, REQUIRES _modified FIELD ON ALL DOCS TO FUNCTION PROPERLY
   getCollection(endpoint: string) {
     const results$ = new Observable<any[]>(subscriber => {
-      this.getAfsCached(endpoint).then(records => {
+      this.getAfsCachedCollection(endpoint).then(records => {
         const cached = records.docs.map(d => d.data());
         subscriber.next(cached);
         this.afs.firestore
@@ -43,13 +45,42 @@ export class DbService {
     return results$;
   }
 
-  private async getAfsCached(endpoint: string) {
+  // use firestore querystring to fetch doc. First check cache and return if found, otherwise check live
+  async queryCollection(
+    endpoint: string,
+    field: string,
+    operator: firestore.WhereFilterOp,
+    value: any
+  ) {
+    const ref = this.afs.firestore.collection(endpoint);
+    const query = ref.where(field, operator, value);
+    let res = await query.get({ source: "cache" });
+    if (res.empty) {
+      res = await query.get({ source: "server" });
+    }
+    return res.docs.map(d => d.data());
+  }
+
+  private async getAfsCachedCollection(endpoint: string) {
     const docs = await this.afs.firestore
       .collection(endpoint)
       .orderBy("_modified")
       .get({ source: "cache" });
     return docs;
   }
+
+  // not currently implemented, but may want some method to ensure cached data not stale
+  // e.g. case when problem edited or deleted and _modified field not changed
+  private async refreshCache(endpoint: string) {
+    const docs = await this.afs.firestore
+      .collection(endpoint)
+      .orderBy("_modified")
+      .get({ source: "server" });
+    return docs;
+  }
+
+  // currently no easy method to do this with firebase, would have to disable persistance at start
+  private async deleteCache() {}
 
   // merge two object arrays by '_key' field
   private mergeData(oldDocs: any[], newDocs: any[]) {
@@ -68,8 +99,7 @@ export class DbService {
 
   // process
   /*
-
-    when snapshot comes in should populate _key field from snapshot
+  *** NOTE - MAY WANT TO ADD FILTERS for deleted etc
 
   */
 }

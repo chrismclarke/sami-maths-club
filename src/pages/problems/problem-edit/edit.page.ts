@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ProblemService } from "src/services/problem.service";
-import { IProblem } from "src/models/problem.model";
+import { Problem } from "src/models/problem.model";
 import stringReplaceAsync from "string-replace-async";
 import { base64StringToBlob } from "blob-util";
 import { StorageService } from "src/services/storage.service";
+import { UserService } from "src/services/user.service";
 
 @Component({
   selector: "app-edit",
@@ -12,7 +13,7 @@ import { StorageService } from "src/services/storage.service";
   styleUrls: ["./edit.page.scss"]
 })
 export class EditPage implements OnInit {
-  problem: IProblem;
+  problem: Problem;
   slug: string;
   imageIndex: number;
   saveStatus: string;
@@ -21,7 +22,8 @@ export class EditPage implements OnInit {
     private route: ActivatedRoute,
     private problemService: ProblemService,
     private storage: StorageService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {}
 
   async ngOnInit() {
@@ -29,18 +31,28 @@ export class EditPage implements OnInit {
     if (this.slug) {
       this.problem = await this.problemService.getProblemBySlug(this.slug);
     } else {
-      this.problem = this.problemService.generateProblem();
+      this.problem = this.problemService.generateNewProblem(
+        this.userService.user.value.values._key
+      );
     }
   }
 
   async save() {
     console.log("saving problem", this.problem);
     this.saveStatus = "uploading images";
-    this.problem.studentVersion.content = await this.uploadHtmlImages(
-      this.problem.studentVersion.content
+    this.problem.values.studentVersion.content = await this.uploadHtmlImages(
+      this.problem.values.studentVersion.content
     );
     await this.problem.save();
-    this.router.navigate([`/p/${this.problem.slug}`]);
+    this.router.navigate([`/p/${this.problem.values.slug}`]);
+  }
+
+  async deleteToggle() {
+    this.saveStatus = "saving";
+    this.problem.values.deleted = !this.problem.values.deleted;
+    await this.problem.save();
+    console.log("problem saved", this.problem);
+    this.saveStatus = null;
   }
 
   updateSlug(title: string) {
@@ -74,12 +86,12 @@ export class EditPage implements OnInit {
       const imgData = match[0];
       const blob = this.dataToBlob(imgData);
       const extension = blob.type.split("/")[1];
-      const path = `uploads/${this.problem._key}/${
+      const path = `uploads/${this.problem.values._key}/${
         this.imageIndex
       }.${extension}`;
       const upload = await this.storage.uploadFile(path, blob);
       // populate subset of meta as anything possibly undefined will throw error
-      this.problem.studentVersion.images[i] = upload;
+      this.problem.values.studentVersion.images[i] = upload;
       // put download url in img tag instead of data
       imgTag = imgTag.replace(imgData, upload.downloadUrl);
     }
