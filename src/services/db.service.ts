@@ -37,8 +37,9 @@ export class DbService {
                 subscriber.next(this.mergeData(cached, update));
               }
             },
-            err => console.log("err", err),
-            () => console.log("complete")
+            err => {
+              throw new Error(`could not get endpoint: ${endpoint}`);
+            }
           );
       });
     });

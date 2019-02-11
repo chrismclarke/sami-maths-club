@@ -21,10 +21,15 @@ export class ProblemService {
 
   // load problems from local cache and subscribe to updates from server
   async init() {
-    this.db.getCollection("problems").subscribe(data => {
-      this.problems.next(data);
-      this.initialised.next(true);
-    });
+    this.db.getCollection("problems").subscribe(
+      data => {
+        this.problems.next(data);
+        this.initialised.next(true);
+      },
+      err => {
+        throw new Error("could not get problems");
+      }
+    );
   }
 
   // query for matching slug, only want to take first result (don't expect db to change)

@@ -1,0 +1,22 @@
+service cloud.firestore {
+	// rules will apply to all docs in database
+  match /databases/{database}/documents {
+  	function getRoles(userEmail){
+    	return get(/databases/$(database)/documents/users/$userEmail).data.permissions
+    }
+		// users can read/write their own user docs    
+    match /users/{userEmail} {
+    allow read, write: if request.auth.token.email == userEmail
+    }
+		// anyone can read all problems docs and any in subcollections
+		// only editors can make changes
+		match /problems/{document=**} {
+    allow read; 
+    allow write: if getRoles(request.auth.token.email).editor==true
+    }
+    // admin can read and write all docs (unless superced by following rules)
+    match /{document=**} {
+    allow read, write: if getRoles(request.auth.token.email).admin==true
+    }
+	}
+}

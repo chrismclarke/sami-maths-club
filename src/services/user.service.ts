@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import {
   User,
-  IUser,
   IUserBase,
   IUserMeta,
-  USER_API_VERSION
+  USER_API_VERSION,
+  IUserValues
 } from "src/models/user.model";
 import { BehaviorSubject } from "rxjs";
 import { AngularFireAuth } from "@angular/fire/auth";
@@ -18,6 +18,7 @@ export class UserService {
   public user = new BehaviorSubject<User>(null);
   constructor(public afAuth: AngularFireAuth, private db: DbService) {
     this.afAuth.authState.subscribe(user => {
+      console.log("user changed", user);
       this.authChanged(user);
     });
   }
@@ -38,7 +39,7 @@ export class UserService {
     if (u) {
       let userProfile = (await this.db.afs.firestore
         .doc(`users/${u.email}`)
-        .get()).data() as IUser;
+        .get()).data() as IUserValues;
       if (!userProfile || userProfile === undefined) {
         userProfile = this.createUserProfile(u);
       }
@@ -64,7 +65,7 @@ export class UserService {
       _apiVersion: USER_API_VERSION,
       permissions: {}
     };
-    const userProfile: IUser = { ...profile, ...extended };
+    const userProfile: IUserValues = { ...profile, ...extended };
     this.db.afs.firestore.doc(`users/${u.email}`).set(profile, { merge: true });
     // don't need to wait, can just return what it will look like
     return userProfile;
