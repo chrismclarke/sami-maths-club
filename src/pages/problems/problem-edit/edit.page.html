@@ -9,7 +9,7 @@
       <ion-button
         (click)="save()"
         [disabled]="saveStatus"
-        *ngIf="problem && !problem.values.locked"
+        *ngIf="problem && !problem.values.locked && canEdit"
         >{{ saveStatus ? saveStatus : "save" }}</ion-button
       >
     </ion-buttons>
@@ -17,42 +17,49 @@
 </ion-header>
 
 <ion-content padding *ngIf="problem" scrollX>
-  <div class="problem edit" *ngIf="!problem.values.locked">
-    <ion-item>
-      <ion-input
-        type="text"
-        placeholder="Title"
-        class="title--large"
-        color="primary"
-        autofocus
-        [(ngModel)]="problem.values.title"
-        (ngModelChange)="updateSlug($event)"
-      ></ion-input>
-    </ion-item>
-    <div class="problem-content">
-      <app-html-editor
-        class="problem-editor"
-        [(html)]="problem.values.studentVersion.content"
-      ></app-html-editor>
+  <!-- editor -->
+  <div *ngIf="canEdit">
+    <div class="problem edit" *ngIf="!problem.values.locked">
+      <ion-item>
+        <ion-input
+          type="text"
+          placeholder="Title"
+          class="title--large"
+          color="primary"
+          autofocus
+          [(ngModel)]="problem.values.title"
+          (ngModelChange)="updateSlug($event)"
+        ></ion-input>
+      </ion-item>
+      <div class="problem-content">
+        <app-html-editor
+          class="problem-editor"
+          [(html)]="problem.values.studentVersion.content"
+        ></app-html-editor>
+      </div>
+    </div>
+    <div *ngIf="problem.values.locked">
+      This problem has been locked from editing.
+    </div>
+    <div>
+      <ion-button
+        (click)="deleteToggle()"
+        *ngIf="problem && !problem.values.locked && !problem.values.deleted"
+        fill="clear"
+        color="danger"
+        ><ion-icon name="trash" slot="start"></ion-icon>Delete</ion-button
+      >
+      <ion-button
+        (click)="deleteToggle()"
+        *ngIf="problem && !problem.values.locked && problem.values.deleted"
+        fill="clear"
+        color="success"
+        ><ion-icon name="undo" slot="start"></ion-icon>Restore</ion-button
+      >
     </div>
   </div>
-  <div *ngIf="problem.values.locked">
-    This problem has been locked from editing.
-  </div>
-  <div>
-    <ion-button
-      (click)="deleteToggle()"
-      *ngIf="problem && !problem.values.locked && !problem.values.deleted"
-      fill="clear"
-      color="danger"
-      ><ion-icon name="trash" slot="start"></ion-icon>Delete</ion-button
-    >
-    <ion-button
-      (click)="deleteToggle()"
-      *ngIf="problem && !problem.values.locked && problem.values.deleted"
-      fill="clear"
-      color="success"
-      ><ion-icon name="undo" slot="start"></ion-icon>Restore</ion-button
-    >
+  <!-- non-editor -->
+  <div *ngIf="!canEdit">
+    Sorry you don't have permissions to edit this problem
   </div>
 </ion-content>

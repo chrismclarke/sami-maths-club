@@ -47,7 +47,7 @@
       class="problem-content"
       [innerHtml]="studentVersionContent"
     ></div>
-    <div *ngIf="!problem.values.locked" style="margin-top: 1em">
+    <div *ngIf="!problem.values.locked && canEdit" style="margin-top: 1em">
       <ion-button
         style="float:right"
         fill="clear"

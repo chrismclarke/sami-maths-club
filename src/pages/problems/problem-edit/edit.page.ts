@@ -1,22 +1,27 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ProblemService } from "src/services/problem.service";
 import { Problem } from "src/models/problem.model";
 import stringReplaceAsync from "string-replace-async";
-import { base64StringToBlob } from "blob-util";
 import { StorageService } from "src/services/storage.service";
 import { UserService } from "src/services/user.service";
+import { IUserValues } from "src/models/user.model";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { base64StringToBlob } from "blob-util";
 
 @Component({
   selector: "app-edit",
   templateUrl: "./edit.page.html",
   styleUrls: ["./edit.page.scss"]
 })
-export class EditPage implements OnInit {
+export class EditPage implements OnInit, OnDestroy {
   problem: Problem;
   slug: string;
   imageIndex: number;
   saveStatus: string;
+  canEdit: boolean;
+  private unsubscribe: Subject<void> = new Subject();
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +40,7 @@ export class EditPage implements OnInit {
         this.userService.user.value.values._key
       );
     }
+    this._addSubscribers();
   }
 
   async save() {
@@ -105,5 +111,18 @@ export class EditPage implements OnInit {
       fileType
     );
     return blob;
+  }
+
+  // unsubscribe to user changes
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
+  // subscribe to user object to check has sufficient permissions
+  private _addSubscribers() {
+    this.userService.user.pipe(takeUntil(this.unsubscribe)).subscribe(user => {
+      this.canEdit = user && user.values && user.values.permissions.editor;
+    });
   }
 }

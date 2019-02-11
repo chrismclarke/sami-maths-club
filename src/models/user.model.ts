@@ -2,7 +2,7 @@ import { DbService } from "src/services/db.service";
 
 export const USER_API_VERSION = 1.1;
 export class User {
-  constructor(public values: IUser, private db: DbService) {
+  constructor(public values: IUserValues, private db: DbService) {
     this._checkForUpgrades();
   }
 
@@ -45,7 +45,7 @@ export interface IUserMeta {
   permissions: IUserPermissions;
 }
 
-export interface IUser extends IUserBase, IUserMeta {}
+export interface IUserValues extends IUserBase, IUserMeta {}
 
 interface IUserPermissions {
   admin?: boolean;
