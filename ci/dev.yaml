@@ -9,6 +9,5 @@ steps:
   - name: "gcr.io/cloud-builders/npm"
     args: ["run", "build"]
   # Deploy
-  # could use $PROJECT_ID if matches correct project"
-  - name: "gcr.io/sami-app-dev/firebase"
-    args: ["deploy"]
+  - name: "gcr.io/$PROJECT_ID/firebase"
+    args: ["deploy", "--project", "dev"]
