@@ -1,7 +1,8 @@
 These files contain a base image of firebase tools to use with custom build scripts
 Submit to gcloud build using following command from project root directory:
 
-`gcloud builds submit --config=ci/cloudbuild.yaml .`
+`cd ci`
+`gcloud builds submit .`
 
 Note, the cloudbuild.yaml file here is mostly a placeholder.
 It could be connected to full package if wanting faster builds (preinstalled npm scripts),

@@ -6,6 +6,15 @@ export const environment = {
   production: false,
   VERSION: require("../../package.json").version
 };
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyCpcf8c0_n18mMKp2e7wWclFDeCidivXek",
+  authDomain: "sami-app-dev.firebaseapp.com",
+  databaseURL: "https://sami-app-dev.firebaseio.com",
+  projectId: "sami-app-dev",
+  storageBucket: "sami-app-dev.appspot.com",
+  messagingSenderId: "326168056354"
+};
 /*
  * In development mode, to ignore zone related error stack frames such as
  * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can
