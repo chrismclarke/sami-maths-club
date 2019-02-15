@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "sami-app-dev"
+    "default": "sami-app-dev",
+    "prod":"sami-app-prod"
   }
 }

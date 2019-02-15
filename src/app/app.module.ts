@@ -7,7 +7,7 @@ import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 
 import { AngularFireModule, FirebaseOptionsToken } from "@angular/fire";
-import FIREBASE_CONFIG from "../environments/config";
+import { firebaseConfig } from "../environments/environment";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireStorageModule } from "@angular/fire/storage";
@@ -27,7 +27,7 @@ import { LoginPageModule } from "src/pages/login/login.module";
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    AngularFireModule.initializeApp(FIREBASE_CONFIG, "sami-maths-club"),
+    AngularFireModule.initializeApp(firebaseConfig, "sami-maths-club"),
     AngularFirestoreModule.enablePersistence({
       experimentalTabSynchronization: true
     }),
@@ -48,7 +48,7 @@ import { LoginPageModule } from "src/pages/login/login.module";
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     // fix required to allow aot with firebase
-    { provide: FirebaseOptionsToken, useValue: FIREBASE_CONFIG }
+    { provide: FirebaseOptionsToken, useValue: firebaseConfig }
   ],
   bootstrap: [AppComponent]
 })

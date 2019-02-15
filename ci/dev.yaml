@@ -1,0 +1,14 @@
+steps:
+  # Install
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["install"]
+  # Test
+  #- name: "gcr.io/cloud-builders/npm"
+  #  args: ["run", "test"]
+  # Build
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["run", "build"]
+  # Deploy
+  # could use $PROJECT_ID if matches correct project"
+  - name: "gcr.io/sami-app-dev/firebase"
+    args: ["deploy"]

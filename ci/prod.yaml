@@ -9,5 +9,5 @@ steps:
   - name: "gcr.io/cloud-builders/npm"
     args: ["run", "build:prod"]
   # Deploy
-  - name: "gcr.io/$PROJECT_ID/firebase"
+  - name: "gcr.io/sami-app-prod/firebase"
     args: ["deploy"]
