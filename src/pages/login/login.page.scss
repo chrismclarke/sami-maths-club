@@ -5,26 +5,36 @@
     flex-basis: 50%;
   }
 }
-
+ion-list {
+  padding: 0;
+}
+ion-button {
+  margin: 0;
+}
 ion-button.facebook {
   --background: #3b5998;
+  height: 3em;
 }
 ion-button.google {
   --background: #db3236;
+  height: 3em;
+}
+ion-button.login {
+  flex: 1;
+  height: 3em;
+}
+ion-button.register {
+  height: 3em;
 }
 .login-container {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
-.login-form {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin-top: 1em;
-}
+
 .bottom-buttons {
   display: flex;
+  margin-top: 10px;
   ion-button {
     --padding-start: 0;
     --padding-end: 0;
@@ -36,7 +46,6 @@ ion-button.google {
 }
 .tsandcs {
   font-size: x-small;
-  margin-top: 1em;
   span {
     text-decoration: underline;
     cursor: pointer;
