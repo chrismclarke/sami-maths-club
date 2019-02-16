@@ -22,7 +22,6 @@ export class ProfileButtonComponent implements OnInit {
       this.modalCtrl.getTop().then(v => {
         v ? this.modalCtrl.dismiss() : null;
       });
-      console.log("user", u);
     });
   }
 

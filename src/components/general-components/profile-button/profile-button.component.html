@@ -3,9 +3,15 @@
   style="opacity: 0.8"
   (click)="showLogin()"
   *ngIf="!user"
+  id="loginButton"
   >Login</ion-button
 >
 
-<ion-button size="small" style="opacity: 0.8" (click)="logout()" *ngIf="user"
+<ion-button
+  size="small"
+  style="opacity: 0.8"
+  (click)="logout()"
+  *ngIf="user"
+  id="logoutButton"
   >Logout</ion-button
 >

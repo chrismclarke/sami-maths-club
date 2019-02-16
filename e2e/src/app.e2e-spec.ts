@@ -1,18 +1,18 @@
-import { AppPage } from './app.po';
+import { AppPage } from "./app.po";
 
-describe('new App', () => {
+describe("new App", () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
-  describe('default screen', () => {
+  describe("default screen", () => {
     beforeEach(() => {
-      page.navigateTo('/home');
+      page.navigateTo("/problems");
     });
-    it('should have a title saying Home', () => {
+    it("should have a title saying Problems", () => {
       page.getPageOneTitleText().then(title => {
-        expect(title).toEqual('Home');
+        expect(title).toEqual("Problems");
       });
     });
   });
