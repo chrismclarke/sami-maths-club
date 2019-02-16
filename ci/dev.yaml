@@ -1,3 +1,5 @@
+# Use the custom image to install any updates to dependencies, build, test and deploy
+
 steps:
   # Install
   #- name: "gcr.io/cloud-builders/npm"

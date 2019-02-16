@@ -7,11 +7,14 @@
 
 # Start with cypress base docker image (debian 10)
 FROM cypress/base:10 as TEST
+# change working directory to put everything in /app folder
 WORKDIR /app
 
 # dependencies will be installed only if the package files change
 COPY package.json .
 COPY yarn.lock .
+COPY cypress.json .
+COPY e2e e2e
 
 # by setting CI environment variable we switch the Cypress install messages
 # to small "started / finished" and avoid 1000s of lines of progress messages

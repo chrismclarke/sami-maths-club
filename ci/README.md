@@ -11,3 +11,18 @@ however this would need updating whenever dependencies are updated.
 Deploy logic for the app is in the root other yaml files.
 Assumes IAM for firebase, see here for guidance:
 https://fireship.io/lessons/ci-cd-with-google-cloud-build/
+
+More general info:
+
+cloud build supports a base docker image
+there is a default 'yarn' image but that just builds on the default node image (which comes with yarn)
+
+```
+steps:
+- name: node:10.15.1
+  entrypoint: yarn
+  args: ['install']
+```
+
+A custom docker image allows full customisation of a platform, and can have things
+like global variables, cypress installed, node modules already installed etc.
