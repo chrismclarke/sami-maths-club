@@ -48,5 +48,10 @@
       >
       <ion-button fill="clear" (click)="register()">Register</ion-button>
     </div>
+    <div class="tsandcs">
+      By logging in you agree to our
+      <span [routerLink]="['/app-terms']">Terms of Service</span> and
+      <span [routerLink]="['/privacy']">Privacy Policy</span>
+    </div>
   </div>
 </ion-content>

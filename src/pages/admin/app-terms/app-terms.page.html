@@ -1,11 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>app-terms</ion-title>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/']"
+        ><ion-icon src="/assets/svgs/back.svg"></ion-icon
+      ></ion-button>
+    </ion-buttons>
+    <ion-title>Terms &amp; Conditions</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Terms &amp; Conditions</h2>
   <p>
     By downloading or using the app, these terms will automatically apply to you
     – you should make sure therefore that you read them carefully before using

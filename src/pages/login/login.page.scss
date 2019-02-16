@@ -34,3 +34,11 @@ ion-button.google {
   font-size: small;
   color: rgb(170, 4, 4);
 }
+.tsandcs {
+  font-size: x-small;
+  margin-top: 1em;
+  span {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
