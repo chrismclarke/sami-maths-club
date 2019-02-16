@@ -1,52 +1,73 @@
 <ion-content padding style="background-color: white">
   <div class="login-container">
-    <div class="social-logins">
-      <ion-button
-        class="social left facebook"
-        expand="full"
-        (click)="userService.facebookLogin()"
-      >
-        <ion-icon slot="start" name="logo-facebook"></ion-icon
-        >Facebook</ion-button
-      >
-      <ion-button
-        class="social right google"
-        expand="full"
-        (click)="userService.googleLogin()"
-        ><ion-icon slot="start" name="logo-google"></ion-icon>
-        Google</ion-button
-      >
-    </div>
-    <form class="login-form" [formGroup]="loginForm">
-      <ion-item>
-        <ion-input
-          type="email"
-          placeholder="Email"
-          formControlName="email"
-        ></ion-input>
+    <ion-list>
+      <ion-item lines="none" class="social-logins">
+        <div style="display: flex; width:100%">
+          <ion-button
+            class="social left facebook"
+            expand="full"
+            (click)="userService.facebookLogin()"
+          >
+            <ion-icon slot="start" name="logo-facebook"></ion-icon
+            >Facebook</ion-button
+          >
+          <ion-button
+            class="social right google"
+            expand="full"
+            (click)="userService.googleLogin()"
+            ><ion-icon slot="start" name="logo-google"></ion-icon>
+            Google</ion-button
+          >
+        </div>
       </ion-item>
-      <ion-item>
-        <ion-input
-          type="password"
-          placeholder="Password"
-          formControlName="password"
-          (keyup.enter)="login()"
-        ></ion-input>
-      </ion-item>
-      <ion-button
-        type="submit"
-        expand="block"
-        (click)="login()"
-        [disabled]="!loginForm.valid"
-        >Login</ion-button
-      >
+    </ion-list>
+    <form>
+      <ion-list lines="none" [formGroup]="loginForm">
+        <ion-item class="login-form">
+          <ion-input
+            type="email"
+            placeholder="Email"
+            formControlName="email"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            (keyup.enter)="login()"
+          ></ion-input>
+        </ion-item>
+        <ion-item class="login-button-container">
+          <div style="display: flex; width:100%">
+            <ion-button
+              class="login"
+              type="submit"
+              (click)="login()"
+              [disabled]="!loginForm.valid"
+              >Login</ion-button
+            >
+            <ion-button
+              fill="clear"
+              class="register"
+              (click)="register()"
+              [disabled]="!loginForm.valid"
+              >Register</ion-button
+            >
+          </div>
+        </ion-item>
+      </ion-list>
     </form>
-    <div class="errorMsg">{{ errorMsg }}</div>
-    <div class="bottom-buttons">
+    <ion-list lines="none">
+      <div class="errorMsg">{{ errorMsg }}</div>
       <ion-button fill="clear" style="flex:1" (click)="pwReset()"
         >Forgot Password?</ion-button
       >
-      <ion-button fill="clear" (click)="register()">Register</ion-button>
-    </div>
+      <div class="tsandcs">
+        By logging in you agree to our
+        <span [routerLink]="['/app-terms']">Terms of Service</span> and
+        <span [routerLink]="['/privacy']">Privacy Policy</span>
+      </div>
+    </ion-list>
   </div>
 </ion-content>

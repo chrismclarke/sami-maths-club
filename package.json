@@ -10,7 +10,11 @@
     "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "backup:dev": "firestore-export --accountCredentials backups/dev.service.json --backupFile ./backups/dev.backup.json",
+    "backup:prod": "firestore-export --accountCredentials backups/prod.service.json --backupFile ./backups/prod.backup.json",
+    "restore:dev": "firestore-import --accountCredentials backups/dev.service.json --backupFile ./backups/dev.backup.json",
+    "restore:prod": "firestore-import --accountCredentials backups/prod.service.json --backupFile ./backups/prod.backup.json"
   },
   "private": true,
   "dependencies": {

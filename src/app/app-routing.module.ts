@@ -36,6 +36,14 @@ const routes: Routes = [
   {
     path: "my-club",
     loadChildren: "../pages/my-club/my-club.module#MyClubPageModule"
+  },
+  {
+    path: "app-terms",
+    loadChildren: "../pages/admin/app-terms/app-terms.module#AppTermsPageModule"
+  },
+  {
+    path: "privacy",
+    loadChildren: "../pages/admin/privacy/privacy.module#PrivacyPageModule"
   }
 ];
 
