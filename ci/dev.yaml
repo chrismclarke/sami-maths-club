@@ -1,13 +1,19 @@
 steps:
   # Install
-  - name: "gcr.io/cloud-builders/npm"
-    args: ["install"]
+  #- name: "gcr.io/cloud-builders/npm"
+  #  args: ["install"]
+  - name: "gcr.io/$PROJECT_ID/sami-app-base-img"
+    args: ["yarn install"]
   # Build
-  - name: "gcr.io/cloud-builders/npm"
-    args: ["run", "build"]
+  #- name: "gcr.io/cloud-builders/npm"
+  #  args: ["run", "build"]
+  - name: "gcr.io/$PROJECT_ID/sami-app-base-img"
+    args: ["npm run build"]
   # Test
-  - name: "gcr.io/cloud-builders/npm"
-    args: ["run", "test:ci"]
+  #- name: "gcr.io/cloud-builders/npm"
+  #  args: ["run", "test:ci"]
+  - name: "gcr.io/$PROJECT_ID/sami-app-base-img"
+    args: ["npm run test:ci"]
   # Deploy
   - name: "gcr.io/$PROJECT_ID/firebase"
     args: ["deploy", "--project", "dev"]

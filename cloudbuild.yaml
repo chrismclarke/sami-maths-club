@@ -1,12 +1,7 @@
 # this is the default cloudbuild triggered on push to any github branch
 # it simply tests whether the project still builds
 steps:
-  # Install
-  - name: "gcr.io/cloud-builders/npm"
-    args: ["install"]
-  # Test
-  #- name: "gcr.io/cloud-builders/npm"
-  #  args: ["run", "test"]
-  # Build
-  - name: "gcr.io/cloud-builders/npm"
-    args: ["run", "build:prod"]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/sami-app-base-img", "."]
+images:
+  - "gcr.io/$PROJECT_ID/sami-app-base-img"

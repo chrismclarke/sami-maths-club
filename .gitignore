@@ -20,6 +20,8 @@ npm-debug.log*
 .versions/
 backups/
 coverage/
+e2e/cypress/screenshots/
+e2e/cypress/videos/
 www/
 node_modules/
 tmp/

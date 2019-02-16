@@ -1,3 +1,4 @@
+# use base docker opfficial cloud-build image to load and execute our custom firebase docker image
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/$PROJECT_ID/firebase", "."]
