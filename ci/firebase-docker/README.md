@@ -26,3 +26,8 @@ steps:
 
 A custom docker image allows full customisation of a platform, and can have things
 like global variables, cypress installed, node modules already installed etc.
+
+Links:
+https://github.com/cypress-io/cypress-docker-images/tree/master/base/10
+https://cloud.google.com/cloud-build/docs/build-config
+https://glebbahmutov.com/blog/making-small-docker-image/

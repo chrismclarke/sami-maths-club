@@ -1,0 +1,13 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/sami-app-base-img",
+        ".",
+        "-f",
+        "sami-base.Dockerfile",
+      ]
+images:
+  - "gcr.io/$PROJECT_ID/sami-app-base-img"

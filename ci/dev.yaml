@@ -2,23 +2,20 @@
 
 steps:
   # Install
-  #- name: "gcr.io/cloud-builders/npm"
-  #  args: ["install"]
   - name: "gcr.io/$PROJECT_ID/sami-app-base-img"
     entrypoint: yarn
     args: ["install"]
+    dir: "/app"
   # Build
-  #- name: "gcr.io/cloud-builders/npm"
-  #  args: ["run", "build"]
   - name: "gcr.io/$PROJECT_ID/sami-app-base-img"
     entrypoint: npm
     args: ["run", "build"]
+    dir: "/app"
   # Test
-  #- name: "gcr.io/cloud-builders/npm"
-  #  args: ["run", "test:ci"]
   - name: "gcr.io/$PROJECT_ID/sami-app-base-img"
     entrypoint: npm
     args: ["run", "test:ci"]
+    dir: "/app"
   # Deploy
   - name: "gcr.io/$PROJECT_ID/firebase"
     args: ["deploy", "--project", "dev"]
