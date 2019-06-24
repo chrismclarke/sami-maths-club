@@ -4,7 +4,8 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
   production: false,
-  VERSION: require("../../package.json").version
+  VERSION: require("../../package.json").version,
+  isAndroid: false
 };
 
 export const firebaseConfig = {

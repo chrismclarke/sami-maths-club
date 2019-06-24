@@ -1,8 +1,7 @@
 import { Component } from "@angular/core";
-
+import { Plugins } from "@capacitor/core";
+const { SplashScreen } = Plugins;
 import { Platform } from "@ionic/angular";
-import { SplashScreen } from "@ionic-native/splash-screen/ngx";
-import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { environment } from "../environments/environment";
 
 @Component({
@@ -29,19 +28,17 @@ export class AppComponent {
     // }
   ];
 
-  constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar
-  ) {
+  constructor(private platform: Platform) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      if (this.platform.is("cordova")) {
-        this.statusBar.styleDefault();
-        this.splashScreen.hide();
+      if (environment.isAndroid) {
+        SplashScreen.show({
+          showDuration: 2000,
+          autoHide: true
+        });
       } else {
       }
     });

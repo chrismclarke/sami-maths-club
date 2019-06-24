@@ -1,7 +1,10 @@
+import { IEnvironment, BASE_ENVIRONMENT } from "./environment.base";
+console.log(["PWA"]);
 // this file is copied to environment during production build
-export const environment = {
-  production: true,
-  VERSION: require("../../package.json").version
+export const environment: IEnvironment = {
+  ...BASE_ENVIRONMENT,
+  isAndroid: false,
+  production: true
 };
 
 export const firebaseConfig = {

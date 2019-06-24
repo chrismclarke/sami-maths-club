@@ -3,8 +3,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
 
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
-import { SplashScreen } from "@ionic-native/splash-screen/ngx";
-import { StatusBar } from "@ionic-native/status-bar/ngx";
 
 import { AngularFireModule, FirebaseOptionsToken } from "@angular/fire";
 import { firebaseConfig } from "../environments/environment";
@@ -44,8 +42,6 @@ import { LoginPageModule } from "src/pages/login/login.module";
     LoginPageModule
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     // fix required to allow aot with firebase
     { provide: FirebaseOptionsToken, useValue: firebaseConfig }
