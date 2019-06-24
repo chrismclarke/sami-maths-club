@@ -1,0 +1,7 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "SAMI Maths Club",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "www"
+}

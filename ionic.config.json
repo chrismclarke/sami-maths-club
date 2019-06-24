@@ -1,5 +1,7 @@
 {
   "name": "SAMI Maths Club",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
