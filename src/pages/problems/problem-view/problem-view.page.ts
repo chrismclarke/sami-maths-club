@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Problem } from "src/models/problem.model";
-import { ProblemService } from "src/services/problem.service";
+import { ProblemService } from "src/services/core/problem.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { FadeIn } from "src/animations/animations";
-import { UserService } from "src/services/user.service";
+import { UserService } from "src/services/core/user.service";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 

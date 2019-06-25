@@ -1,14 +1,11 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ProblemService } from "src/services/problem.service";
 import { Problem } from "src/models/problem.model";
 import stringReplaceAsync from "string-replace-async";
-import { StorageService } from "src/services/storage.service";
-import { UserService } from "src/services/user.service";
-import { IUserValues } from "src/models/user.model";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { base64StringToBlob } from "blob-util";
+import { StorageService, UserService, ProblemService } from "src/services";
 
 @Component({
   selector: "app-edit",

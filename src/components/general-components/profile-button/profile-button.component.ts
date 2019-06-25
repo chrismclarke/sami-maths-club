@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UserService } from "src/services/user.service";
+import { UserService } from "src/services/core/user.service";
 import { ModalController } from "@ionic/angular";
 import { User } from "src/models/user.model";
 import { LoginPage } from "src/pages/login/login.page";

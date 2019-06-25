@@ -1,4 +1,4 @@
-import { DbService } from "src/services/db.service";
+import { DbService } from "src/services/core/db.service";
 
 export const USER_API_VERSION = 1.1;
 export class User {

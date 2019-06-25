@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { IProblem } from "src/models/problem.model";
-import { ProblemService } from "src/services/problem.service";
+import { ProblemService } from "src/services/core/problem.service";
 import { Subscription, Observable } from "rxjs";
 import { User } from "src/models/user.model";
-import { UserService } from "src/services/user.service";
+import { UserService } from "src/services/core/user.service";
 import { ModalController } from "@ionic/angular";
 import { ProblemsFilterPage } from "src/components/problem-components/problems-filter/problems-filter.module";
 

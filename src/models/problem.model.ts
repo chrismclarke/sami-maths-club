@@ -1,6 +1,6 @@
-import { DbService } from "src/services/db.service";
-import { IUploadedFileMeta } from "src/services/storage.service";
+import { DbService } from "src/services/core/db.service";
 import { SafeHtml } from "@angular/platform-browser";
+import { IUploadedFileMeta } from "./common.model";
 
 export const PROBLEM_API_VERSION = 1.0;
 export class Problem {
