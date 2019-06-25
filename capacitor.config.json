@@ -1,6 +1,6 @@
 {
   "appId": "io.c2dev.samimathsclub",
-  "appName": "SAMI Maths Club",
+  "appName": "Maths Club",
   "bundledWebRuntime": false,
   "npmClient": "yarn",
   "webDir": "www"
