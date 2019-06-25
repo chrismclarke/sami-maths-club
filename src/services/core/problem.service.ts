@@ -24,6 +24,7 @@ export class ProblemService {
     this.db.getCollection("problems").subscribe(
       data => {
         this.problems.next(data);
+        console.log("problems", data);
         this.initialised.next(true);
       },
       err => {

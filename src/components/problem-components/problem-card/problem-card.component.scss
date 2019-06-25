@@ -5,6 +5,7 @@ ion-card {
   width: 100%;
   margin: 0;
 }
+
 .problem-card {
   display: flex;
   flex-direction: column;
@@ -12,37 +13,45 @@ ion-card {
   justify-content: center;
   cursor: pointer;
 }
+
 .problem-image {
   height: 50%;
   width: 70%;
   margin: auto;
 }
-.problem-image > img {
+
+.problem-image>img {
   object-fit: cover;
   height: 100%;
   width: 100%;
 }
+
 .problem-difficulty {
   height: 1rem;
   display: flex;
   align-items: center;
 }
+
 .problem-title {
   height: 3rem;
   margin-top: 1rem;
 }
+
 .difficulty {
   width: 10px;
   height: 10px;
   margin-left: auto;
   border-radius: 50%;
 }
+
 .difficulty.easy {
   background: var(--ion-color-easy);
 }
+
 .difficulty.medium {
   background: var(--ion-color-medium);
 }
+
 .difficulty.hard {
   background: var(--ion-color-hard);
 }

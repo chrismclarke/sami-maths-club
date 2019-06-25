@@ -30,15 +30,25 @@ export class ProblemCardComponent {
     return sanitizeProblem as IProblemSantized;
   }
 
+  // svgs can't be embedded programatically (angular sanitize limitation)
+  // so convert to html that embeds within an <img> tag and div innerhtml
   private convertSVGToImageData(svgTag?: string) {
     // set default placeholder if not provided
     if (!svgTag) {
       svgTag = SVG_IMAGES[0];
     }
-    return this.sanitizer.bypassSecurityTrustHtml(
-      `<img src='data:image/svg+xml;utf8,
-      ${svgTag}
-      ' alt="" />`
-    );
+    const encodedSVG = this._encodeSVG(svgTag);
+    const Html = `<img src="data:image/svg+xml,${encodedSVG}"/>`;
+    return this.sanitizer.bypassSecurityTrustHtml(Html);
+  }
+
+  // method taken from http://yoksel.github.io/url-encoder/
+  // applies selective replacement of uri characters
+  private _encodeSVG(data: string): string {
+    const symbols = /[\r\n%#()<>?\[\\\]^`{|}]/g;
+    data = data.replace(/"/g, "'");
+    data = data.replace(/>\s{1,}</g, "><");
+    data = data.replace(/\s{2,}/g, " ");
+    return data.replace(symbols, encodeURIComponent);
   }
 }
