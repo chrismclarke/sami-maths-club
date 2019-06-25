@@ -520,27 +520,6 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.11.tgz#32a853fad9974cbbc9fc766ec5699a18b22ccee6"
   integrity sha512-WyMXDxk/WZ+f2lOCeEvDWUce2f5Kk2sNfvArK8f+PlUnzFdy/MBzLXrmbMgyZXP7GP4ooUxYV8Sdmoh1hGk1Uw==
 
-"@ionic-native/core@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@ionic-native/core/-/core-5.0.0.tgz#df81c39da968125970b602b8461be728bd0c0c87"
-  integrity sha512-qtshWPo+CMq9ZoDGcg+1XF1+k2ASm0sLtZsIbXmYo5X82Q9cUhjk95X9BqHnjXHOdIWk4J/D3ot0/vzmMTNdbA==
-  dependencies:
-    "@types/cordova" latest
-
-"@ionic-native/splash-screen@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@ionic-native/splash-screen/-/splash-screen-5.0.0.tgz#fc8974be7ce17eac17c1a8cc02f2c457171d541f"
-  integrity sha512-+7QfXPkaosGsR3ohEiL/WJn23NHVDZYvnilYNrOMF7oohnj5ngH46fCNYp1Tpybe5GCV1iP++RzDvE5jghWLZg==
-  dependencies:
-    "@types/cordova" latest
-
-"@ionic-native/status-bar@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@ionic-native/status-bar/-/status-bar-5.0.0.tgz#496b83e3f04b5ced1d27881b6494b5541df352bd"
-  integrity sha512-mJfj+VXTOgf9Og0S7QDlT9I8UVI+Wj4kpZUHdQizovA/R0m1HG2hLKtEMy00iDVbOBjRsXGcD6JXCOeyVjg7LA==
-  dependencies:
-    "@types/cordova" latest
-
 "@ionic/angular-toolkit@~1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@ionic/angular-toolkit/-/angular-toolkit-1.3.0.tgz#4d269b4ba2979ac037440fafa1d5c6d71e95bee7"
@@ -650,10 +629,6 @@
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.0.8.tgz#d27600e9ba2f371e08695d90a0fe0408d89c7be7"
   integrity sha512-m812CONwdZn/dMzkIJEY0yAs4apyTkTORgfB2UsMOxgkUbC205AHnm4T8I0I5gPg9MHrFc1dJ35iS75c0CJkjg==
-
-"@types/cordova@latest":
-  version "0.0.34"
-  resolved "http://registry.npmjs.org/@types/cordova/-/cordova-0.0.34.tgz#ea7addf74ecec3d7629827a0c39e2c9addc73d04"
 
 "@types/jasmine@*":
   version "3.3.0"

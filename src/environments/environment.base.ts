@@ -3,7 +3,8 @@ interface IBaseEnvironment {
 }
 export interface IEnvironment extends IBaseEnvironment {
   production: boolean;
-  isAndroid: boolean;
+  isAndroid?: boolean;
+  isPWA?: boolean;
 }
 
 export const BASE_ENVIRONMENT = {

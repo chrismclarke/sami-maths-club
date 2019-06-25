@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package io.c2dev.samimathsclub;
 
 import android.os.Bundle;
 

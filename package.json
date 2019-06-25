@@ -8,7 +8,7 @@
     "start": "ng serve",
     "build": "ng build",
     "deploy:dev": "firebase use dev && firebase deploy",
-    "android:build": "ng build app -c android && npx cap sync",
+    "android:prepare": "ng build app -c android && npx cap sync",
     "android:open": "npx cap open android",
     "pwa:build": "ng build app -c pwa",
     "lint": "ng lint",
