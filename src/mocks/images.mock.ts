@@ -1,5 +1,4 @@
 export const IMAGES = [];
-
 export const SVG_IMAGES = [
   // coming soon
   `

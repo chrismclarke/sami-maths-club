@@ -1,8 +1,9 @@
 import { DbService } from "src/services/core/db.service";
 import { SafeHtml } from "@angular/platform-browser";
-import { IUploadedFileMeta } from "./common.model";
+import { IUploadedFileMeta, ITimestamp } from "./common.model";
 
 export const PROBLEM_API_VERSION = 1.0;
+export type ProblemEndoint = "problemsV1";
 export class Problem {
   // call constructor with optional values to populate
   // NOTE - we want to instantiate 'new' problems but will still need to pass the shared dbService (save creating a new one)
@@ -10,7 +11,7 @@ export class Problem {
   constructor(public values: IProblem, private db: DbService) {}
 
   public save() {
-    this.values._modified = new Date();
+    this.values._modified = this.db.generateTimestamp(new Date());
     return this.db.afs.doc(`problems/${this.values._key}`).set(this.values);
   }
 
@@ -32,11 +33,10 @@ export class Problem {
  * **************************************/
 // properties assigned during creation
 export interface IProblem {
-  _averageRating: number;
+  _averageRating?: number;
   _apiVersion: number;
-  _completedBy: { ["id"]?: boolean };
-  _created: Date;
-  _modified: Date;
+  _created: ITimestamp;
+  _modified: ITimestamp;
   _key: string;
   title: string;
   slug: string;
