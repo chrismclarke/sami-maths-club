@@ -1,9 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
-
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
-
 import { AngularFireModule, FirebaseOptionsToken } from "@angular/fire";
 import { firebaseConfig } from "../environments/environment";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
@@ -12,7 +10,6 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { IonicStorageModule } from "@ionic/storage";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
@@ -32,10 +29,6 @@ import { LoginPageModule } from "src/pages/login/login.module";
     AngularFireAuthModule,
     AngularFireStorageModule,
     BrowserAnimationsModule,
-    IonicStorageModule.forRoot({
-      name: "__sami-v1",
-      driverOrder: ["indexeddb", "sqlite", "websql"]
-    }),
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production
     }),

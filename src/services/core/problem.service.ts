@@ -92,7 +92,7 @@ export class ProblemService {
   }
   private copyProblemImages(problem: IProblem) {
     problem.studentVersion.images.forEach(imageMeta => {
-      this.storageService;
+      // this.storageService;
     });
   }
 }
