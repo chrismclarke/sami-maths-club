@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { AngularFireStorage } from "@angular/fire/storage";
-import { storage } from "firebase/storage";
-import { AbstractStorageService } from "../core/storage.service";
+import { StorageBase, IStorageService } from "../core/storage.service";
 import { IUploadedFileMeta } from "src/models/common.model";
 
 @Injectable({
   providedIn: "root"
 })
-export class NativeStorageService extends AbstractStorageService {
+export class NativeStorageService extends StorageBase
+  implements IStorageService {
   constructor(public local: Storage, public server: AngularFireStorage) {
     super();
     console.log("[Web] storage service");
@@ -33,23 +33,4 @@ export class NativeStorageService extends AbstractStorageService {
 
   // some default upload meta can be undefined which can throw errors when setting in the db
   // this method provides a subset which will be defined
-  _getUploadMetaSubset(meta: storage.FullMetadata) {
-    return (({
-      bucket,
-      contentType,
-      fullPath,
-      name,
-      size,
-      timeCreated,
-      updated
-    }) => ({
-      bucket,
-      contentType,
-      fullPath,
-      name,
-      size,
-      timeCreated,
-      updated
-    }))(meta);
-  }
 }

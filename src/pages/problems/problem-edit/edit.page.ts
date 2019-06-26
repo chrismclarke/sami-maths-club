@@ -5,7 +5,8 @@ import stringReplaceAsync from "string-replace-async";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { base64StringToBlob } from "blob-util";
-import { StorageService, UserService, ProblemService } from "src/services";
+import { StorageService, UserService } from "src/services";
+import { ProblemService } from "src/services/core/problem.service";
 
 @Component({
   selector: "app-edit",

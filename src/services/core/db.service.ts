@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 // note, should check if still can build production with this
-import { firestore } from "firebase/firestore";
+import { firestore } from "firebase/app";
+import { IDBEndpoint } from "src/models/common.model";
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +19,7 @@ export class DbService {
   // https://groups.google.com/forum/#!topic/google-cloud-firestore-discuss/A7vMrtmV4U8
 
   // *** NOTE, REQUIRES _modified FIELD ON ALL DOCS TO FUNCTION PROPERLY
-  getCollection(endpoint: string) {
+  getCollection(endpoint: IDBEndpoint) {
     const results$ = new Observable<any[]>(subscriber => {
       this.getAfsCachedCollection(endpoint).then(records => {
         const cached = records.docs.map(d => d.data());
@@ -48,12 +49,17 @@ export class DbService {
 
   // use firestore querystring to fetch doc. First check cache and return if found, otherwise check live
   async queryCollection(
-    endpoint: string,
+    endpoint: IDBEndpoint,
     field: string,
     operator: firestore.WhereFilterOp,
-    value: any
+    value: any,
+    orderBy: string = "modified",
+    limit: number = 1000
   ) {
-    const ref = this.afs.firestore.collection(endpoint);
+    const ref = this.afs.firestore
+      .collection(endpoint)
+      .orderBy(orderBy)
+      .limit(limit);
     const query = ref.where(field, operator, value);
     let res = await query.get({ source: "cache" });
     if (res.empty) {
@@ -62,7 +68,7 @@ export class DbService {
     return res.docs.map(d => d.data());
   }
 
-  private async getAfsCachedCollection(endpoint: string) {
+  private async getAfsCachedCollection(endpoint: IDBEndpoint) {
     const docs = await this.afs.firestore
       .collection(endpoint)
       .orderBy("_modified")
@@ -70,9 +76,13 @@ export class DbService {
     return docs;
   }
 
+  generateTimestamp(date: Date) {
+    return firestore.Timestamp.fromDate(date);
+  }
+
   // not currently implemented, but may want some method to ensure cached data not stale
   // e.g. case when problem edited or deleted and _modified field not changed
-  private async refreshCache(endpoint: string) {
+  private async refreshCache(endpoint: IDBEndpoint) {
     const docs = await this.afs.firestore
       .collection(endpoint)
       .orderBy("_modified")
