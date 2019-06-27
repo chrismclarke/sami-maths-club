@@ -1,6 +1,6 @@
 import { IProblem } from "src/models/problem.model";
 
-export const DEFAULT_PROBLEMS: IProblem[] = [
+export const INITIAL_PROBLEMS: IProblem[] = [
   {
     _apiVersion: 1,
     _created: {

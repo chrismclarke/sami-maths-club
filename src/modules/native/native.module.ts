@@ -1,8 +1,11 @@
 import { NgModule, Optional, SkipSelf } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { NativeFileService } from "src/services/native/native.file.service";
+import { NativeStorageService } from "src/services/native/native.storage.service";
 @NgModule({
   declarations: [],
-  imports: [CommonModule]
+  imports: [CommonModule],
+  providers: [NativeFileService, NativeStorageService]
 })
 // prevent reimport of module
 export class NativeModule {

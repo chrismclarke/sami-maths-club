@@ -35,7 +35,7 @@
     horizontal="end"
     slot="fixed"
     routerLink="/new-problem"
-    *ngIf="(user$ | async)"
+    *ngIf="user$ | async"
     class="show-sm"
   >
     <ion-fab-button>
@@ -53,7 +53,6 @@
       <ion-icon class="icon--large" src="/assets/svgs/filter.svg"></ion-icon>
     </ion-fab-button>
   </ion-fab> -->
-  <app-sw-check></app-sw-check>
 </ion-content>
 
 <!-- <footer class="tab-footer">

@@ -6,8 +6,9 @@ import {
   PROBLEM_API_VERSION
 } from "src/models/problem.model";
 import { BehaviorSubject } from "rxjs";
-import { DEFAULT_PROBLEMS } from "src/data/defaultProblems";
 import { ITimestamp } from "src/models/common.model";
+import { INITIAL_PROBLEMS } from "src/data/initialProblems";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -28,7 +29,9 @@ export class ProblemService {
     // get local cache problems
     const cached = await this.storageService.get("problemsV1");
     if (!cached) {
-      return this.loadHardcodedProblems();
+      // if not cached
+      await this.loadHardcodedProblems();
+      // return this.init();
     }
     // cached data stored in {key:value} format for each problem
     const cachedData: { [key: string]: IProblem } = JSON.parse(cached);
@@ -36,6 +39,15 @@ export class ProblemService {
     this.problems.next(problems);
     const latest = problems[problems.length - 1];
     this._subscribeToProblemUpdates(latest._modified);
+  }
+
+  // for very first init a subset of problems are readily available
+  async loadHardcodedProblems() {
+    if (environment.isAndroid) {
+      await this.storageService.copyAppFolder("data/uploads");
+    }
+
+    INITIAL_PROBLEMS.forEach(problem => {});
   }
 
   /********************************************************************************
@@ -70,10 +82,7 @@ export class ProblemService {
   /********************************************************************************
    *  Private methods
    ********************************************************************************/
-  // for very first init a subset of problems are readily available
-  private loadHardcodedProblems() {
-    console.log("initialising problems for the first time");
-  }
+
   private async _subscribeToProblemUpdates(startAfter: ITimestamp) {
     this.db.getCollection("problemsV1", startAfter).subscribe(
       data => {
@@ -89,17 +98,6 @@ export class ProblemService {
   /********************************************************************************
    *  Methods used only on-demand (e.g. preparing new release hard-coded resources)
    ********************************************************************************/
-  private async generateHardcodedProblems() {
-    // use query, requires some default query params to alllow order and limit
-    const promises = DEFAULT_PROBLEMS.map(p => {
-      // await;
-    });
-  }
-  private copyProblemImages(problem: IProblem) {
-    problem.studentVersion.images.forEach(imageMeta => {
-      // this.storageService;
-    });
-  }
 }
 
 const PROBLEM_DEFAULTS = {

@@ -17,4 +17,7 @@ export class WebStorageService extends StorageBase implements IStorageService {
   async addToFileCache(downloadUrl: string) {
     // Todo
   }
+  async copyAppFolder(folderPath: string): Promise<void> {
+    // not required on web (?)
+  }
 }

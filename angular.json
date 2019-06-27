@@ -96,6 +96,19 @@
                 }
               ],
               "serviceWorker": false
+            },
+            "android-debug": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.android.ts"
+                },
+                {
+                  "replace": "src/services/index.ts",
+                  "with": "src/services/index.native.ts"
+                }
+              ],
+              "serviceWorker": false
             }
           }
         },
@@ -107,6 +120,18 @@
           "configurations": {
             "production": {
               "browserTarget": "app:build:production"
+            },
+            "android": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.android.ts"
+                },
+                {
+                  "replace": "src/services/index.ts",
+                  "with": "src/services/index.native.ts"
+                }
+              ]
             }
           }
         },
