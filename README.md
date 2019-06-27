@@ -60,3 +60,16 @@ Could also cache api calls, however not currently required as firestore has own 
 (would be useful if other external apis)
 
 Note, local serve will fail as expecting gzip
+
+### Handling native vs web custom providers and components
+
+Currently a somewhat complex system is in place to manage which services are available and when.
+
+The first configuration happens within `angular.json`, which specifies file replacements.
+This is used to automatically replace the various `environment.[].ts` files depending on build environment.
+It also overwrites the `services/index.ts` file within native to provide services that sit within
+the `services/native` directory.
+
+A second configuration happens within `app.module.ts` which selectively registers either `web.module.ts`
+or `native.module.ts` from the `modules` directory. This allows declaration or initiation of selected
+components or services, curretly used to register a service worker only when in web environment.

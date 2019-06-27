@@ -1,20 +1,23 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
-import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { AngularFireModule, FirebaseOptionsToken } from "@angular/fire";
-import { firebaseConfig } from "../environments/environment";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireStorageModule } from "@angular/fire/storage";
-
-import { AppComponent } from "./app.component";
-import { AppRoutingModule } from "./app-routing.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from "@angular/service-worker";
-import { environment } from "../environments/environment";
+import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
+import { AppComponent } from "./app.component";
+import { AppRoutingModule } from "./app-routing.module";
+import { firebaseConfig, environment } from "src/environments/environment";
 import { LoginPageModule } from "src/pages/login/login.module";
+import { WebModule } from "src/modules/web/web.module";
+import { NativeModule } from "src/modules/native/native.module";
 
+// Additionally register platform module to register service worker on web
+// or provide additional native providers on native
+const PlatformModule = environment.isAndroid ? NativeModule : WebModule;
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -29,10 +32,8 @@ import { LoginPageModule } from "src/pages/login/login.module";
     AngularFireAuthModule,
     AngularFireStorageModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register("ngsw-worker.js", {
-      enabled: environment.production
-    }),
-    LoginPageModule
+    LoginPageModule,
+    PlatformModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
