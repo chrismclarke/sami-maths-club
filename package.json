@@ -18,8 +18,6 @@
     "test:ci": "run-p --race serve:build cypress:run",
     "cypress:run": "cypress run",
     "serve:build": "http-server ./www -a localhost -p 4200 -c-1",
-    "generate:***TODO***": "switch to using server once sync'd",
-    "generate:default-problems": "firestore-export --accountCredentials backups/dev.service.json --backupFile ./backups/defaultProblems.json",
     "backup:dev": "firestore-export --accountCredentials backups/dev.service.json --backupFile ./backups/dev.backup.json",
     "backup:prod": "firestore-export --accountCredentials backups/prod.service.json --backupFile ./backups/prod.backup.json",
     "restore:dev": "firestore-import --accountCredentials backups/dev.service.json --backupFile ./backups/dev.backup.json",

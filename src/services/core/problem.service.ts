@@ -7,6 +7,7 @@ import {
 } from "src/models/problem.model";
 import { BehaviorSubject } from "rxjs";
 import { DEFAULT_PROBLEMS } from "src/data/defaultProblems";
+import { ITimestamp } from "src/models/common.model";
 
 @Injectable({
   providedIn: "root"
@@ -29,8 +30,12 @@ export class ProblemService {
     if (!cached) {
       return this.loadHardcodedProblems();
     }
-    this.problems.next(JSON.parse(cached));
-    this._subscribeToProblemUpdates();
+    // cached data stored in {key:value} format for each problem
+    const cachedData: { [key: string]: IProblem } = JSON.parse(cached);
+    const problems: IProblem[] = Object.values(cachedData);
+    this.problems.next(problems);
+    const latest = problems[problems.length - 1];
+    this._subscribeToProblemUpdates(latest._modified);
   }
 
   /********************************************************************************
@@ -69,8 +74,8 @@ export class ProblemService {
   private loadHardcodedProblems() {
     console.log("initialising problems for the first time");
   }
-  private async _subscribeToProblemUpdates() {
-    this.db.getCollection("problemsV1").subscribe(
+  private async _subscribeToProblemUpdates(startAfter: ITimestamp) {
+    this.db.getCollection("problemsV1", startAfter).subscribe(
       data => {
         // this.problems.next(data);
         console.log("problems", data);

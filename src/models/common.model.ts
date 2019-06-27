@@ -22,4 +22,3 @@ export interface ITimestamp extends Partial<firestore.Timestamp> {
 
 // endpoints used to access server and local storage data
 export type IDBEndpoint = ProblemEndoint | "users";
-export type ICacheEndpoint = ProblemEndoint | "user";

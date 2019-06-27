@@ -4,13 +4,19 @@ const { SplashScreen } = Plugins;
 import { Platform } from "@ionic/angular";
 import { environment } from "../environments/environment";
 
+interface IPage {
+  title: string;
+  url: string;
+  icon?: string;
+  customIcon?: string;
+}
 @Component({
   selector: "app-root",
   templateUrl: "app.component.html"
 })
 export class AppComponent {
   version = environment.VERSION;
-  public appPages = [
+  public appPages: IPage[] = [
     // {
     //   title: "Home",
     //   url: "/home",
@@ -29,11 +35,13 @@ export class AppComponent {
   ];
 
   constructor(private platform: Platform) {
+    console.log("initialise");
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      console.log("platform ready");
       if (environment.isAndroid) {
         SplashScreen.show({
           showDuration: 2000,

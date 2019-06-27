@@ -1,5 +1,5 @@
 import { IEnvironment, BASE_ENVIRONMENT } from "./environment.base";
-console.log(["ANDROID"]);
+console.log("[ANDROID]");
 // this file is copied to environment during production build
 export const environment: IEnvironment = {
   ...BASE_ENVIRONMENT,

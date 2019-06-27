@@ -1,3 +1,4 @@
+import { Injectable } from "@angular/core";
 import {
   Plugins,
   FilesystemDirectory,
@@ -6,6 +7,8 @@ import {
 
 const { Filesystem } = Plugins;
 
+// Note - no 'providedIn' syntax as not declared in root app.module.ts but instead web.module.ts
+@Injectable()
 export class NativeFileService {
   fileWrite() {
     try {
