@@ -20,13 +20,14 @@ interface IStorageServiceBase {
   localStorage: StoragePlugin;
   serverStorage: AngularFireStorage;
   get(cacheKey: IDBEndpoint): Promise<string | null>;
+  set(cacheKey: IDBEndpoint, value: any): Promise<void>;
   uploadFile(path: string, blob: Blob): Promise<IUploadedFileMeta>;
   _getUploadMetaSubset(meta: FullMetadata): Partial<IUploadedFileMeta>;
 }
 // methods that vary by pwa/native implementation
 export interface IStorageService extends IStorageServiceBase {
   addToFileCache(downloadUrl: string): Promise<void>;
-  copyAppFolder(folderPath: string): Promise<void>;
+  copyAppAsset(file: IUploadedFileMeta): Promise<void>;
 }
 
 /************************************************************************
@@ -54,6 +55,9 @@ export class StorageBase implements IStorageServiceBase {
   async get(key: IDBEndpoint): Promise<string | null> {
     const ret = await this.localStorage.get({ key: key });
     return ret.value;
+  }
+  async set(key: IDBEndpoint, value: string): Promise<void> {
+    return this.localStorage.set({ key: key, value: JSON.stringify(value) });
   }
 
   /******************************************************************************************

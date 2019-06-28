@@ -655,6 +655,20 @@
     lodash.camelcase "^4.3.0"
     protobufjs "^6.8.6"
 
+"@ionic-native/core@^5.8.0":
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/core/-/core-5.8.0.tgz#3db441a3683df00ddd61f879dd74496e6b02dac1"
+  integrity sha512-HHsbgFEIAwM9wACpCTMgQT1zcqfWmZzmj5S4w8b1ShGjaJCVZAvuU+78tkVRAK2MK5/8bIJyugE8N2GpVgLTmg==
+  dependencies:
+    "@types/cordova" latest
+
+"@ionic-native/file@^5.8.0":
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/file/-/file-5.8.0.tgz#d9d1202d78317a775c033a5df3d97b7bde150a92"
+  integrity sha512-tUCwn5olCq5gAVqDPlPhuEhBwacj1sMAETTy4UQ6Y+kJOTg9lJgVRAHy5lRHr1TURpQ+lCayCR572Xrr1Myxow==
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic/angular-toolkit@~1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@ionic/angular-toolkit/-/angular-toolkit-1.3.0.tgz#4d269b4ba2979ac037440fafa1d5c6d71e95bee7"
@@ -829,6 +843,11 @@
   integrity sha512-4r8qa0quOvh7lGD0pre62CAb1oni1OO6ecJLGCezTmhQ8Fz50Arx9RUszryR8KlgK6avuSXvviL6yWyViQABOg==
   dependencies:
     "@types/node" "*"
+
+"@types/cordova@latest":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@types/cordova/-/cordova-0.0.34.tgz#ea7addf74ecec3d7629827a0c39e2c9addc73d04"
+  integrity sha1-6nrd907Ow9dimCegw54smt3HPQQ=
 
 "@types/cors@^2.8.1":
   version "2.8.5"
@@ -1722,6 +1741,11 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
+beepbeep@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/beepbeep/-/beepbeep-1.2.2.tgz#6d77b8a07f3b11fa4f388c62e70ae607a0923f89"
+  integrity sha512-6Kz/q06tpY/rMlB+vmq1vFGkGwfSolJlbxR3QUZOFSlPSfYUpPMo43o25xu6ou1GaoTiXV8adlelhewilup0Ag==
+
 better-assert@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/better-assert/-/better-assert-1.0.2.tgz#40866b9e1b9e0b55b481894311e68faffaebc522"
@@ -2581,6 +2605,11 @@ copy-webpack-plugin@4.6.0:
     minimatch "^3.0.4"
     p-limit "^1.0.0"
     serialize-javascript "^1.4.0"
+
+cordova-plugin-file@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-file/-/cordova-plugin-file-6.0.1.tgz#49606b8c15a5688d4728f92e4a7325a061de07f5"
+  integrity sha1-SWBrjBWlaI1HKPkuSnMloGHeB/U=
 
 core-js@2.5.5:
   version "2.5.5"

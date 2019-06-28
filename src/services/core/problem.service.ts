@@ -6,10 +6,13 @@ import {
   PROBLEM_API_VERSION
 } from "src/models/problem.model";
 import { BehaviorSubject } from "rxjs";
-import { ITimestamp } from "src/models/common.model";
-import { INITIAL_PROBLEMS } from "src/data/initialProblems";
+import { ITimestamp, IUploadedFileMeta } from "src/models/common.model";
+import { INITIAL_PROBLEMS } from "src/assets/data/initialProblems";
 import { environment } from "src/environments/environment";
 
+interface ICachedProblems {
+  [key: string]: IProblem;
+}
 @Injectable({
   providedIn: "root"
 })
@@ -30,24 +33,44 @@ export class ProblemService {
     const cached = await this.storageService.get("problemsV1");
     if (!cached) {
       // if not cached
-      await this.loadHardcodedProblems();
-      // return this.init();
+      console.log("no cached problems, loading hardcoded");
+      await this.loadHardcodedProblems(INITIAL_PROBLEMS);
+      return this.init();
     }
-    // cached data stored in {key:value} format for each problem
-    const cachedData: { [key: string]: IProblem } = JSON.parse(cached);
+    console.log("cached", cached);
+    const cachedData: ICachedProblems = JSON.parse(cached);
     const problems: IProblem[] = Object.values(cachedData);
     this.problems.next(problems);
     const latest = problems[problems.length - 1];
     this._subscribeToProblemUpdates(latest._modified);
   }
 
+  /********************************************************************************
+   *  Hardcoded problems
+   ********************************************************************************/
   // for very first init a subset of problems are readily available
-  async loadHardcodedProblems() {
+  async loadHardcodedProblems(problems: IProblem[]) {
+    const cached: ICachedProblems = {};
     if (environment.isAndroid) {
-      await this.storageService.copyAppFolder("data/uploads");
+      // save problems in sequence to avoid file system conflict
+      for (const problem of problems.slice(0, 1)) {
+        cached[problem._key] = problem;
+      }
+      console.log("all problems cached", cached);
+      await this.storageService.set("problemsV1", JSON.stringify(cached));
     }
+  }
 
-    INITIAL_PROBLEMS.forEach(problem => {});
+  async copyHardCodedImages(images: IUploadedFileMeta[]) {
+    const promises = images.map(async image => {
+      try {
+        await this.storageService.copyAppAsset(image);
+      } catch (error) {
+        // File could not be copied, does not exist in assets folder
+        throw Error;
+      }
+    });
+    return Promise.all(promises);
   }
 
   /********************************************************************************
