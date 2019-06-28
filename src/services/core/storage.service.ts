@@ -59,6 +59,20 @@ export class StorageBase implements IStorageServiceBase {
   async set(key: IDBEndpoint, value: string): Promise<void> {
     return this.localStorage.set({ key: key, value: JSON.stringify(value) });
   }
+  async getObject(key: IDBEndpoint): Promise<any> {
+    const ret = await this.localStorage.get({ key: key });
+    return this._parse(ret.value);
+  }
+  // unknown why but sometimes data comes back encoded in such a way that JSON.parse
+  // still returns a string
+  _parse(data: any): any {
+    if (typeof data === "string") {
+      const parsed = JSON.parse(data);
+      return this._parse(parsed);
+    } else {
+      return data;
+    }
+  }
 
   /******************************************************************************************
                                Server DB Storage Functions

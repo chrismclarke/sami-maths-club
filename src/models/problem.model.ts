@@ -8,7 +8,9 @@ export class Problem {
   // call constructor with optional values to populate
   // NOTE - we want to instantiate 'new' problems but will still need to pass the shared dbService (save creating a new one)
 
-  constructor(public values: IProblem, private db: DbService) {}
+  constructor(public values: IProblem, private db: DbService) {
+    console.log("load problem", values);
+  }
 
   public save() {
     this.values._modified = this.db.generateTimestamp(new Date());

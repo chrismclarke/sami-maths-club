@@ -41,7 +41,7 @@ export class ProblemViewPage implements OnInit, OnDestroy {
     if (problem.values) {
       this.sanitizeProblem(problem);
       this.problem = problem;
-      console.log("problem", this.problem.values);
+      console.log("problem view", this.problem.values);
     } else {
       // if no problem found navigate to main problems page
       this.back();
