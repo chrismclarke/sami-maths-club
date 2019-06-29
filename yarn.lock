@@ -662,6 +662,13 @@
   dependencies:
     "@types/cordova" latest
 
+"@ionic-native/file-transfer@^5.8.0":
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/file-transfer/-/file-transfer-5.8.0.tgz#5afa26fa14b1ae345549edc927c0cad627b26066"
+  integrity sha512-v8V3ziLOj9MjzjeedUcfobuf8PK3IknyiN5c2DnFSyzREHagSk0vpeJq0Paz2AHe3y84FWGkD6ryHnX+JC1exw==
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic-native/file@^5.8.0":
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/@ionic-native/file/-/file-5.8.0.tgz#d9d1202d78317a775c033a5df3d97b7bde150a92"
@@ -2605,6 +2612,11 @@ copy-webpack-plugin@4.6.0:
     minimatch "^3.0.4"
     p-limit "^1.0.0"
     serialize-javascript "^1.4.0"
+
+cordova-plugin-file-transfer@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-file-transfer/-/cordova-plugin-file-transfer-1.7.1.tgz#a75d8be2ebc3bb9b23c5b1bbd199214ec267586b"
+  integrity sha1-p12L4uvDu5sjxbG70ZkhTsJnWGs=
 
 cordova-plugin-file@^6.0.1:
   version "6.0.1"

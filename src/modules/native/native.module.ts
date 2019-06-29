@@ -3,10 +3,11 @@ import { CommonModule } from "@angular/common";
 import { File } from "@ionic-native/file/ngx";
 import { NativeFileService } from "src/services/native/native.file.service";
 import { NativeStorageService } from "src/services/native/native.storage.service";
+import { FileTransfer } from "@ionic-native/file-transfer/ngx";
 @NgModule({
   declarations: [],
   imports: [CommonModule],
-  providers: [NativeFileService, NativeStorageService, File]
+  providers: [NativeFileService, NativeStorageService, File, FileTransfer]
 })
 // prevent reimport of module
 export class NativeModule {

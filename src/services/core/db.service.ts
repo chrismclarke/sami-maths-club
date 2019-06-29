@@ -18,7 +18,6 @@ export class DbService {
   getCollection(endpoint: IDBEndpoint, startAfter?: IDBDoc) {
     // having query issues with timestamps so just converting to date
     const start = this._timestampToDate(startAfter._modified);
-    console.log("get", endpoint, "start", start);
     const results$ = new Observable<any[]>(subscriber => {
       this.afs.firestore
         .collection(endpoint)
@@ -30,7 +29,6 @@ export class DbService {
           docs => {
             if (!docs.empty) {
               const data = docs.docs.map(d => d.data());
-              console.log("docs received", data);
               subscriber.next(data);
             }
           },

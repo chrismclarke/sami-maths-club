@@ -26,7 +26,11 @@ interface IStorageServiceBase {
 }
 // methods that vary by pwa/native implementation
 export interface IStorageService extends IStorageServiceBase {
+  // support multiple files to be cached at same time so can send single fail notice
+  // and allow optimsed cache add on web (not repeatedly opening and adding one file)
   addFilesToCache(files: IUploadedFileMeta[]): Promise<void>;
+  // specifically for native, allow assets to be copied from app folder itself
+  // to allow core assets to be used throughout app (e.g. hardcoded problems)
   copyAppAsset(file: IUploadedFileMeta): Promise<void>;
 }
 

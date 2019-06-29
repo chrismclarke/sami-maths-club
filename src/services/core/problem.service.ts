@@ -165,19 +165,15 @@ export class ProblemService {
   }
 }
 
-const PROBLEM_DEFAULTS = {
+// use any type instead of Partial<IProblem> as all fields below required
+const PROBLEM_DEFAULTS: any = {
   _apiVersion: PROBLEM_API_VERSION,
   _averageRating: null,
   _key: null,
   coverSVG: null,
   createdBy: null,
   difficulty: null,
-  facilitatorVersion: {
-    solution: null,
-    extension: null,
-    pedagogy: null,
-    downloadUrl: null
-  },
+  facilitatorVersion: {},
   isApproved: false,
   locked: false,
   slug: null,

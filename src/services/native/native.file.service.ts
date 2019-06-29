@@ -7,6 +7,12 @@ import {
 
 const { Filesystem } = Plugins;
 import { File, FileEntry, DirectoryEntry } from "@ionic-native/file/ngx";
+import {
+  FileTransfer,
+  FileTransferObject,
+  FileTransferError
+} from "@ionic-native/file-transfer/ngx";
+import { IUploadedFileMeta } from "src/models/common.model";
 declare const window: any;
 
 /******************************************************************************************
@@ -24,9 +30,10 @@ export class NativeFileService {
   docsDir = FilesystemDirectory.Documents;
   // app dir provides read-only to app contents
   appDir = FilesystemDirectory.Application;
+  // src assets folder
   assetsDir: string;
   // additional use of ionic-native file for accessing application dir
-  constructor(private file: File) {
+  constructor(private file: File, private transfer: FileTransfer) {
     this.assetsDir = `${this.file.applicationDirectory}public/assets/`;
   }
 
@@ -121,6 +128,28 @@ export class NativeFileService {
    *                  File Methods
    ***********************************************************************************************/
 
+  async downloadFile(file: IUploadedFileMeta) {
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    const url = file.downloadUrl;
+    const target = `${this.file.dataDirectory}${file.fullPath}`;
+    try {
+      const downloadEntry: FileEntry = await fileTransfer.download(url, target);
+      return downloadEntry;
+    } catch (error) {
+      const err: FileTransferError = error;
+      console.error(error);
+      switch (err.code) {
+        case 3:
+          console.log("error code 3");
+          break;
+
+        default:
+          throw error;
+          break;
+      }
+    }
+  }
+
   //  take file relative to src/assets/files and copy to device data
   async copyAssetFile(assetFilePath: string) {
     const path = `${this.assetsDir}files/${assetFilePath}`;
@@ -141,6 +170,7 @@ export class NativeFileService {
     }
   }
 
+  // copy file from src directory to any other
   private async copyFile(
     srcFile: FileEntry,
     parentDirectory: DirectoryEntry,

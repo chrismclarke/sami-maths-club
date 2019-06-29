@@ -52,10 +52,12 @@ export interface IProblem {
 }
 
 interface IFacilitatorVersion {
-  solution: string;
-  extension: string;
-  pedagogy: string;
-  downloadUrl: string;
+  pdf?: IUploadedFileMeta;
+  // todo - remove download url and add full meta
+  downloadUrl?: string;
+  extension?: null;
+  pedagogy?: null;
+  solution?: null;
 }
 
 interface IStudentVersion {

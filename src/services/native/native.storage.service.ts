@@ -27,9 +27,10 @@ export class NativeStorageService extends StorageBase
     await Promise.all(promises);
     console.log("all files successfully added");
   }
-  private _addFileToCache(file: IUploadedFileMeta) {
-    // Todo
-    console.log("TODO METHOD");
+  private async _addFileToCache(file: IUploadedFileMeta) {
+    console.log("adding file to cache", file);
+    await this.fileService.downloadFile(file);
+    console.log("file added succesfully");
   }
   // NOTE - won't work as can't access local folder. Perhaps use http to copy from problems
   async copyAppAsset(file: IUploadedFileMeta): Promise<void> {
