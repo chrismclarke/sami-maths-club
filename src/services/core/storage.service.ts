@@ -26,7 +26,7 @@ interface IStorageServiceBase {
 }
 // methods that vary by pwa/native implementation
 export interface IStorageService extends IStorageServiceBase {
-  addToFileCache(downloadUrl: string): Promise<void>;
+  addFilesToCache(files: IUploadedFileMeta[]): Promise<void>;
   copyAppAsset(file: IUploadedFileMeta): Promise<void>;
 }
 

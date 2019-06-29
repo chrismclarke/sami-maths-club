@@ -1,4 +1,5 @@
 import { DbService } from "src/services/core/db.service";
+import { IDBDoc } from "./common.model";
 
 export const USER_API_VERSION = 1.1;
 export class User {
@@ -7,8 +8,7 @@ export class User {
   }
 
   public async save() {
-    this.values._modified = new Date();
-    await this.db.afs.doc(`users/${this.values.email}`).set(this.values);
+    await this.db.setDoc("users", this.values);
     console.log("user saved");
   }
 
@@ -37,11 +37,9 @@ export interface IUserBase {
   photoURL?: string;
   uid: string;
 }
-export interface IUserMeta {
+export interface IUserMeta extends IDBDoc {
   _apiVersion: number;
-  _created: Date;
   _key: string;
-  _modified: Date;
   permissions: IUserPermissions;
 }
 

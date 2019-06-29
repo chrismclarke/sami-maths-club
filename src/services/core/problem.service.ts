@@ -9,6 +9,7 @@ import { BehaviorSubject } from "rxjs";
 import { ITimestamp, IUploadedFileMeta } from "src/models/common.model";
 import { INITIAL_PROBLEMS } from "src/assets/data/initialProblems";
 import { environment } from "src/environments/environment";
+import { mergeJsonArrays } from "src/utils/utils";
 
 interface ICachedProblems {
   [key: string]: IProblem;
@@ -33,16 +34,20 @@ export class ProblemService {
     const cached: ICachedProblems = await this.storageService.getObject(
       "problemsV1"
     );
-    if (!cached) {
-      await this.loadHardcodedProblems(INITIAL_PROBLEMS);
-      return this.init();
+    if (cached) {
+      const problems: IProblem[] = Object.values(cached);
+      this.problems.next(this._filterProblems(problems));
+      const latest = problems[problems.length - 1];
+      return this._subscribeToProblemUpdates(latest);
+    } else {
+      // native load hardcoded problems
+      if (environment.isAndroid) {
+        await this.loadHardcodedProblems(INITIAL_PROBLEMS);
+        return this.init();
+      }
+      // web subscribe to all
+      return this._subscribeToProblemUpdates();
     }
-    const problems: IProblem[] = Object.values(cached).sort((a, b) =>
-      a._created > b._created ? 1 : -1
-    );
-    this.problems.next(problems);
-    const latest = problems[problems.length - 1];
-    this._subscribeToProblemUpdates(latest._modified);
   }
 
   /********************************************************************************
@@ -75,7 +80,7 @@ export class ProblemService {
       ...PROBLEM_DEFAULTS,
       _modified: this.db.generateTimestamp(new Date()),
       _created: this.db.generateTimestamp(new Date()),
-      _key: this.db.afs.createId(),
+      _key: this.db.generateID(),
       createdBy: userID
     };
     return new Problem(values, this.db);
@@ -85,17 +90,53 @@ export class ProblemService {
    *  Private methods
    ********************************************************************************/
 
-  private async _subscribeToProblemUpdates(startAfter: ITimestamp) {
+  //  take newest doc in cache and look for anything newer
+  //  when fresh data arrives ensure images are stored locally before making available
+  //  and finally update local cache
+  private async _subscribeToProblemUpdates(startAfter?: IProblem) {
     console.log("getting new problems", startAfter);
     this.db.getCollection("problemsV1", startAfter).subscribe(
-      data => {
-        // this.problems.next(data);
-        console.log("problems received", data);
+      async data => {
+        const newProblems = data as IProblem[];
+        const total = newProblems.length;
+        console.log(
+          `%c Downloading [${newProblems.length}] New Problems!!!`,
+          "background: #222; color: #bada55"
+        );
+        let count = 1;
+        for (const problem of newProblems) {
+          // cache problem
+          console.log(`caching ${count} of ${total}`);
+          await this.storageService.addFilesToCache(
+            problem.studentVersion.images
+          );
+          count++;
+          // merge
+          // notify (?)
+          // update cache
+        }
+
+        const merged = mergeJsonArrays(this.problems.value, data as IProblem[]);
+        this.problems.next(this._filterProblems(merged));
+        console.log("problems", this.problems.value);
       },
       err => {
         throw new Error("could not get problems");
       }
     );
+  }
+
+  private _filterProblems(problems: IProblem[]) {
+    let p = [...problems];
+    // remove deleted
+    p = p.filter(v => !v.deleted);
+    // hide temp from non-admin or non-creator
+
+    // sort by created
+    const sorted = p.sort((a, b) => {
+      return a._created > b._created ? 1 : -1;
+    });
+    return sorted;
   }
 
   /********************************************************************************
@@ -104,13 +145,11 @@ export class ProblemService {
   // for very first init a subset of problems are readily available
   async loadHardcodedProblems(problems: IProblem[]) {
     const cached: ICachedProblems = {};
-    if (environment.isAndroid) {
-      // save problems in sequence to avoid file system conflict
-      for (const problem of problems.slice(0, 1)) {
-        cached[problem._key] = problem;
-      }
-      await this.storageService.set("problemsV1", JSON.stringify(cached));
+    // save problems in sequence to avoid file system conflict
+    for (const problem of problems.slice(0, 1)) {
+      cached[problem._key] = problem;
     }
+    await this.storageService.set("problemsV1", JSON.stringify(cached));
   }
 
   async copyHardCodedImages(images: IUploadedFileMeta[]) {

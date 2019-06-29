@@ -22,3 +22,10 @@ export interface ITimestamp extends Partial<firestore.Timestamp> {
 
 // endpoints used to access server and local storage data
 export type IDBEndpoint = ProblemEndoint | "users";
+
+// standard features on all database docs
+export interface IDBDoc {
+  _key: string;
+  _modified: ITimestamp;
+  _created: ITimestamp;
+}

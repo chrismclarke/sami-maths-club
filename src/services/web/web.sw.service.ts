@@ -46,7 +46,12 @@ export class WebServiceWorkerService {
     await toast.onWillDismiss();
     this.activateUpdate();
   }
-  async activateUpdate() {
+
+  /******************************************************************************************
+                                Private Methods
+  /*****************************************************************************************/
+
+  private async activateUpdate() {
     await this.swUpdate.activateUpdate();
     location.reload(true);
     return;

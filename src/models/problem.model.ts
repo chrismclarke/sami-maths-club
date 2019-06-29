@@ -13,8 +13,7 @@ export class Problem {
   }
 
   public save() {
-    this.values._modified = this.db.generateTimestamp(new Date());
-    return this.db.afs.doc(`problems/${this.values._key}`).set(this.values);
+    this.db.setDoc("problemsV1", this.values);
   }
 
   setSlug(title: string) {

@@ -37,9 +37,7 @@ export class UserService {
   }
   async authChanged(u: FirebaseUser | null) {
     if (u) {
-      let userProfile = (await this.db.afs.firestore
-        .doc(`users/${u.email}`)
-        .get()).data() as IUserValues;
+      let userProfile = (await this.db.getDoc("users", u.email)) as IUserValues;
       if (!userProfile || userProfile === undefined) {
         userProfile = this.createUserProfile(u);
       }
@@ -58,15 +56,14 @@ export class UserService {
       uid,
       emailVerified
     }) => ({ email, displayName, photoURL, uid, emailVerified }))(u);
+    const meta = this.db.generateDocMeta({ _key: u.email });
     const extended: IUserMeta = {
-      _created: new Date(),
-      _key: u.email,
-      _modified: new Date(),
       _apiVersion: USER_API_VERSION,
-      permissions: {}
+      permissions: {},
+      ...meta
     };
     const userProfile: IUserValues = { ...profile, ...extended };
-    this.db.afs.firestore.doc(`users/${u.email}`).set(profile, { merge: true });
+    this.db.setDoc("users", profile);
     // don't need to wait, can just return what it will look like
     return userProfile;
   }
