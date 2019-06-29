@@ -14,20 +14,23 @@ export class DbService {
   constructor(private afs: AngularFirestore) {}
 
   // *** NOTE, REQUIRES _modified FIELD ON ALL DOCS TO FUNCTION PROPERLY
+  // *** NOTE 2 - takes full doc as this should be used for startAfter (although currently not working)
   getCollection(endpoint: IDBEndpoint, startAfter?: IDBDoc) {
-    console.log("getting collection", endpoint, "after", startAfter);
+    // having query issues with timestamps so just converting to date
+    const start = this._timestampToDate(startAfter._modified);
+    console.log("get", endpoint, "start", start);
     const results$ = new Observable<any[]>(subscriber => {
       this.afs.firestore
         .collection(endpoint)
-        // have to provide a orderBy sort field if want to use startAt
-        .orderBy("_modified", "desc")
-        // if cached doc start after latest from cache, otherwise start from beginning (index > -1)
-        .startAfter(startAfter ? startAfter : -1)
+        .orderBy("_modified", "asc")
+        .where("_modified", ">", start)
+        // startafter not working (need better raw doc?), so using where instead (unlikely duplicate timestamps)
+        // .startAfter(startAfter ? startAfter : -1)
         .onSnapshot(
           docs => {
-            console.log("snapshot received", docs.size);
             if (!docs.empty) {
               const data = docs.docs.map(d => d.data());
+              console.log("docs received", data);
               subscriber.next(data);
             }
           },
@@ -96,6 +99,11 @@ export class DbService {
       _modified: this.generateTimestamp(new Date()),
       _key: d._key ? d._key : this.generateID()
     };
+  }
+
+  private _timestampToDate(t: ITimestamp = { seconds: 0, nanoseconds: 0 }) {
+    const timestamp = new firestore.Timestamp(t.seconds, t.nanoseconds);
+    return timestamp.toDate();
   }
 
   /**************************************************************************
