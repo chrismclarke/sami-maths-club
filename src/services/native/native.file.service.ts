@@ -25,6 +25,7 @@ declare const window: any;
 @Injectable()
 export class NativeFileService {
   // data directory not sync'd to cloud and kept private to app
+  // i.e. file:///data/user/0/io.c2dev.samimathsclub/files
   dataDir = FilesystemDirectory.Data;
   // public docs directory
   docsDir = FilesystemDirectory.Documents;
@@ -94,15 +95,21 @@ export class NativeFileService {
     }
     return;
   }
-  async ensureDir(path: string) {
+  // take a folder path and ensure base folder exists (non-recursive)
+  // returns the full uri of the directory
+  async ensureDataDir(folderPath: string): Promise<void> {
+    // get base folder of files
     try {
+      // try a file system read which will throw error if doesn't exist
       await Filesystem.readdir({
         directory: this.dataDir,
-        path: path
+        path: folderPath
       });
       return;
     } catch (error) {
-      return this.mkdir(path);
+      // if does not exist create
+      await this.mkdir(folderPath);
+      return this.ensureDataDir(folderPath);
     }
   }
 
@@ -130,36 +137,31 @@ export class NativeFileService {
 
   async downloadFile(file: IUploadedFileMeta) {
     const fileTransfer: FileTransferObject = this.transfer.create();
-    const url = file.downloadUrl;
-    const target = `${this.file.dataDirectory}${file.fullPath}`;
+    await this.ensureDataDir(this._getFileFolderPath(file.fullPath));
+    const uri = await this.getUri(file.fullPath, "Data");
+    console.log("downloading", file.downloadUrl, uri);
     try {
-      const downloadEntry: FileEntry = await fileTransfer.download(url, target);
-      return downloadEntry;
+      const downloadEntry: FileEntry = await fileTransfer.download(
+        file.downloadUrl,
+        uri
+      );
+      return downloadEntry.toURL();
     } catch (error) {
+      // many possible reasons which aren't always captured correctly
+      // (e.g. connection issue if invalid permissions). Just throw error
       const err: FileTransferError = error;
-      console.error(error);
-      switch (err.code) {
-        case 3:
-          console.log("error code 3");
-          break;
-
-        default:
-          throw error;
-          break;
-      }
+      console.error(err);
+      throw err;
     }
   }
 
   //  take file relative to src/assets/files and copy to device data
   async copyAssetFile(assetFilePath: string) {
     const path = `${this.assetsDir}files/${assetFilePath}`;
-    const targetDirPath = assetFilePath.substring(
-      0,
-      assetFilePath.lastIndexOf("/")
-    );
+    const targetDirPath = this._getFileFolderPath(assetFilePath);
     try {
       const assetFile = (await this.resolveFileSystemUrl(path)) as FileEntry;
-      await this.ensureDir(targetDirPath);
+      await this.ensureDataDir(this._getFileFolderPath(assetFilePath));
       const targetDir = (await this.resolveFileSystemUrl(
         `${this.file.dataDirectory}${targetDirPath}`
       )) as DirectoryEntry;
@@ -192,16 +194,29 @@ export class NativeFileService {
     });
   }
 
-  /***********************************************************************************************
-   *                 Not Currently Used (placeholders)
-   ***********************************************************************************************/
-
-  async getUri(path: string, rootDir?: keyof typeof FilesystemDirectory) {
-    return Filesystem.getUri({
+  private async getUri(
+    path: string,
+    rootDir: keyof typeof FilesystemDirectory
+  ) {
+    const uriReq = await Filesystem.getUri({
       path: path,
       directory: FilesystemDirectory[rootDir]
     });
+    return uriReq.uri;
   }
+
+  /***********************************************************************************************
+   *                 Helper Methods
+   ***********************************************************************************************/
+
+  // return the full folder path of a file (e.g. folder/a/b/c/file.png -> folder/a/b/c)
+  private _getFileFolderPath(path: string) {
+    return path.substring(0, path.lastIndexOf("/"));
+  }
+
+  /***********************************************************************************************
+   *                 Not Currently Used (placeholders)
+   ***********************************************************************************************/
 
   async rmdir() {
     try {

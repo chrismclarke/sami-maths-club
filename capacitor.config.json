@@ -3,5 +3,12 @@
   "appName": "Maths Club",
   "bundledWebRuntime": false,
   "npmClient": "yarn",
-  "webDir": "www"
+  "webDir": "www",
+  "server": {
+    "allowNavigation": ["*"]
+  },
+  "android": {
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": true
+  }
 }

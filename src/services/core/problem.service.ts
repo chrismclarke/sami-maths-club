@@ -6,7 +6,7 @@ import {
   PROBLEM_API_VERSION
 } from "src/models/problem.model";
 import { BehaviorSubject } from "rxjs";
-import { ITimestamp, IUploadedFileMeta } from "src/models/common.model";
+import { IUploadedFileMeta } from "src/models/common.model";
 import { INITIAL_PROBLEMS } from "src/assets/data/initialProblems";
 import { environment } from "src/environments/environment";
 import { mergeJsonArrays } from "src/utils/utils";
@@ -31,13 +31,10 @@ export class ProblemService {
 
   private async init() {
     // get local cache problems
-    const cached: ICachedProblems = await this.storageService.getObject(
-      "problemsV1"
-    );
+    const cached = await this.getCachedProblems();
     if (cached) {
-      const problems: IProblem[] = Object.values(cached);
-      this.problems.next(this._filterProblems(problems));
-      const latest = problems[problems.length - 1];
+      this.emitCachedProblems(cached);
+      const latest = this.problems.value[this.problems.value.length - 1];
       return this._subscribeToProblemUpdates(latest);
     } else {
       // native load hardcoded problems
@@ -48,6 +45,17 @@ export class ProblemService {
       // web subscribe to all
       return this._subscribeToProblemUpdates();
     }
+  }
+
+  private async getCachedProblems(): Promise<ICachedProblems> {
+    const cached = await this.storageService.getObject("problemsV1");
+    return cached as ICachedProblems;
+  }
+
+  // sort, filter and update problems behaviour subject from cached data
+  private emitCachedProblems(cached: ICachedProblems) {
+    const problems: IProblem[] = Object.values(cached);
+    this.problems.next(this._filterProblems(problems));
   }
 
   /********************************************************************************
@@ -112,12 +120,14 @@ export class ProblemService {
           );
           count++;
           // merge
+          const cached = await this.getCachedProblems();
+          cached[problem._key] = problem;
           // notify (?)
           // update cache
+          await this.storageService.set("problemsV1", JSON.stringify(cached));
+          console.log("cache updated", cached);
+          this.emitCachedProblems(cached);
         }
-
-        const merged = mergeJsonArrays(this.problems.value, data as IProblem[]);
-        this.problems.next(this._filterProblems(merged));
         console.log("problems", this.problems.value);
       },
       err => {
