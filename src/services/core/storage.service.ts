@@ -32,6 +32,8 @@ export interface IStorageService extends IStorageServiceBase {
   // specifically for native, allow assets to be copied from app folder itself
   // to allow core assets to be used throughout app (e.g. hardcoded problems)
   copyAppAsset(file: IUploadedFileMeta): Promise<void>;
+  // native method to return the uri of a cached file to display in img tag
+  getCachedFileURI(file: IUploadedFileMeta): Promise<string>;
 }
 
 /************************************************************************

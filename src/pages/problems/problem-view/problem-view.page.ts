@@ -4,9 +4,12 @@ import { ProblemService } from "src/services/core/problem.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { FadeIn } from "src/animations/animations";
-import { UserService } from "src/services/core/user.service";
+import { UserService, StorageService } from "src/services";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
+import { environment } from "src/environments/environment";
+import { escapeRegexString } from "src/utils/utils";
+import { IUploadedFileMeta } from "src/models/common.model";
 
 @Component({
   selector: "app-problem-view",
@@ -26,7 +29,8 @@ export class ProblemViewPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private storageService: StorageService
   ) {}
 
   ngOnInit() {
@@ -39,7 +43,10 @@ export class ProblemViewPage implements OnInit, OnDestroy {
     const slug = this.route.snapshot.paramMap.get("slug");
     const problem = await this.problemService.getProblemBySlug(slug);
     if (problem.values) {
-      this.sanitizeProblem(problem);
+      const studentVersion = problem.values.studentVersion;
+      const { content, images } = problem.values.studentVersion;
+      studentVersion.content = await this.replaceImages(content, images);
+      this.studentVersionContent = this.sanitizeContent(studentVersion.content);
       this.problem = problem;
       console.log("problem view", this.problem.values);
     } else {
@@ -53,11 +60,34 @@ export class ProblemViewPage implements OnInit, OnDestroy {
     this.router.navigate(["/problems"]);
   }
 
+  // on android need to replace content image urls with local image
+  async replaceImages(content: string, images: IUploadedFileMeta[]) {
+    if (environment.isAndroid) {
+      const localImages = await Promise.all(
+        images.map(async imgMeta => {
+          const uri = await this.storageService.getCachedFileURI(imgMeta);
+          // capacitor projects can't display file urls but have custom capacitor-file:/// prefix
+          return {
+            ...imgMeta,
+            _androidPath: uri
+          };
+        })
+      );
+      localImages.forEach(localMeta => {
+        const regex = new RegExp(
+          escapeRegexString(localMeta.downloadUrl),
+          "gi"
+        );
+        content = content.replace(regex, localMeta._androidPath);
+      });
+    }
+    console.log("content", content);
+    return content;
+  }
+
   // angular sanitizer strips inline style, we want to prevent that
-  sanitizeProblem(problem: Problem) {
-    this.studentVersionContent = this.sanitizer.bypassSecurityTrustHtml(
-      problem.values.studentVersion.content
-    );
+  sanitizeContent(content: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(content);
   }
 
   // remove subscriptions

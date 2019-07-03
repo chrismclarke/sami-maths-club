@@ -27,6 +27,10 @@ export class NativeStorageService extends StorageBase
     await Promise.all(promises);
     console.log("all files successfully added");
   }
+
+  getCachedFileURI(file: IUploadedFileMeta): Promise<string> {
+    return this.fileService.getLocalFileUri(file.fullPath, "Data");
+  }
   private async _addFileToCache(file: IUploadedFileMeta) {
     console.log("adding file to cache", file);
     await this.fileService.downloadFile(file);

@@ -8,7 +8,7 @@
     "allowNavigation": ["*"]
   },
   "android": {
-    "allowMixedContent": false,
+    "allowMixedContent": true,
     "webContentsDebuggingEnabled": true
   }
 }

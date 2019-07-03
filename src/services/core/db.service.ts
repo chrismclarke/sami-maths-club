@@ -17,7 +17,9 @@ export class DbService {
   // *** NOTE 2 - takes full doc as this should be used for startAfter (although currently not working)
   getCollection(endpoint: IDBEndpoint, startAfter?: IDBDoc) {
     // having query issues with timestamps so just converting to date
-    const start = this._timestampToDate(startAfter._modified);
+    const start = startAfter
+      ? this._timestampToDate(startAfter._modified)
+      : new Date(0);
     const results$ = new Observable<any[]>(subscriber => {
       this.afs.firestore
         .collection(endpoint)
@@ -33,7 +35,7 @@ export class DbService {
             }
           },
           err => {
-            console.error(`could not get endpoint: ${endpoint}`);
+            console.error(`could not get [${endpoint}] after [${start}]`);
             throw err;
           }
         );

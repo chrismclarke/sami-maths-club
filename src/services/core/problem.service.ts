@@ -9,7 +9,6 @@ import { BehaviorSubject } from "rxjs";
 import { IUploadedFileMeta } from "src/models/common.model";
 import { INITIAL_PROBLEMS } from "src/assets/data/initialProblems";
 import { environment } from "src/environments/environment";
-import { mergeJsonArrays } from "src/utils/utils";
 
 interface ICachedProblems {
   [key: string]: IProblem;
@@ -33,8 +32,10 @@ export class ProblemService {
     // get local cache problems
     const cached = await this.getCachedProblems();
     if (cached) {
+      console.log("cached", cached);
       this.emitCachedProblems(cached);
       const latest = this.problems.value[this.problems.value.length - 1];
+      console.log("latest", latest);
       return this._subscribeToProblemUpdates(latest);
     } else {
       // native load hardcoded problems
@@ -49,7 +50,7 @@ export class ProblemService {
 
   private async getCachedProblems(): Promise<ICachedProblems> {
     const cached = await this.storageService.getObject("problemsV1");
-    return cached as ICachedProblems;
+    return { ...cached } as ICachedProblems;
   }
 
   // sort, filter and update problems behaviour subject from cached data
@@ -102,7 +103,7 @@ export class ProblemService {
   //  when fresh data arrives ensure images are stored locally before making available
   //  and finally update local cache
   private async _subscribeToProblemUpdates(startAfter?: IProblem) {
-    console.log("getting new problems", startAfter);
+    console.log(`getting problems after [${startAfter}]`);
     this.db.getCollection("problemsV1", startAfter).subscribe(
       async data => {
         const newProblems = data as IProblem[];

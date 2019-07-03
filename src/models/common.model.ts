@@ -12,6 +12,7 @@ export interface IUploadedFileMeta extends Partial<FullMetadata> {
   size: number;
   timeCreated: string;
   updated: string;
+  _androidPath?: string;
 }
 
 // timestamps used in hardcoded docs only contain base info

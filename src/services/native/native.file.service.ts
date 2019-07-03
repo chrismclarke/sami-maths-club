@@ -172,6 +172,27 @@ export class NativeFileService {
     }
   }
 
+  // get full file-system path to a directory or file
+  private async getUri(
+    path: string,
+    rootDir: keyof typeof FilesystemDirectory
+  ) {
+    const uriReq = await Filesystem.getUri({
+      path: path,
+      directory: FilesystemDirectory[rootDir]
+    });
+    return uriReq.uri;
+  }
+
+  // get url representing path to a file, e.g. cordova-file:///data.0.app.data.example.png
+  public async getLocalFileUri(
+    path: string,
+    rootDir: keyof typeof FilesystemDirectory
+  ) {
+    const uri = await this.getUri(path, rootDir);
+    return (<any>window).Ionic.WebView.convertFileSrc(uri);
+  }
+
   // copy file from src directory to any other
   private async copyFile(
     srcFile: FileEntry,
@@ -192,17 +213,6 @@ export class NativeFileService {
         }
       );
     });
-  }
-
-  private async getUri(
-    path: string,
-    rootDir: keyof typeof FilesystemDirectory
-  ) {
-    const uriReq = await Filesystem.getUri({
-      path: path,
-      directory: FilesystemDirectory[rootDir]
-    });
-    return uriReq.uri;
   }
 
   /***********************************************************************************************

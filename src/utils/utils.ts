@@ -18,3 +18,8 @@ export function mergeJsonArrays<T extends IDBDoc>(
 export function sortObjectArray<T>(arr: T[], sortField: string): T[] {
   return arr.sort((a, b) => (a[sortField] > b[sortField] ? 1 : -1));
 }
+
+// add escapes to string to use in regex
+export function escapeRegexString(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
