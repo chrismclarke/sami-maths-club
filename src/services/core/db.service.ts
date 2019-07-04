@@ -15,23 +15,25 @@ export class DbService {
 
   // *** NOTE, REQUIRES _modified FIELD ON ALL DOCS TO FUNCTION PROPERLY
   // *** NOTE 2 - takes full doc as this should be used for startAfter (although currently not working)
-  getCollection(endpoint: IDBEndpoint, startAfter?: IDBDoc) {
+  getCollection(endpoint: IDBEndpoint, startDoc?: IDBDoc) {
     // having query issues with timestamps so just converting to date
-    const start = startAfter
-      ? this._timestampToDate(startAfter._modified)
+    const start = startDoc
+      ? this._timestampToDate(startDoc._modified)
       : new Date(0);
     const results$ = new Observable<any[]>(subscriber => {
       this.afs.firestore
         .collection(endpoint)
         .orderBy("_modified", "asc")
         .where("_modified", ">", start)
-        // startafter not working (need better raw doc?), so using where instead (unlikely duplicate timestamps)
-        // .startAfter(startAfter ? startAfter : -1)
+        // startafter not working (need to get doc via query first and don't want to make async)
+        // so using where instead (unlikely duplicate timestamps)
         .onSnapshot(
           docs => {
             if (!docs.empty) {
               const data = docs.docs.map(d => d.data());
               subscriber.next(data);
+            } else {
+              console.log(`[${endpoint}] up to date`);
             }
           },
           err => {

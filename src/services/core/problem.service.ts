@@ -32,10 +32,8 @@ export class ProblemService {
     // get local cache problems
     const cached = await this.getCachedProblems();
     if (cached) {
-      console.log("cached", cached);
       this.emitCachedProblems(cached);
-      const latest = this.problems.value[this.problems.value.length - 1];
-      console.log("latest", latest);
+      const latest = this.problems.value[0];
       return this._subscribeToProblemUpdates(latest);
     } else {
       // native load hardcoded problems
@@ -103,11 +101,9 @@ export class ProblemService {
   //  when fresh data arrives ensure images are stored locally before making available
   //  and finally update local cache
   private async _subscribeToProblemUpdates(startAfter?: IProblem) {
-    console.log(`getting problems after [${startAfter}]`);
     this.db.getCollection("problemsV1", startAfter).subscribe(
       async data => {
         const newProblems = data as IProblem[];
-        const total = newProblems.length;
         console.log(
           `%c Downloading [${newProblems.length}] New Problems!!!`,
           "background: #222; color: #bada55"
@@ -115,7 +111,6 @@ export class ProblemService {
         let count = 1;
         for (const problem of newProblems) {
           // cache problem
-          console.log(`caching ${count} of ${total}`);
           await this.storageService.addFilesToCache(
             problem.studentVersion.images
           );
@@ -126,7 +121,6 @@ export class ProblemService {
           // notify (?)
           // update cache
           await this.storageService.set("problemsV1", JSON.stringify(cached));
-          console.log("cache updated", cached);
           this.emitCachedProblems(cached);
         }
         console.log("problems", this.problems.value);

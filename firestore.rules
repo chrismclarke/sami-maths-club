@@ -10,13 +10,13 @@ service cloud.firestore {
     }
 		// anyone can read all problems docs and any in subcollections
 		// only editors can make changes
-		match /problems/{document=**} {
+		match /problemsV1/{document=**} {
     allow read; 
     allow write: if getRoles(request.auth.token.email).editor==true
     }
-    // admin can read and write all docs (unless superced by following rules)
+    // all others readable and admin can write (unless superceded by following rules)
     match /{document=**} {
-    allow read, write: if getRoles(request.auth.token.email).admin==true
+    allow read; allow write: if getRoles(request.auth.token.email).admin==true
     }
 	}
 }

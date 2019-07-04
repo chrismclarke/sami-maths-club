@@ -23,3 +23,8 @@ export function sortObjectArray<T>(arr: T[], sortField: string): T[] {
 export function escapeRegexString(str: string): string {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
+
+// simple function used on mocks to simulate async request
+export function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
