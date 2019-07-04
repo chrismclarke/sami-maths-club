@@ -31,14 +31,16 @@ export class ProblemService {
   private async init() {
     // get local cache problems
     const cached = await this.getCachedProblems();
-    if (cached) {
+    if (Object.keys(cached).length > 0) {
+      console.log(`[${Object.keys(cached).length}] cached problems found`);
       this.emitCachedProblems(cached);
       const latest = this.problems.value[0];
       return this._subscribeToProblemUpdates(latest);
     } else {
       // native load hardcoded problems
       if (environment.isAndroid) {
-        await this.loadHardcodedProblems(INITIAL_PROBLEMS);
+        console.log("loading hardcoded problems");
+        await this.loadHardcodedProblems();
         return this.init();
       }
       // web subscribe to all
@@ -148,10 +150,12 @@ export class ProblemService {
    *  Methods used only on-demand - Hardcoded problems
    ********************************************************************************/
   // for very first init a subset of problems are readily available
-  async loadHardcodedProblems(problems: IProblem[]) {
+  async loadHardcodedProblems() {
     const cached: ICachedProblems = {};
     // save problems in sequence to avoid file system conflict
-    for (const problem of problems.slice(0, 1)) {
+    // currently only 1 problem ready
+    for (const problem of INITIAL_PROBLEMS.slice(0, 1)) {
+      await this.copyHardCodedImages(problem.studentVersion.images);
       cached[problem._key] = problem;
     }
     await this.storageService.set("problemsV1", JSON.stringify(cached));

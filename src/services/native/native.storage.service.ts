@@ -36,7 +36,6 @@ export class NativeStorageService extends StorageBase
     await this.fileService.downloadFile(file);
     console.log("file added succesfully");
   }
-  // NOTE - won't work as can't access local folder. Perhaps use http to copy from problems
   async copyAppAsset(file: IUploadedFileMeta): Promise<void> {
     await this.fileService.copyAssetFile(file.fullPath);
   }

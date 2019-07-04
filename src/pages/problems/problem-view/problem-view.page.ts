@@ -8,8 +8,8 @@ import { UserService, StorageService } from "src/services";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
-import { escapeRegexString } from "src/utils/utils";
 import { IUploadedFileMeta } from "src/models/common.model";
+import { replaceContentUrls } from "src/hacks/hacks";
 
 @Component({
   selector: "app-problem-view",
@@ -74,11 +74,7 @@ export class ProblemViewPage implements OnInit, OnDestroy {
         })
       );
       localImages.forEach(localMeta => {
-        const regex = new RegExp(
-          escapeRegexString(localMeta.downloadUrl),
-          "gi"
-        );
-        content = content.replace(regex, localMeta._androidPath);
+        content = replaceContentUrls(content, localMeta);
       });
     }
     console.log("content", content);

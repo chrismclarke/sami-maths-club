@@ -9,7 +9,7 @@
     "build": "ng build",
     "deploy:dev": "firebase use dev && firebase deploy",
     "android:prepare": "ng build app -c android && npx cap sync",
-    "android:open": "npx cap open android && node ./scripts/alert.js",
+    "android:open": "node ./scripts/alert.js && npx cap open android",
     "android:run": "npm run android:prepare && npm run android:open",
     "android:debug": "ng build app -c android-debug && npx cap sync && npm run android:open",
     "pwa:build": "ng build app -c pwa",

@@ -165,6 +165,7 @@ export class NativeFileService {
       const targetDir = (await this.resolveFileSystemUrl(
         `${this.file.dataDirectory}${targetDirPath}`
       )) as DirectoryEntry;
+      console.log("copying asset file", assetFile, targetDir);
       await this.copyFile(assetFile, targetDir);
     } catch (error) {
       const ls = await this.listDir(targetDirPath);
