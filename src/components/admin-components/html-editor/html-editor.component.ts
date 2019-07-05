@@ -13,7 +13,8 @@ import { ImageDropAndPaste } from "quill-image-drop-and-paste";
 Quill.register("modules/imageDropAndPaste", ImageDropAndPaste);
 import ImageResize from "quill-image-resize-module-mended";
 Quill.register("modules/imageResize", ImageResize);
-
+import ImageFormat from "./quill-image-format";
+Quill.register(ImageFormat, true);
 /* This component implements ngx-quill with custom modules for image copy/paste and upload
    NOTE - stylesheets for quill are imported globally in global.scss
    Example implementations: 
@@ -71,7 +72,5 @@ export class HtmlEditorComponent implements OnInit {
     this.htmlChange.emit(val);
   }
 
-  ngOnInit() {
-    console.log("quill editor loaded", this.editor);
-  }
+  ngOnInit() {}
 }
