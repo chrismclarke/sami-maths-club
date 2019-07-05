@@ -48,7 +48,6 @@ export class ProblemViewPage implements OnInit, OnDestroy {
       studentVersion.content = await this.replaceImages(content, images);
       this.studentVersionContent = this.sanitizeContent(studentVersion.content);
       this.problem = problem;
-      console.log("problem view", this.problem.values);
     } else {
       // if no problem found navigate to main problems page
       this.back();
@@ -77,7 +76,6 @@ export class ProblemViewPage implements OnInit, OnDestroy {
         content = replaceContentUrls(content, localMeta);
       });
     }
-    console.log("content", content);
     return content;
   }
 

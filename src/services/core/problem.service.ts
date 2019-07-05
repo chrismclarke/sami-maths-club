@@ -75,12 +75,13 @@ export class ProblemService {
         "problemsV1",
         "slug",
         "==",
-        slug
+        slug,
+        "slug"
       )) as IProblem[];
       problem = results[0];
     }
 
-    return new Problem(problem, this.db);
+    return new Problem(problem);
   }
 
   public generateNewProblem(userID: string) {
@@ -92,7 +93,16 @@ export class ProblemService {
       _key: this.db.generateID(),
       createdBy: userID
     };
-    return new Problem(values, this.db);
+    return new Problem(values);
+  }
+
+  public async saveProblem(problem: IProblem) {
+    try {
+      await this.db.setDoc("problemsV1", problem);
+    } catch (error) {
+      console.error("Problem could not be saved");
+      throw error;
+    }
   }
 
   /********************************************************************************

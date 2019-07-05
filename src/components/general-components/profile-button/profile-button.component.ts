@@ -13,7 +13,8 @@ import { environment } from "src/environments";
 export class ProfileButtonComponent implements OnInit {
   user: User;
   loginModal: HTMLIonModalElement;
-  showLoginButton = environment;
+  // currently only show login on web version
+  showLoginButton = !environment.isAndroid;
   constructor(
     private userService: UserService,
     private modalCtrl: ModalController

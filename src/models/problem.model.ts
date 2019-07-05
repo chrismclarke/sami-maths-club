@@ -1,4 +1,3 @@
-import { DbService } from "src/services/core/db.service";
 import { SafeHtml } from "@angular/platform-browser";
 import { IUploadedFileMeta, ITimestamp } from "./common.model";
 
@@ -6,14 +5,9 @@ export const PROBLEM_API_VERSION = 1.0;
 export type ProblemEndoint = "problemsV1";
 export class Problem {
   // call constructor with optional values to populate
-  // NOTE - we want to instantiate 'new' problems but will still need to pass the shared dbService (save creating a new one)
 
-  constructor(public values: IProblem, private db: DbService) {
+  constructor(public values: IProblem) {
     console.log("load problem", values);
-  }
-
-  public save() {
-    this.db.setDoc("problemsV1", this.values);
   }
 
   setSlug(title: string) {

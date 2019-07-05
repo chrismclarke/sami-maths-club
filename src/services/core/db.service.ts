@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { AngularFireAuth } from "@angular/fire/auth";
 import { Observable } from "rxjs";
 // note, should check if still can build production with this
 import { firestore } from "firebase/app";
@@ -9,13 +10,11 @@ import { IDBEndpoint, ITimestamp, IDBDoc } from "src/models/common.model";
   providedIn: "root"
 })
 export class DbService {
-  // *** note, should make this private and force use of own methods instead
-  // own methods should populate meta keys and timestamps
-  constructor(private afs: AngularFirestore) {}
+  constructor(private afs: AngularFirestore, private auth: AngularFireAuth) {}
 
   // *** NOTE, REQUIRES _modified FIELD ON ALL DOCS TO FUNCTION PROPERLY
-  // *** NOTE 2 - takes full doc as this should be used for startAfter (although currently not working)
   getCollection(endpoint: IDBEndpoint, startDoc?: IDBDoc) {
+    console.log(`get [${endpoint}] collection`);
     // having query issues with timestamps so just converting to date
     const start = startDoc
       ? this._timestampToDate(startDoc._modified)
@@ -26,14 +25,21 @@ export class DbService {
         .orderBy("_modified", "asc")
         .where("_modified", ">", start)
         // startafter not working (need to get doc via query first and don't want to make async)
-        // so using where instead (unlikely duplicate timestamps)
+        // so using where instead (unlikely duplicate _modified dates)
         .onSnapshot(
+          // emit if only server/cache changes to ensure we receive server updates
+          { includeMetadataChanges: true },
           docs => {
-            if (!docs.empty) {
-              const data = docs.docs.map(d => d.data());
-              subscriber.next(data);
+            if (!docs.metadata.fromCache) {
+              console.log("server update received");
+              if (!docs.empty) {
+                const data = docs.docs.map(d => d.data());
+                subscriber.next(data);
+              } else {
+                console.log(`[${endpoint}] up to date`);
+              }
             } else {
-              console.log(`[${endpoint}] up to date`);
+              console.log("cache update received");
             }
           },
           err => {
@@ -54,6 +60,7 @@ export class DbService {
     orderBy: string = "modified",
     limit: number = 1000
   ) {
+    console.log(`query [${endpoint}] collection`);
     const ref = this.afs.firestore
       .collection(endpoint)
       .orderBy(orderBy)
@@ -75,14 +82,33 @@ export class DbService {
       ...value,
       ...meta
     };
-    return this.afs.doc(`${collection}/${doc._key}`).set(doc);
+    try {
+      const user = this.auth.auth.currentUser;
+      this.afs
+        .doc(`${collection}/${doc._key}`)
+        .set(doc)
+        .catch(err => {
+          throw err;
+        });
+      console.log(`[${collection}/${doc._key}] set success`);
+    } catch (error) {
+      console.log(`[${collection}/${doc._key}] set fail`);
+      throw error;
+    }
   }
+  // used for retrieving user profiles, by default returns cached first and checks for update silently
   async getDoc(collection: IDBEndpoint, key: string): Promise<IDBDoc> {
-    const d = await this.afs
-      .doc(`${collection}/${key}`)
-      .get()
-      .toPromise();
-    return d.data() as IDBDoc;
+    console.log(`get [${collection}/${key}] collection`);
+    const ref = this.afs.doc(`${collection}/${key}`);
+    const cached = await ref.get({ source: "cache" }).toPromise();
+    if (cached) {
+      // check for update, but still return cached while executing
+      ref.get({ source: "cache" }).toPromise();
+      return cached.data() as IDBDoc;
+    } else {
+      const live = await ref.get({ source: "server" }).toPromise();
+      return live.data() as IDBDoc;
+    }
   }
 
   /**************************************************************************

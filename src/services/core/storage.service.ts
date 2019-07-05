@@ -85,16 +85,23 @@ export class StorageBase implements IStorageServiceBase {
   /*****************************************************************************************/
   // on file upload also generate download link and populate file meta
   async uploadFile(path: string, blob: Blob) {
-    const upload = await this.serverStorage.ref(path).put(blob);
-    const downloadUrl = await this.serverStorage
-      .ref(path)
-      .getDownloadURL()
-      .toPromise();
-    const meta: IUploadedFileMeta = {
-      ...this._getUploadMetaSubset(upload.metadata),
-      downloadUrl: downloadUrl
-    };
-    return meta;
+    console.log(`uploading [${path}]`);
+    try {
+      const upload = await this.serverStorage.ref(path).put(blob);
+      const downloadUrl = await this.serverStorage
+        .ref(path)
+        .getDownloadURL()
+        .toPromise();
+      const meta: IUploadedFileMeta = {
+        ...this._getUploadMetaSubset(upload.metadata),
+        downloadUrl: downloadUrl
+      };
+      console.log("file uploaded successfully");
+      return meta;
+    } catch (error) {
+      console.error(`[${path}] file upload error`);
+      throw error;
+    }
   }
 
   // some default upload meta can be undefined which can throw errors when setting in the db

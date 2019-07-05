@@ -48,18 +48,18 @@ export class EditPage implements OnInit, OnDestroy {
       this.problem.values.studentVersion.content
     );
     try {
-      await this.problem.save();
+      await this.problemService.saveProblem(this.problem.values);
       this.router.navigate([`/p/${this.problem.values.slug}`]);
     } catch (error) {
-      console.error(error);
-      throw new Error("could not save problem");
+      console.error("could not save problem");
+      throw error;
     }
   }
 
   async deleteToggle() {
     this.saveStatus = "saving";
     this.problem.values.deleted = !this.problem.values.deleted;
-    await this.problem.save();
+    await this.problemService.saveProblem(this.problem.values);
     console.log("problem saved", this.problem);
     this.saveStatus = null;
   }
