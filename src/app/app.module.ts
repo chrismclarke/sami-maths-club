@@ -10,7 +10,7 @@ import { ServiceWorkerModule } from "@angular/service-worker";
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { firebaseConfig, environment } from "src/environments/environment";
+import { firebaseConfig, environment } from "src/environments";
 import { LoginPageModule } from "src/pages/login/login.module";
 import { WebModule } from "src/modules/web/web.module";
 import { NativeModule } from "src/modules/native/native.module";

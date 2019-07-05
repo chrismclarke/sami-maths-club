@@ -3,6 +3,7 @@ import { UserService } from "src/services/core/user.service";
 import { ModalController } from "@ionic/angular";
 import { User } from "src/models/user.model";
 import { LoginPage } from "src/pages/login/login.page";
+import { environment } from "src/environments";
 
 @Component({
   selector: "app-profile-button",
@@ -12,6 +13,7 @@ import { LoginPage } from "src/pages/login/login.page";
 export class ProfileButtonComponent implements OnInit {
   user: User;
   loginModal: HTMLIonModalElement;
+  showLoginButton = environment;
   constructor(
     private userService: UserService,
     private modalCtrl: ModalController

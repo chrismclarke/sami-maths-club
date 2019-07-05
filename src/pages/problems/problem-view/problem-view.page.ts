@@ -7,7 +7,7 @@ import { FadeIn } from "src/animations/animations";
 import { UserService, StorageService } from "src/services";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
-import { environment } from "src/environments/environment";
+import { environment } from "src/environments";
 import { IUploadedFileMeta } from "src/models/common.model";
 import { replaceContentUrls } from "src/hacks/hacks";
 

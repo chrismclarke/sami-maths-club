@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { Plugins } from "@capacitor/core";
 const { SplashScreen } = Plugins;
 import { Platform } from "@ionic/angular";
-import { environment } from "../environments/environment";
+import { environment } from "../environments";
 
 interface IPage {
   title: string;

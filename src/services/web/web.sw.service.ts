@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment";
+import { environment } from "src/environments";
 import { SwUpdate } from "@angular/service-worker";
 import { ToastController } from "@ionic/angular";
 

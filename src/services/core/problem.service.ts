@@ -8,7 +8,7 @@ import {
 import { BehaviorSubject } from "rxjs";
 import { IUploadedFileMeta } from "src/models/common.model";
 import { INITIAL_PROBLEMS } from "src/assets/data/initialProblems";
-import { environment } from "src/environments/environment";
+import { environment } from "src/environments";
 
 interface ICachedProblems {
   [key: string]: IProblem;

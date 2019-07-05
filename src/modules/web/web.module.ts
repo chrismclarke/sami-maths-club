@@ -1,7 +1,7 @@
 import { NgModule, Optional, SkipSelf } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ServiceWorkerModule } from "@angular/service-worker";
-import { environment } from "src/environments/environment";
+import { environment } from "src/environments";
 import { WebStorageService } from "src/services/web/web.storage.service";
 import { WebServiceWorkerService } from "src/services/web/web.sw.service";
 
