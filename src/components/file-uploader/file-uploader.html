@@ -1,0 +1,42 @@
+<div
+  class="dropzone"
+  dropZone
+  (hovered)="toggleHover($event)"
+  (dropped)="startUpload($event)"
+  [class.hovering]="isHovering"
+  (click)="fileInput.click()"
+>
+  <div *ngIf="status === 'ready'">
+    <span>
+      Drag and Drop a File or
+    </span>
+    <span style="font-weight: bold; margin-left:3px">Browse</span>
+  </div>
+  <div style="display: none">
+    <input
+      #fileInput
+      class="file-input"
+      type="file"
+      (change)="startUpload($event.target.files)"
+    />
+  </div>
+  <div *ngIf="percentage | async as pct">
+    <progress class="progress is-info" [value]="pct" max="100"> </progress>
+    {{ pct | number }}%
+  </div>
+  <div *ngIf="snapshot | async as snap">
+    {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}
+    <hr />
+    <div *ngIf="status === 'uploading'">
+      <button (click)="task.pause()" class="button is-warning">
+        Pause
+      </button>
+      <button (click)="task.cancel()" class="button is-danger">
+        Cancel
+      </button>
+      <button (click)="task.resume()" class="button is-info">
+        Resume
+      </button>
+    </div>
+  </div>
+</div>

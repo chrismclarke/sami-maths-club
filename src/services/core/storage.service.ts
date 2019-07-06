@@ -104,6 +104,12 @@ export class StorageBase implements IStorageServiceBase {
     }
   }
 
+  async deleteUploadedFile(path: string) {
+    console.log("deleting uploaded file", path);
+    const ref = this.serverStorage.ref(path);
+    await ref.delete();
+  }
+
   // some default upload meta can be undefined which can throw errors when setting in the db
   // this method provides a subset which will be defined
   _getUploadMetaSubset(meta: FullMetadata) {

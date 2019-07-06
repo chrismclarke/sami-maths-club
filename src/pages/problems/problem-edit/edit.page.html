@@ -17,6 +17,27 @@
 </ion-header>
 
 <ion-content padding *ngIf="problem" scrollX>
+  <!-- facilitator editor -->
+  <h2>Facilitator Notes</h2>
+  <div *ngIf="canEdit" style="margin-bottom:1em">
+    <div style="display: flex" *ngIf="!showFileUploader">
+      <app-file-detail
+        [file]="problem.values.facilitatorVersion.pdf"
+      ></app-file-detail>
+      <ion-button
+        (click)="replaceFacilitatorNotes()"
+        fill="clear"
+        style="margin-left:10px"
+      >
+        <ion-icon slot="start" name="repeat"></ion-icon>Replace</ion-button
+      >
+    </div>
+    <app-file-uploader
+      [storageFolder]="problem.values._key"
+      (complete)="facilitatorNotesUploaded($event)"
+      *ngIf="showFileUploader"
+    ></app-file-uploader>
+  </div>
   <!-- editor -->
   <div *ngIf="canEdit">
     <div class="problem edit" *ngIf="!problem.values.locked">

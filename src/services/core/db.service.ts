@@ -57,20 +57,23 @@ export class DbService {
     field: string,
     operator: firestore.WhereFilterOp,
     value: any,
-    orderBy: string = "modified",
     limit: number = 1000
   ) {
     console.log(`query [${endpoint}] collection`);
-    const ref = this.afs.firestore
-      .collection(endpoint)
-      .orderBy(orderBy)
-      .limit(limit);
+    const ref = this.afs.firestore.collection(endpoint).limit(limit);
     const query = ref.where(field, operator, value);
-    let res = await query.get({ source: "cache" });
-    if (res.empty) {
-      res = await query.get({ source: "server" });
+    // use try-catch as firebase throws error if cache does not have doc
+    try {
+      const queryDocs = await query.get({ source: "cache" });
+      if (queryDocs.empty) {
+        const serverDocs = await query.get({ source: "server" });
+        return serverDocs.docs.map(d => d.data());
+      }
+      return queryDocs.docs.map(d => d.data());
+    } catch (error) {
+      const serverDocs = await query.get({ source: "server" });
+      return serverDocs.docs.map(d => d.data());
     }
-    return res.docs.map(d => d.data());
   }
 
   /**************************************************************************
@@ -98,14 +101,20 @@ export class DbService {
   }
   // used for retrieving user profiles, by default returns cached first and checks for update silently
   async getDoc(collection: IDBEndpoint, key: string): Promise<IDBDoc> {
-    console.log(`get [${collection}/${key}] collection`);
+    console.log(`get [${collection}/${key}] doc`);
     const ref = this.afs.doc(`${collection}/${key}`);
-    const cached = await ref.get({ source: "cache" }).toPromise();
-    if (cached) {
-      // check for update, but still return cached while executing
-      ref.get({ source: "cache" }).toPromise();
-      return cached.data() as IDBDoc;
-    } else {
+    // use try-catch as firebase throws error if doc does not exist in cache
+    try {
+      const cached = await ref.get({ source: "cache" }).toPromise();
+      if (cached) {
+        // check for update, but still return cached while executing
+        ref.get({ source: "cache" }).toPromise();
+        return cached.data() as IDBDoc;
+      } else {
+        const live = await ref.get({ source: "server" }).toPromise();
+        return live.data() as IDBDoc;
+      }
+    } catch (error) {
       const live = await ref.get({ source: "server" }).toPromise();
       return live.data() as IDBDoc;
     }

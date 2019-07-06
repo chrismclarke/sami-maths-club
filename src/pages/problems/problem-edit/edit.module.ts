@@ -5,7 +5,9 @@ import { Routes, RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 
 import { EditPage } from "./edit.page";
-import { AdminComponentsModule } from "src/components/admin-components/admin.components.module";
+import { FileUploaderModule } from "src/components/file-uploader/file-uploader.module";
+import { HTMLEditorModule } from "src/components/html-editor/html-editor.module";
+import { FileDetailModule } from "src/components/file-detail/file-detail.module";
 
 const routes: Routes = [
   {
@@ -20,7 +22,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    AdminComponentsModule
+    FileUploaderModule,
+    FileDetailModule,
+    HTMLEditorModule
   ],
   declarations: [EditPage]
 })

@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { QuillModule } from "ngx-quill";
 import { IonicModule } from "@ionic/angular";
-import { HtmlEditorComponent } from "./html-editor/html-editor.component";
+import { HtmlEditorComponent } from "./html-editor.component";
 
 /* These components are imported on various logged in pages to perform administration tasks such
    as adding new problems
@@ -13,4 +13,4 @@ import { HtmlEditorComponent } from "./html-editor/html-editor.component";
   declarations: [HtmlEditorComponent],
   exports: [HtmlEditorComponent]
 })
-export class AdminComponentsModule {}
+export class HTMLEditorModule {}

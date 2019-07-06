@@ -1,5 +1,5 @@
 import { SafeHtml } from "@angular/platform-browser";
-import { IUploadedFileMeta, ITimestamp } from "./common.model";
+import { IUploadedFileMeta, IDBDoc } from "./common.model";
 
 export const PROBLEM_API_VERSION = 1.0;
 export type ProblemEndoint = "problemsV1";
@@ -27,12 +27,9 @@ export class Problem {
  *  Interfaces
  * **************************************/
 // properties assigned during creation
-export interface IProblem {
+export interface IProblem extends IDBDoc {
   _averageRating?: number;
   _apiVersion: number;
-  _created: ITimestamp;
-  _modified: ITimestamp;
-  _key: string;
   title: string;
   slug: string;
   createdBy: string;

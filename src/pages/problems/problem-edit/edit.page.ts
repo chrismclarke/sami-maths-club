@@ -7,6 +7,7 @@ import { takeUntil } from "rxjs/operators";
 import { base64StringToBlob } from "blob-util";
 import { StorageService, UserService } from "src/services";
 import { ProblemService } from "src/services/core/problem.service";
+import { IUploadedFileMeta } from "src/models/common.model";
 
 @Component({
   selector: "app-edit",
@@ -19,6 +20,7 @@ export class EditPage implements OnInit, OnDestroy {
   imageIndex: number;
   saveStatus: string;
   canEdit: boolean;
+  showFileUploader: boolean;
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(
@@ -38,6 +40,9 @@ export class EditPage implements OnInit, OnDestroy {
         this.userService.user.value.values._key
       );
     }
+    this.showFileUploader = this.problem.values.facilitatorVersion
+      ? true
+      : false;
     this._addSubscribers();
   }
 
@@ -66,6 +71,26 @@ export class EditPage implements OnInit, OnDestroy {
 
   updateSlug(title: string) {
     this.problem.setSlug(title);
+  }
+
+  async facilitatorNotesUploaded(meta: IUploadedFileMeta) {
+    const oldPdf = this.problem.values.facilitatorVersion.pdf;
+    // delete old notes
+    if (oldPdf && oldPdf.name !== meta.name) {
+      console.log("deleting old pdf", oldPdf);
+      await this.storage.deleteUploadedFile(oldPdf.fullPath);
+    }
+    // populate db, after which reflect in this page
+    const values = { ...this.problem.values };
+    values.facilitatorVersion.pdf = meta;
+    await this.problemService.saveProblem(values);
+    this.problem.values = values;
+    this.showFileUploader = false;
+  }
+  // simply remove local facilitator note property to show uploader
+  // (old notes will be deleted on new upload)
+  replaceFacilitatorNotes() {
+    this.showFileUploader = true;
   }
 
   // by default all images are put inline in html as data object

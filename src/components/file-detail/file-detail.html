@@ -1,0 +1,12 @@
+<div *ngIf="file" style="display: flex">
+  <app-file-icon [filename]="file.name"></app-file-icon>
+  <div>
+    <a [href]="file.downloadUrl" target="_blank" rel="nofollow">
+      {{ file.name }}
+    </a>
+    <div style="font-size: small">{{ file.size | fileSize }}</div>
+  </div>
+</div>
+<div *ngIf="!file">
+  No file available
+</div>

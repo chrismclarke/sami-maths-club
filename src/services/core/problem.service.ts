@@ -75,9 +75,9 @@ export class ProblemService {
         "problemsV1",
         "slug",
         "==",
-        slug,
-        "slug"
+        slug
       )) as IProblem[];
+      console.log("results", results);
       problem = results[0];
     }
 
