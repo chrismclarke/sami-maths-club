@@ -40,7 +40,7 @@
   </div>
   <!-- editor -->
   <div *ngIf="canEdit">
-    <div class="problem edit" *ngIf="!problem.values.locked">
+    <div class="problem edit">
       <ion-item>
         <ion-input
           type="text"
@@ -59,20 +59,17 @@
         ></app-html-editor>
       </div>
     </div>
-    <div *ngIf="problem.values.locked">
-      This problem has been locked from editing.
-    </div>
     <div>
       <ion-button
         (click)="deleteToggle()"
-        *ngIf="problem && !problem.values.locked && !problem.values._deleted"
+        *ngIf="problem && !problem.values._deleted"
         fill="clear"
         color="danger"
         ><ion-icon name="trash" slot="start"></ion-icon>Delete</ion-button
       >
       <ion-button
         (click)="deleteToggle()"
-        *ngIf="problem && !problem.values.locked && problem.values._deleted"
+        *ngIf="problem && problem.values._deleted"
         fill="clear"
         color="success"
         ><ion-icon name="undo" slot="start"></ion-icon>Restore</ion-button
