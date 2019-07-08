@@ -158,7 +158,7 @@ export const INITIAL_PROBLEMS: IProblem[] = [
     },
     coverSVG: null,
     createdBy: "chris.m.clarke@live.co.uk",
-    deleted: true,
+    _deleted: false,
     difficulty: null,
     facilitatorVersion: {
       downloadUrl: null,

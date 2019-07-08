@@ -115,7 +115,7 @@ export class ProblemService {
   private async _subscribeToProblemUpdates(startAfter?: IProblem) {
     this.db.getCollection("problemsV1", startAfter).subscribe(
       async data => {
-        const newProblems = data as IProblem[];
+        const newProblems = data.filter(d => !d._deleted) as IProblem[];
         console.log(
           `%c Downloading [${newProblems.length}] New Problems!!!`,
           "background: #222; color: #bada55"
@@ -146,7 +146,7 @@ export class ProblemService {
   private _filterProblems(problems: IProblem[]) {
     let p = [...problems];
     // remove deleted
-    p = p.filter(v => !v.deleted);
+    p = p.filter(v => !v._deleted);
     // hide temp from non-admin or non-creator
 
     // sort by created

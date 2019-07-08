@@ -7,8 +7,8 @@
     </ion-buttons>
     <ion-buttons slot="end">
       <a
-        *ngIf="problem && problem.values.facilitatorVersion.downloadUrl"
-        [href]="problem.values.facilitatorVersion.downloadUrl"
+        *ngIf="problem && problem.values.facilitatorVersion.pdf"
+        [href]="problem.values.facilitatorVersion.pdf.downloadUrl"
         download
         target="_blank"
       >
@@ -47,7 +47,7 @@
       class="problem-content"
       [innerHtml]="studentVersionContent"
     ></div>
-    <div *ngIf="!problem.values.locked && canEdit" style="margin-top: 1em">
+    <div *ngIf="canEdit" style="margin-top: 1em">
       <ion-button
         style="float:right"
         fill="clear"

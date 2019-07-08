@@ -9,7 +9,7 @@
       <ion-button
         (click)="save()"
         [disabled]="saveStatus"
-        *ngIf="problem && !problem.values.locked && canEdit"
+        *ngIf="problem && canEdit"
         >{{ saveStatus ? saveStatus : "save" }}</ion-button
       >
     </ion-buttons>
@@ -65,14 +65,14 @@
     <div>
       <ion-button
         (click)="deleteToggle()"
-        *ngIf="problem && !problem.values.locked && !problem.values.deleted"
+        *ngIf="problem && !problem.values.locked && !problem.values._deleted"
         fill="clear"
         color="danger"
         ><ion-icon name="trash" slot="start"></ion-icon>Delete</ion-button
       >
       <ion-button
         (click)="deleteToggle()"
-        *ngIf="problem && !problem.values.locked && problem.values.deleted"
+        *ngIf="problem && !problem.values.locked && problem.values._deleted"
         fill="clear"
         color="success"
         ><ion-icon name="undo" slot="start"></ion-icon>Restore</ion-button

@@ -24,7 +24,7 @@ export class WebStorageService extends StorageBase implements IStorageService {
     // ToDo
     const urls: string[] = files.map(f => f.downloadUrl);
     console.log("WEB ADD FILES TO CACHE METHOD TODO");
-    await sleep(1000);
+    // await sleep(1000);
   }
 
   async copyAppAsset(file: IUploadedFileMeta): Promise<void> {

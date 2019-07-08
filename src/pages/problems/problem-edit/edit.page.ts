@@ -40,9 +40,9 @@ export class EditPage implements OnInit, OnDestroy {
         this.userService.user.value.values._key
       );
     }
-    this.showFileUploader = this.problem.values.facilitatorVersion
-      ? true
-      : false;
+    this.showFileUploader = this.problem.values.facilitatorVersion.pdf
+      ? false
+      : true;
     this._addSubscribers();
   }
 
@@ -63,7 +63,7 @@ export class EditPage implements OnInit, OnDestroy {
 
   async deleteToggle() {
     this.saveStatus = "saving";
-    this.problem.values.deleted = !this.problem.values.deleted;
+    this.problem.values._deleted = !this.problem.values._deleted;
     await this.problemService.saveProblem(this.problem.values);
     console.log("problem saved", this.problem);
     this.saveStatus = null;
@@ -77,7 +77,6 @@ export class EditPage implements OnInit, OnDestroy {
     const oldPdf = this.problem.values.facilitatorVersion.pdf;
     // delete old notes
     if (oldPdf && oldPdf.name !== meta.name) {
-      console.log("deleting old pdf", oldPdf);
       await this.storage.deleteUploadedFile(oldPdf.fullPath);
     }
     // populate db, after which reflect in this page

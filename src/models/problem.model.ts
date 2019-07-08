@@ -39,7 +39,7 @@ export interface IProblem extends IDBDoc {
   facilitatorVersion: IFacilitatorVersion;
   locked: boolean;
   difficulty: "easy" | "medium" | "hard";
-  deleted?: boolean;
+  _deleted?: boolean;
 }
 
 interface IFacilitatorVersion {
