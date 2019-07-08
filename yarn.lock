@@ -662,6 +662,13 @@
   dependencies:
     "@types/cordova" latest
 
+"@ionic-native/file-opener@^5.9.0":
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/file-opener/-/file-opener-5.9.0.tgz#e91d6947bcd40b3b598d98ca157ccb7ee81ae6ec"
+  integrity sha512-14Z4ESvf1N2Ruipw27SzSSTRQ0gc79/63auf854akOIcnBxqx9uNXdHSdl5dqCDicWKS9zq4BGNSsnP0ivfVTw==
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic-native/file-transfer@^5.8.0":
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/@ionic-native/file-transfer/-/file-transfer-5.8.0.tgz#5afa26fa14b1ae345549edc927c0cad627b26066"
@@ -2612,6 +2619,11 @@ copy-webpack-plugin@4.6.0:
     minimatch "^3.0.4"
     p-limit "^1.0.0"
     serialize-javascript "^1.4.0"
+
+cordova-plugin-file-opener2@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-file-opener2/-/cordova-plugin-file-opener2-2.2.1.tgz#9e422bc5e215d8eca0338ed5cd357b64b027440b"
+  integrity sha512-yeN242U6T+TDlrJ5m00br+lAKsf2fHXn1u1TsDxB5fFUGINZUYLKthEctCMFkQUnURWk+Nh6tc+WtdQjY581Uw==
 
 cordova-plugin-file-transfer@^1.7.1:
   version "1.7.1"

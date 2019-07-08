@@ -55,6 +55,10 @@ export class ProblemViewPage implements OnInit, OnDestroy {
     }
   }
 
+  open(file: IUploadedFileMeta) {
+    return this.storageService.openFile(file);
+  }
+
   back() {
     this.router.navigate(["/problems"]);
   }

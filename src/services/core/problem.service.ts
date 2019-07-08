@@ -8,7 +8,6 @@ import {
 import { BehaviorSubject } from "rxjs";
 import { IUploadedFileMeta } from "src/models/common.model";
 import { INITIAL_PROBLEMS } from "src/assets/data/initialProblems";
-import { environment } from "src/environments";
 
 interface ICachedProblems {
   [key: string]: IProblem;
@@ -38,11 +37,11 @@ export class ProblemService {
       return this._subscribeToProblemUpdates(latest);
     } else {
       // native load hardcoded problems
-      if (environment.isAndroid) {
-        console.log("loading hardcoded problems");
-        await this.loadHardcodedProblems();
-        return this.init();
-      }
+      // if (environment.isAndroid) {
+      //   console.log("loading hardcoded problems");
+      //   await this.loadHardcodedProblems();
+      //   return this.init();
+      // }
       // web subscribe to all
       return this._subscribeToProblemUpdates();
     }
@@ -122,10 +121,13 @@ export class ProblemService {
         );
         let count = 1;
         for (const problem of newProblems) {
-          // cache problem
-          await this.storageService.addFilesToCache(
-            problem.studentVersion.images
-          );
+          // cache problem images and facilitator notes
+          await this.storageService.addFilesToCache([
+            ...problem.studentVersion.images,
+            problem.facilitatorVersion.pdf
+              ? problem.facilitatorVersion.pdf
+              : null
+          ]);
           count++;
           // merge
           const cached = await this.getCachedProblems();
@@ -160,7 +162,7 @@ export class ProblemService {
    *  Methods used only on-demand - Hardcoded problems
    ********************************************************************************/
   // for very first init a subset of problems are readily available
-  async loadHardcodedProblems() {
+  private async loadHardcodedProblems() {
     const cached: ICachedProblems = {};
     // save problems in sequence to avoid file system conflict
     // currently only 1 problem ready
@@ -171,7 +173,7 @@ export class ProblemService {
     await this.storageService.set("problemsV1", JSON.stringify(cached));
   }
 
-  async copyHardCodedImages(images: IUploadedFileMeta[]) {
+  private async copyHardCodedImages(images: IUploadedFileMeta[]) {
     const promises = images.map(async image => {
       try {
         await this.storageService.copyAppAsset(image);

@@ -34,4 +34,8 @@ export class WebStorageService extends StorageBase implements IStorageService {
     // not required on web
     return `example.com/${file.fullPath}`;
   }
+  async openFile(file: IUploadedFileMeta): Promise<void> {
+    console.log("opening file", file);
+    window.open(file.downloadUrl, "_blank");
+  }
 }

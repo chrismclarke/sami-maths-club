@@ -11,7 +11,9 @@
 </ion-header>
 
 <ion-content class="content--curved">
-  <app-problem-card></app-problem-card>
+  <div *ngIf="problems.length === 0" style="padding:10px; opacity:0.8">
+    Problems will download when internet is available
+  </div>
   <ion-grid fixed style="margin-top: -20px">
     <ion-row>
       <!-- take different % of 12 cols on different screensize (see layout.scss for breakpoints) -->

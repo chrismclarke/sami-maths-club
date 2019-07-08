@@ -39,4 +39,7 @@ export class NativeStorageService extends StorageBase
   async copyAppAsset(file: IUploadedFileMeta): Promise<void> {
     await this.fileService.copyAssetFile(file.fullPath);
   }
+  async openFile(file: IUploadedFileMeta): Promise<void> {
+    return this.fileService.openFile(file);
+  }
 }

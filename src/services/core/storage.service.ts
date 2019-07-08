@@ -34,6 +34,8 @@ export interface IStorageService extends IStorageServiceBase {
   copyAppAsset(file: IUploadedFileMeta): Promise<void>;
   // native method to return the uri of a cached file to display in img tag
   getCachedFileURI(file: IUploadedFileMeta): Promise<string>;
+  // open file either in browser tab or native app
+  openFile(file: IUploadedFileMeta): Promise<void>;
 }
 
 /************************************************************************

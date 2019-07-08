@@ -12,6 +12,7 @@ import {
   FileTransferObject,
   FileTransferError
 } from "@ionic-native/file-transfer/ngx";
+import { FileOpener } from "@ionic-native/file-opener/ngx";
 import { IUploadedFileMeta } from "src/models/common.model";
 declare const window: any;
 
@@ -34,7 +35,11 @@ export class NativeFileService {
   // src assets folder
   assetsDir: string;
   // additional use of ionic-native file for accessing application dir
-  constructor(private file: File, private transfer: FileTransfer) {
+  constructor(
+    private file: File,
+    private transfer: FileTransfer,
+    private fileOpener: FileOpener
+  ) {
     this.assetsDir = `${this.file.applicationDirectory}public/assets/`;
   }
 
@@ -214,6 +219,12 @@ export class NativeFileService {
         }
       );
     });
+  }
+
+  async openFile(fileMeta: IUploadedFileMeta) {
+    console.log("opening file", fileMeta);
+    const filepath = await this.getLocalFileUri(fileMeta.fullPath, "Data");
+    await this.fileOpener.open(filepath, fileMeta.contentType);
   }
 
   /***********************************************************************************************
