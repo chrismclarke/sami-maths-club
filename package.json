@@ -1,6 +1,6 @@
 {
   "name": "sami-maths-club",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "C-Squared Development",
   "homepage": "https://samicharity.co.uk",
   "scripts": {
@@ -8,10 +8,9 @@
     "start": "ng serve",
     "build": "ng build",
     "deploy:dev": "firebase use dev && firebase deploy",
-    "android:prepare": "ng build app -c android && npx cap sync",
-    "android:open": "node ./scripts/alert.js && npx cap open android",
-    "android:run": "npm run android:prepare && npm run android:open",
-    "android:debug": "ng build app -c android-debug && npx cap sync && npm run android:open",
+    "android:prod": "ng build app -c android && npm run android:open",
+    "android:debug": "ng build app -c android-debug  && npm run android:open",
+    "android:open": "npx cap sync && node ./scripts/alert.js && npx cap open android",
     "pwa:build": "ng build app -c pwa",
     "lint": "ng lint",
     "test:unit": "ng test",
