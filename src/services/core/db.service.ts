@@ -11,14 +11,13 @@ import { IDBEndpoint, ITimestamp, IDBDoc } from "src/models/common.model";
 })
 export class DbService {
   constructor(private afs: AngularFirestore, private auth: AngularFireAuth) {}
-
   // *** NOTE, REQUIRES _modified FIELD ON ALL DOCS TO FUNCTION PROPERLY
   getCollection(endpoint: IDBEndpoint, startDoc?: IDBDoc) {
-    console.log(`get [${endpoint}] collection`);
     // having query issues with timestamps so just converting to date
     const start = startDoc
       ? this._timestampToDate(startDoc._modified)
       : new Date(0);
+    console.log(`get [${endpoint}] collection after [${start}]`);
     const results$ = new Observable<any[]>(subscriber => {
       this.afs.firestore
         .collection(endpoint)
@@ -31,9 +30,9 @@ export class DbService {
           { includeMetadataChanges: true },
           docs => {
             if (!docs.metadata.fromCache) {
-              console.log("server update received");
               if (!docs.empty) {
                 const data = docs.docs.map(d => d.data());
+                console.log("server update received", data);
                 subscriber.next(data);
               } else {
                 console.log(`[${endpoint}] up to date`);

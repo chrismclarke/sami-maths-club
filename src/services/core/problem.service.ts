@@ -31,7 +31,10 @@ export class ProblemService {
     // get local cache problems
     const cached = await this.getCachedProblems();
     if (Object.keys(cached).length > 0) {
-      console.log(`[${Object.keys(cached).length}] cached problems found`);
+      console.log(
+        `[${Object.keys(cached).length}] cached problems found`,
+        cached
+      );
       this.emitCachedProblems(cached);
       const latest = this.problems.value[0];
       return this._subscribeToProblemUpdates(latest);
@@ -122,12 +125,11 @@ export class ProblemService {
         let count = 1;
         for (const problem of newProblems) {
           // cache problem images and facilitator notes
-          await this.storageService.addFilesToCache([
-            ...problem.studentVersion.images,
-            problem.facilitatorVersion.pdf
-              ? problem.facilitatorVersion.pdf
-              : null
-          ]);
+          const filesToCache = [...problem.studentVersion.images];
+          if (problem.facilitatorVersion.pdf) {
+            filesToCache.push(problem.facilitatorVersion.pdf);
+          }
+          await this.storageService.addFilesToCache(filesToCache);
           count++;
           // merge
           const cached = await this.getCachedProblems();

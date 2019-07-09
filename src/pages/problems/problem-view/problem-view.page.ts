@@ -33,6 +33,10 @@ export class ProblemViewPage implements OnInit, OnDestroy {
     private storageService: StorageService
   ) {}
 
+  get facilitatorNotes() {
+    return this.problem.values.facilitatorVersion.pdf;
+  }
+
   ngOnInit() {
     this.loadProblem();
     this._addSubscribers();
@@ -55,8 +59,8 @@ export class ProblemViewPage implements OnInit, OnDestroy {
     }
   }
 
-  open(file: IUploadedFileMeta) {
-    return this.storageService.openFile(file);
+  openFacilitatorNotes() {
+    return this.storageService.openFile(this.facilitatorNotes);
   }
 
   back() {

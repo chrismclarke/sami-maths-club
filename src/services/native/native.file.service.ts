@@ -194,7 +194,7 @@ export class NativeFileService {
   public async getLocalFileUri(
     path: string,
     rootDir: keyof typeof FilesystemDirectory
-  ) {
+  ): Promise<string> {
     const uri = await this.getUri(path, rootDir);
     return (<any>window).Ionic.WebView.convertFileSrc(uri);
   }
@@ -222,8 +222,8 @@ export class NativeFileService {
   }
 
   async openFile(fileMeta: IUploadedFileMeta) {
-    console.log("opening file", fileMeta);
-    const filepath = await this.getLocalFileUri(fileMeta.fullPath, "Data");
+    const filepath = await this.getUri(fileMeta.fullPath, "Data");
+    console.log("opening file", filepath, fileMeta.contentType);
     await this.fileOpener.open(filepath, fileMeta.contentType);
   }
 

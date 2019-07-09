@@ -1,4 +1,4 @@
-<ion-header class="show-md">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="back()"
@@ -6,37 +6,20 @@
       ></ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <a
-        *ngIf="problem && problem.values.facilitatorVersion.pdf"
-        [href]="problem.values.facilitatorVersion.pdf.downloadUrl"
-        download
-        target="_blank"
+      <ion-button
+        fill="clear"
+        *ngIf="problem && facilitatorNotes"
+        (click)="openFacilitatorNotes()"
+        color="primary"
+        ><ion-icon
+          slot="start"
+          src="/assets/svgs/portfolio.svg"
+        ></ion-icon
+        >Notes</ion-button
       >
-        <ion-button fill="clear"
-          ><ion-icon slot="start" src="/assets/svgs/portfolio.svg"></ion-icon
-          >Notes</ion-button
-        >
-      </a>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<!-- mobile header -->
-<div class="floating-header hide-md">
-  <ion-button (click)="back()" fill="clear"
-    ><ion-icon src="/assets/svgs/back.svg"></ion-icon
-  ></ion-button>
-  <a
-    *ngIf="problem && problem.values.facilitatorVersion.downloadUrl"
-    [href]="problem.values.facilitatorVersion.downloadUrl"
-    download
-    target="_blank"
-  >
-    <ion-button fill="clear"
-      ><ion-icon slot="start" src="/assets/svgs/portfolio.svg"></ion-icon
-      >Notes</ion-button
-    >
-  </a>
-</div>
 
 <ion-content style="background: white">
   <div *ngIf="problem" class="problem view">
